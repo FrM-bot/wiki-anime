@@ -16,7 +16,7 @@ interface IProps {
 
 const ContainerRender = ({ children }: { children: ReactElement }) => {
   return (
-    <div className='w-full columns-4 lg:columns-3 md:columns-2 sm:columns-2 gap-4'>
+    <div className='w-full columns-4 lg:columns-3 md:columns-2 sm:columns-2 gap-4 py-4'>
       {
         children
       }

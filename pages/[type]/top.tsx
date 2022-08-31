@@ -6,19 +6,24 @@ import Layout from 'Layouts/Layout'
 import { useRouter } from 'next/router'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 // import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface IProps {
-    data: IAnimeManga[]
+  data: IAnimeManga[]
     pagination: {
       last_visible_page: number,
       has_next_page: boolean,
       current_page: number,
       items: { count: number, total: number, per_page: number }
     }
-}
+  }
 const TopPage = ({ data, pagination }: IProps) => {
   const router = useRouter()
   // const [data, setData] = useState()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // useEffect(() => {
   //   GET_ANIME_MANGA_TOP({ page: 1, type: router.query.type || 'anime' }).then(res => setData(res.data))
@@ -28,7 +33,7 @@ const TopPage = ({ data, pagination }: IProps) => {
   //   console.log({ status })
   // }, [router.query.type])
 
-  return (
+  return mounted && (
     <Layout>
         <>
         <div className='my-4'>

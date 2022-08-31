@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 // import { useRouter } from 'next/router'
 // import LayoutSearch from 'Layouts/LayoutSearch'
 // import { SERACH } from 'services/SEARCH'
@@ -19,10 +19,10 @@ import { lazy, Suspense } from 'react'
 const SearchPage = lazy(() => import('components/Search.page'))
 
 const Search = () => {
-  // const [mounted, setMounted] = useState(false)
-  // useEffect(() => {
-  //   setMounted(true)
-  // }, [])
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // const router = useRouter()
   // const [searched, setSearched] = useState<IAnimeManga[]>()
@@ -48,7 +48,7 @@ const Search = () => {
   //   return <div>loading...</div>
   // }
   // console.log(data?.pagination, { page }, data)
-  return (
+  return mounted && (
     // <LayoutSearch>
     //   <>
     //     <RenderCards data={searched || []} typeCard={'medium'} pagination={pagination || { current_page: 1, has_next_page: false, last_visible_page: 1, items: { count: 0, per_page: 0, total: 0 } }} isLoading={false} />
