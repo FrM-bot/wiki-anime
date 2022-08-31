@@ -11,6 +11,7 @@ interface IProps {
   data: IAnimeManga[]
   typeCard?: 'small' | 'medium'
   pagination: IPagination
+  isLoading?: boolean
 }
 
 const ContainerRender = ({ children }: { children: ReactElement }) => {
@@ -23,9 +24,13 @@ const ContainerRender = ({ children }: { children: ReactElement }) => {
   )
 }
 
-const RenderCards = ({ data, typeCard, pagination }: IProps) => {
+const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
   const [newData, setNewData] = useState<IAnimeManga[]>()
   useEffect(() => setNewData(data), [data])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   if (typeCard === 'small') {
     return (

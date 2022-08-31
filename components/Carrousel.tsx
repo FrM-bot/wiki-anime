@@ -7,21 +7,20 @@ interface Props {
 
 const Carrousel = ({ animes }: Props) => {
   const refSlider = useRef<HTMLDivElement>(null)
+
   const scrollRight = () => {
     if (!refSlider.current) return
 
-    const { lastChild } = refSlider.current
-    if (!lastChild) return
-
-    (lastChild?.offsetLeft + lastChild?.clientWidth) - refSlider.current.scrollWidth === 0
-      ? (refSlider.current.scrollLeft = 0)
-      : (refSlider.current.scrollLeft += 200)
+    (refSlider.current.clientWidth + refSlider.current.scrollLeft - refSlider.current.scrollWidth === 0)
+      ? refSlider.current.scrollLeft = 0
+      : refSlider.current.scrollLeft += 200
   }
 
   const scrollLeft = () => {
     if (!refSlider.current) return
-    console.log({ s: refSlider.current.scrollLeft }, refSlider.current)
-    refSlider.current?.scrollLeft !== 0 ? refSlider.current.scrollLeft -= 200 : refSlider.current.scrollLeft += refSlider.current.scrollWidth
+    (refSlider.current?.scrollLeft !== 0)
+      ? (refSlider.current.scrollLeft -= 200)
+      : (refSlider.current.scrollLeft += refSlider.current.scrollWidth)
   }
   return (
     <div ref={refSlider} className='flex gap-4 w-full flex-nowrap my-4 overflow-x-scroll snap-x relative' style={{ scrollBehavior: 'smooth' }} id="container-carrousel">
