@@ -1,5 +1,5 @@
 import { URL_DETAILS } from './endpoints'
-import { IResponse } from 'interfaces/Anime'
+import { IResponse } from 'interfaces/Global'
 
 export const GET_DETAILS = async ({ id, type }: { id: number, type: string }): Promise<IResponse> => {
   try {

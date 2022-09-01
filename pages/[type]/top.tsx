@@ -1,7 +1,6 @@
 import { Button } from 'components/Button'
 import RenderCards from 'components/RenderCards'
-import { IResponse } from 'interfaces/Anime'
-import { IAnimeManga } from 'interfaces/Global'
+import { IAnimeManga, IResponse } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import { useRouter } from 'next/router'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'

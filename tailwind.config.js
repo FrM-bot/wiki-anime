@@ -18,22 +18,29 @@ module.exports = {
         'screen-80': '80vw'
       }
     },
-    screens: {
-      sm: { max: '567px' },
-      // => @media (min-width: 640px and max-width: 767px) { ... }
+    theme: {
+      screens: {
+        tablet: '640px',
+        // => @media (min-width: 640px) { ... }
 
-      md: { min: '568px', max: '1023px' },
-      // => @media (min-width: 768px and max-width: 1023px) { ... }
+        laptop: '1024px',
+        // => @media (min-width: 1024px) { ... }
 
-      lg: { min: '1024px', max: '1279px' },
-      // => @media (min-width: 1024px and max-width: 1279px) { ... }
-
-      xl: { min: '1280px', max: '1535px' },
-      // => @media (min-width: 1280px and max-width: 1535px) { ... }
-
-      '2xl': { min: '1536px' }
-      // => @media (min-width: 1536px) { ... }
+        desktop: '1280px'
+        // => @media (min-width: 1280px) { ... }
+      }
     }
+    // screens: {
+    //   sm: { max: '567px' },
+
+    //   md: { min: '568px', max: '1023px' },
+
+    //   lg: { min: '1024px', max: '1279px' },
+
+    //   xl: { min: '1280px', max: '1535px' },
+
+    //   '2xl': { min: '1536px' }
+    // }
   },
   plugins: []
 }

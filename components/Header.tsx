@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <header className='sticky top-2 z-20 rounded-lg'>
-    <nav className='w-full px-4 flex justify-between items-center z-20 border-b-[1px] border-solid border-tertiary bg-secondary/80 backdrop-blur-sm p-4 rounded-lg gap-2'>
+    <nav className='w-full px-4 flex justify-between items-center z-20 border-b-[1px] border-solid border-tertiary bg-secondary/70 backdrop-blur-sm p-4 rounded-md gap-2 shadow-lg'>
       <ButtonLink href='/'>
         <h1 className='whitespace-nowrap'>Wiki Anime</h1>
       </ButtonLink>

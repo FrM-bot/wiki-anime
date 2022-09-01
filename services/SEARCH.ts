@@ -1,5 +1,5 @@
 import { URL_SEARCH } from './endpoints'
-import { IResponse } from 'interfaces/Anime'
+import { IResponse } from 'interfaces/Global'
 
 export const SERACH = async ({ name, type, page }: { name: string, type: string, page: number }): Promise<IResponse> => {
   try {

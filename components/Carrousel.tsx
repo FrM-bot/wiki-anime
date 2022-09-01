@@ -1,8 +1,8 @@
 import { useRef } from 'react'
-import { IAnimeCarrousel } from 'interfaces/Anime'
+import { ICarrousel } from 'interfaces/Anime'
 
 interface Props {
-    animes: IAnimeCarrousel[]
+    animes: ICarrousel[]
 }
 
 const Carrousel = ({ animes }: Props) => {

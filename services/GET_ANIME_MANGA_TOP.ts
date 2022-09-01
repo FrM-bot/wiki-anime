@@ -1,5 +1,5 @@
 import { URL_TOP_ANIME_MANGA } from './endpoints'
-import { IResponse } from 'interfaces/Anime'
+import { IResponse } from 'interfaces/Global'
 
 export const GET_ANIME_MANGA_TOP = async ({ page = 1, type }: { page?: number, type: string }): Promise<IResponse> => {
   try {

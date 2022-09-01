@@ -1,4 +1,4 @@
-import { IResponse } from 'interfaces/Anime'
+import { IResponse } from 'interfaces/Global'
 
 export const GET_ANIME_UPCOMING = async ({ page = 1 }: { page?: number }): Promise<IResponse> => {
   try {

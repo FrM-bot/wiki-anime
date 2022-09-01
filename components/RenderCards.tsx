@@ -3,9 +3,12 @@
 // import { ButtonLink } from './Button'
 import { useState, useEffect, ReactElement } from 'react'
 import { CardMedium } from 'components/Cards'
-import { IAnimeManga } from 'interfaces/Global'
+import { IAnimeManga, IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
-import { IPagination } from 'interfaces/Anime'
+import { ButtonLink } from './Button'
+import { useRouter } from 'next/router'
+import { setFormat } from 'utils/useDateFormat'
+import Card from './Card'
 
 interface IProps {
   data: IAnimeManga[]
@@ -16,7 +19,7 @@ interface IProps {
 
 const ContainerRender = ({ children }: { children: ReactElement }) => {
   return (
-    <div className='w-full columns-4 lg:columns-3 md:columns-2 sm:columns-2 gap-4 py-4'>
+    <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4'>
       {
         children
       }
@@ -25,6 +28,7 @@ const ContainerRender = ({ children }: { children: ReactElement }) => {
 }
 
 const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
+  const router = useRouter()
   const [newData, setNewData] = useState<IAnimeManga[]>()
   useEffect(() => setNewData(data), [data])
 
@@ -32,19 +36,53 @@ const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
     return <div>Loading...</div>
   }
 
+  console.log(newData)
+
   if (typeCard === 'small') {
     return (
       <>
-      <div className='flex flex-col'>
-        {
-          newData?.map((animeManga) => (
-            <div key={animeManga.mal_id}>
-              <img src={animeManga.images.webp.image_url} alt={animeManga.title} className='h-44' />
-            </div>
-          ))
-        }
-      </div>
-      <Pagination currentPage={pagination.current_page} lastPage={pagination.last_visible_page} />
+        <div className='flex flex-col gap-2'>
+          {
+            newData?.map((animeManga) => (
+              <div key={animeManga.mal_id} className='grid md:grid-cols-[minmax(40px,70px)_minmax(100px,200px)_1fr_60px] gap-2 py-2'>
+                <Card className='grid place-content-center h-fit'>
+                  <span>{animeManga.rank}</span>
+                </Card>
+                <div className='grid place-content-center'>
+                  <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`}>
+                    <img src={animeManga.images.webp.image_url} alt={animeManga.title} className='h-72 md:h-44 bg-cover' />
+                  </ButtonLink>
+                </div>
+                <div className='h-full flex items-start flex-col gap-2'>
+                  <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`}>
+                    <>
+                      <h2>{animeManga.title}</h2>
+                    </>
+                  </ButtonLink>
+                  <p className='flex flex-col gap-2'>
+                    <span>{animeManga.type} {animeManga.episodes && `(${animeManga.episodes} eps)`}  {animeManga.volumes && `(${animeManga.volumes} vol)`}</span>
+                    {
+                      animeManga?.published && <span>{animeManga?.published?.from && setFormat(animeManga.published.from)} {animeManga?.published?.to && `- ${setFormat(animeManga.published.to)}`}</span>
+                    }
+                    {
+                      animeManga?.aired && <span>{animeManga?.aired?.from && setFormat(animeManga.aired.from)} {animeManga?.aired?.to && `- ${setFormat(animeManga.aired.to)}`}</span>
+                    }
+                    <span>{animeManga.members} members</span>
+                  </p>
+                </div>
+                {
+                  animeManga?.score &&
+                  <div>
+                    <Card className='grid place-content-center'>
+                      <span>{animeManga.score}</span>
+                    </Card>
+                  </div>
+                }
+              </div>
+            ))
+          }
+        </div>
+        <Pagination currentPage={pagination.current_page} lastPage={pagination.last_visible_page} />
       </>
     )
   }
