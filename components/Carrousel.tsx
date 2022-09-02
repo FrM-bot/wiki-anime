@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { ICarrousel } from 'interfaces/Anime'
+// import { Button } from './Button'
 
 interface Props {
     animes: ICarrousel[]
@@ -24,8 +25,8 @@ const Carrousel = ({ animes }: Props) => {
   }
   return (
     <div ref={refSlider} className='flex gap-4 w-full flex-nowrap my-4 overflow-x-scroll snap-x relative' style={{ scrollBehavior: 'smooth' }} id="container-carrousel">
-          <div className='sticky left-0 z-[5] bg-[#11111184] flex-shrink-0 flex-grow-0 p-4 backdrop-blur-sm duration-300 rounded grid place-content-center'>
-            <button onClick={scrollLeft}>Next</button>
+          <div className='sticky left-0 z-[5] flex-shrink-0 flex-grow-0 rounded grid '>
+            <button className='hover:backdrop-blur-[2px] hover:bg-primary/40 duration-300 p-2' onClick={scrollLeft}>Prev</button>
           </div>
           {
             animes?.map((anime) => (
@@ -44,8 +45,9 @@ const Carrousel = ({ animes }: Props) => {
               </div>
             ))
           }
-          <div className='sticky right-0 z-[5] bg-[#11111184] flex-shrink-0 flex-grow-0 p-4 backdrop-blur-sm duration-300 grid place-content-center'>
-            <button onClick={scrollRight}>Next</button>
+          <div className='sticky right-0 z-[5] flex-shrink-0 flex-grow-0 rounded grid '>
+
+            <button className='hover:backdrop-blur-[2px] hover:bg-primary/40 duration-300 p-2' onClick={scrollRight}>Next</button>
           </div>
         </div>
   )

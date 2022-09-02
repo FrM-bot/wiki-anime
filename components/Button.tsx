@@ -36,8 +36,8 @@ export const ButtonLink: FC<PropsLink> = ({ children, href, props, className }) 
 }
 
 export const LinkExternal: FC<PropsLink> = ({ children, className, href, props }) => {
-  const defaultStylesCard = 'dark:bg-custom-dark-2 shadow-lg flex justify-center items-center rounded-sm after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-custom-cyan after:w-full after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 relative py-1 px-2 w-fit hover:after:scale-x-100 hover:cursor-pointer'
+  const defaultStylesCard = 'dark:bg-custom-dark-2 bg-secondary shadow-lg flex justify-center items-center rounded-sm after:absolute after:bg-gradient-to-l after:from-tertiary after:to-cyan-500 after:w-full after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 relative py-1 px-2 w-fit hover:after:scale-x-100 hover:cursor-pointer'
   return (
-    <a href={href} className={className ? `${defaultStylesCard} ${className}` : defaultStylesCard} {...props}>{children}</a>
+    <a href={href} className={className ? `${defaultStylesCard} ${className}` : defaultStylesCard} target="blank" {...props}>{children}</a>
   )
 }

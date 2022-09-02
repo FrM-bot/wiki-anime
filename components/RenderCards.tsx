@@ -7,8 +7,8 @@ import { IAnimeManga, IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
 import { ButtonLink } from './Button'
 import { useRouter } from 'next/router'
-import { setFormat } from 'utils/useDateFormat'
-import Card from './Card'
+// import { setFormat } from 'utils/useDateFormat'
+// import Card from './Card'
 
 interface IProps {
   data: IAnimeManga[]
@@ -41,24 +41,41 @@ const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
   if (typeCard === 'small') {
     return (
       <>
-        <div className='flex flex-col gap-2'>
+        <div className='grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2'>
           {
             newData?.map((animeManga) => (
-              <div key={animeManga.mal_id} className='grid md:grid-cols-[minmax(40px,70px)_minmax(100px,200px)_1fr_60px] gap-2 py-2'>
-                <Card className='grid place-content-center h-fit'>
-                  <span>{animeManga.rank}</span>
-                </Card>
-                <div className='grid place-content-center'>
+              <div key={animeManga.mal_id} className='flex flex-col items-center overflow-hidden '>
+                 {/* <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`} className="overflow-hidden text-ellipsis">
+                      <>
+                      </>
+                    </ButtonLink> */}
+                {/* <div className='grid place-content-center'> */}
                   <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`}>
-                    <img src={animeManga.images.webp.image_url} alt={animeManga.title} className='h-72 md:h-44 bg-cover' />
+                    <div className='relative'>
+                      {
+                        animeManga.rank &&
+                        <div className='absolute top-0 w-full flex justify-end p-1'>
+                          <span className='bg-tertiary/60 p-1 h-fit rounded backdrop-blur-[1px]'>{animeManga.rank}</span>
+                        </div>
+                      }
+                      <img src={animeManga.images.webp.image_url} alt={animeManga.title} className='lg:h-72 h-56 bg-cover' />
+                      <div className='absolute bottom-0 w-full bg-tertiary/80 p-1'>
+                        <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{animeManga.title}</h2>
+                        <p className='text-xs flex gap-1'>
+                          <span>{animeManga?.type}</span>
+                          { animeManga.episodes && <span>({animeManga.episodes})</span> }
+                          { animeManga.volumes && <span>({animeManga.volumes})</span> }
+                          <span>{animeManga?.score || 'N/A'}</span>
+                          <span>{animeManga?.members || 'N/A'}</span>
+                        </p>
+                      </div>
+                    </div>
                   </ButtonLink>
-                </div>
-                <div className='h-full flex items-start flex-col gap-2'>
-                  <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`}>
-                    <>
-                      <h2>{animeManga.title}</h2>
-                    </>
-                  </ButtonLink>
+                {/* </div> */}
+                {/* <div className='h-full flex items-start flex-col gap-2'>
+                  <div className='md:m-0 m-auto'>
+
+                  </div>
                   <p className='flex flex-col gap-2'>
                     <span>{animeManga.type} {animeManga.episodes && `(${animeManga.episodes} eps)`}  {animeManga.volumes && `(${animeManga.volumes} vol)`}</span>
                     {
@@ -70,14 +87,15 @@ const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
                     <span>{animeManga.members} members</span>
                   </p>
                 </div>
+                <Card className=''>
+                  <span>{animeManga.rank}</span>
+                </Card>
                 {
                   animeManga?.score &&
-                  <div>
-                    <Card className='grid place-content-center'>
+                  <div className=''>
                       <span>{animeManga.score}</span>
-                    </Card>
                   </div>
-                }
+                } */}
               </div>
             ))
           }

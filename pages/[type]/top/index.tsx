@@ -40,14 +40,14 @@ const TopPage = ({ data, pagination }: IProps) => {
                 Back
             </Button>
         </div>
-            <RenderCards data={data} typeCard='small' pagination={pagination} />
+            <RenderCards data={data || []} typeCard='small' pagination={pagination} />
         </>
     </Layout>
   )
 }
 
 interface IPropsServerSide {
-    query: { type: string }
+    query: { type: 'anime' | 'manga', filterType: string }
     resolvedUrl: string
   }
 
@@ -60,19 +60,22 @@ interface IPropsServerSide {
 
 export const getServerSideProps = async (context: IPropsServerSide) => {
   // console.log(context.params.type)
-  console.log(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page'))
+  // console.log(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page'), context.query.type.replace(' ', ''))
   const page = Number(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
+  const type = context.query.type
+  const filterType = context?.query?.filterType
+  console.log({ filterType, page }, context?.query?.filterType)
   try {
-    const top: IResponse = await GET_ANIME_MANGA_TOP({ page, type: context.query.type })
+    const top: IResponse = await GET_ANIME_MANGA_TOP({ page, type })
     // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
     // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
     // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
     // console.log(animesSeasonNow)
-    console.log(top.pagination)
+    // console.log(top.data)
     return {
       props: {
         data: top?.data || [],
-        pagination: top.pagination
+        pagination: top?.pagination
       }
       // revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
     }

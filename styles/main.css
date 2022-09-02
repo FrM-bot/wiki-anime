@@ -7,12 +7,27 @@
   --dark-3: rgba(17, 17, 17, 0.518);
   --text-color: rgb(255, 255, 255);
 }
+@font-face {
+  font-family: Quicksand;
+  src: url("../public/Quicksand.otf");
+  font-style: normal;
+  font-weight: normal;
+}
 @layer base {
   :root {
     --primary: 24, 25, 28;
     --secondary: 17, 17, 17;
     --tertiary: 30, 32, 35;
     --text-color: 255, 255, 255;
+  }
+  html {
+    font-family: Quicksand, sans-serif;
+    
+  }
+  html {
+    padding: 0;
+    margin: 0;
+    font-family: Quicksand, sans-serif;
   }
 }
 #container-carrousel::-webkit-scrollbar:horizontal {
@@ -27,13 +42,7 @@
   background-color: rgba(var(--secondary), 1);
   border-radius: 10px;
 }
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+
 
 a {
   color: inherit;

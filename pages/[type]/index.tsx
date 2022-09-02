@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import Card from '../components/Card'
+import Card from '../../components/Card'
 import { IAnime } from 'interfaces/Anime'
 import { IResponse } from 'interfaces/Global'
 import { FC } from 'react'
@@ -68,7 +68,7 @@ const Home: FC<NextPage & Props> = ({ seasonNow, seasonUpcoming, topAnime }: Pro
 }
 
 interface IPropsStatic {
-  params: { type: string }
+  params: { type: 'anime' | 'manga' }
 }
 
 export async function getStaticPaths () {
