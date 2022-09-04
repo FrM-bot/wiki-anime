@@ -21,8 +21,8 @@ const SearchPage = () => {
   //   const [searched, setSearched] = useState<IAnimeManga[]>()
   //   const [pagination, setPagination] = useState<IPagination>()
   const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
-  const name = util(router.query.name)
-  const { data, isError, isLoading } = useFetch(URL_SEARCH({ name, page, type: util(router.query.type) }))
+  const q = util(router.query.name)
+  const { data, isError, isLoading } = useFetch(URL_SEARCH({ type: util(router.query.type) === 'manga' ? 'manga' : 'anime', querys: { page, q } }))
 
   //   useEffect(() => {
   //     if ((typeof router.query.type !== 'string') || (typeof router.query.name !== 'string')) {

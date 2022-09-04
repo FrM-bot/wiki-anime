@@ -1,9 +1,9 @@
 import { URL_SEARCH } from './endpoints'
 import { IResponse } from 'interfaces/Global'
 
-export const SERACH = async ({ name, type, page }: { name: string, type: string, page: number }): Promise<IResponse> => {
+export const SERACH = async ({ type, querys }: { type: 'anime' | 'manga', querys: any }): Promise<IResponse> => {
   try {
-    const response = await fetch(URL_SEARCH({ name, type, page }))
+    const response = await fetch(URL_SEARCH({ type, querys }))
     const responseJSON = await response.json()
     return responseJSON
   } catch (error: Error | any) {

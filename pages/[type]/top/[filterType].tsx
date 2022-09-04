@@ -66,16 +66,21 @@ export const getServerSideProps = async (context: IPropsServerSide) => {
   const filterType = context?.query?.filterType
   console.log({ filterType, page }, context?.query?.filterType)
   try {
-    const top: IResponse = await GET_ANIME_MANGA_TOP({ page, type, filterType })
+    const topAnime: IResponse = await GET_ANIME_MANGA_TOP({ page, type, filterType })
     // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
     // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
     // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
     // console.log(animesSeasonNow)
     // console.log(top.data)
+    if (!topAnime?.data) {
+      return {
+        notFound: true
+      }
+    }
     return {
       props: {
-        data: top?.data || [],
-        pagination: top?.pagination
+        data: topAnime?.data || [],
+        pagination: topAnime?.pagination
       }
       // revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
     }
