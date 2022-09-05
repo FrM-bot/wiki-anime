@@ -1,9 +1,8 @@
-import { IResponse } from 'interfaces/Global'
-import { URL_SEASON_NOW } from './endpoints'
+import { URL_CHARACTER_PICTURES } from './endpoints'
 
-export const GET_ANIME_SEASON_NOW = async ({ page }: { page?: number }): Promise<IResponse> => {
+export const GET_CHARACTER_PICTURES = async (id: number) => {
   try {
-    const response = await fetch(URL_SEASON_NOW(page))
+    const response = await fetch(URL_CHARACTER_PICTURES(id))
     const responseJSON = await response.json()
     // if (response.status === 200) {
     // }

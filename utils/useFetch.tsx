@@ -11,3 +11,13 @@ export const useFetch = (url: string) => {
     isError: error
   }
 }
+
+export const useFetchV2 = (urls: string[]) => {
+  const { data, error } = useSWR(urls, fetcher)
+
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}

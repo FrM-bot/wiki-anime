@@ -4,7 +4,7 @@ import React from 'react'
 const Season = () => {
   return (
     <Layout>
-        <div>Season</div>
+        <div>Seasonal Anime</div>
     </Layout>
   )
 }

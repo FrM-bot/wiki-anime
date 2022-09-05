@@ -132,7 +132,7 @@ export interface IAnime {
         }[]
 
     }[]
-
+    volumes: number
 }
 export interface ICarrousel {
   images: {

@@ -1,11 +1,10 @@
-import { Button } from 'components/Button'
 import RenderCards from 'components/RenderCards'
 import { IAnimeManga, IResponse } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
-import { useRouter } from 'next/router'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 // import { useEffect, useState } from 'react'
 import { useState, useEffect } from 'react'
+import Card from 'components/Card'
 
 interface IProps {
   data: IAnimeManga[]
@@ -17,7 +16,6 @@ interface IProps {
     }
   }
 const TopPage = ({ data, pagination }: IProps) => {
-  const router = useRouter()
   // const [data, setData] = useState()
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
@@ -34,14 +32,12 @@ const TopPage = ({ data, pagination }: IProps) => {
 
   return mounted && (
     <Layout>
-        <>
-        <div className='my-4'>
-            <Button onClick={() => router.back()}>
-                Back
-            </Button>
-        </div>
-            <RenderCards data={data || []} typeCard='small' pagination={pagination} />
-        </>
+      <div className='flex flex-col gap-4'>
+        <Card>
+          <h1>Top Anime</h1>
+        </Card>
+        <RenderCards data={data || []} typeCard='small' pagination={pagination} />
+      </div>
     </Layout>
   )
 }
@@ -66,7 +62,7 @@ export const getServerSideProps = async (context: IPropsServerSide) => {
   const filterType = context?.query?.filterType
   console.log({ filterType, page }, context?.query?.filterType)
   try {
-    const top: IResponse = await GET_ANIME_MANGA_TOP({ page, type })
+    const top: IResponse = await GET_ANIME_MANGA_TOP({ type, querys: { page } })
     // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
     // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
     // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })

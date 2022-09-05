@@ -57,3 +57,20 @@ export interface IResponse {
   data: IAnimeManga[]
   pagination: IPagination
 }
+
+export interface ITopAnimeQuery {
+  type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
+
+  filter?: 'airing' | 'upcoming' | 'bypopularity' | 'favorite'
+
+  page?: number
+  limit?: number
+}
+
+export interface ITopMangaQuery {
+  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
+
+  filter?: 'publishing' | 'upcoming' | 'bypopularity' | 'favorite'
+  page?: number
+  limit?: number
+}

@@ -49,7 +49,6 @@ export interface IManga {
   favorites: number
   synopsis: string
   background: string
-//   volumes: 0
   authors:
     {
       mal_id: number
@@ -92,4 +91,6 @@ export interface IManga {
       name: string
       url: string
     }[]
+  episodes: number
+
 }

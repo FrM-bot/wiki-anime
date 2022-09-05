@@ -1,4 +1,4 @@
-import SearchIcon from 'icons/search.icon'
+import SearchIcon from 'icons/Search.icon'
 import { ChangeEvent, useRef, useState, useEffect } from 'react'
 import { types } from 'utils/types'
 import { useRouter } from 'next/router'

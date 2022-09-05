@@ -17,7 +17,7 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
     // const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
     // setPage(page)
     if (!refInput.current) return
-    refInput.current.value = currentPage.toString()
+    refInput.current.value = currentPage?.toString()
   }, [currentPage])
 
   console.log(lastPage)
@@ -67,18 +67,18 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
     <Card className='my-4'>
       <div className='flex gap-4 justify-center items-center'>
 
-        <Button props={{ disabled: currentPage === 1 }} onClick={handlerPrevPage}>
+        <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage() }}>
             <span>Prev</span>
         </Button>
 
         <div className='flex gap-2'>
             <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
-            <Button onClick={handlerGo}>Go</Button>
+            <Button props={{ onClick: () => handlerGo() }}>Go</Button>
         </div>
         <span>of</span>
         <span>{lastPage}</span>
 
-        <Button props={{ disabled: currentPage === lastPage }} onClick={handlerNextPage}>
+        <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
             <span>Next</span>
         </Button>
       </div>

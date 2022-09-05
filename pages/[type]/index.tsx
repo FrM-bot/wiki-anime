@@ -1,29 +1,31 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Card from '../../components/Card'
 import { IAnime } from 'interfaces/Anime'
-import { IResponse } from 'interfaces/Global'
-import { FC } from 'react'
+// import { IResponse } from 'interfaces/Global'
+import type { FC } from 'react'
 import Carrousel from 'components/Carrousel'
 // import News from 'components/News'
 import Layout from 'Layouts/Layout'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
+import { ButtonLink } from 'components/Button'
 import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
 import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
-import { ButtonLink } from 'components/Button'
+// import { ButtonLink } from 'components/Button'
 
 interface Props {
-  seasonNow: IAnime[]
-  seasonUpcoming: IAnime[]
+  animesSeasonNow: IAnime[]
+  animesUpcoming: IAnime[]
   topAnime: IAnime[]
 }
 
-const Home: FC<NextPage & Props> = ({ seasonNow, seasonUpcoming, topAnime }: Props) => {
-  const router = useRouter()
+const Home: FC<NextPage & Props> = ({ topAnime, animesSeasonNow, animesUpcoming }: Props) => {
+  // const router = useRouter()
   // console.log(router.query.type)
+  // console.log(topAnime)
   return (
       <Layout>
-        <main className='px-4 my-4 min-h-[80vh]'>
+        {/* <main className='px-4 my-4 min-h-[80vh]'>
           <Card>
             <div className='flex justify-between'>
               <h3>
@@ -61,14 +63,38 @@ const Home: FC<NextPage & Props> = ({ seasonNow, seasonUpcoming, topAnime }: Pro
             </div>
           </Card>
           <Carrousel animes={seasonUpcoming?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
-        </main>
+        </main> */}
+        <>
+            <Card className='w-fit mb-4'>
+                <h1>Anime</h1>
+            </Card>
+            <div className='flex flex-col gap-4'>
+                <Card className='flex justify-between items-center'>
+                    <>
+                        <h2>Top anime</h2>
+                        <ButtonLink href='/anime/top'>See all</ButtonLink>
+                    </>
+                </Card>
+                <Carrousel animes={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
+                <Card className='flex justify-between items-center'>
+                    <>
+                        <h2>Top this season</h2>
+                        <ButtonLink href={'/anime/season/now'}>See all</ButtonLink>
+                    </>
+                </Card>
+                <Carrousel animes={animesSeasonNow?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
+                <Card className='flex justify-between items-center'>
+                    <>
+                        <h2>Top animes upcoming</h2>
+                        <ButtonLink href='/anime/season/upcoming'>See all</ButtonLink>
+                    </>
+                </Card>
+                <Carrousel animes={animesUpcoming?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
+            </div>
+        </>
 
       </Layout>
   )
-}
-
-interface IPropsStatic {
-  params: { type: 'anime' | 'manga' }
 }
 
 export async function getStaticPaths () {
@@ -78,21 +104,25 @@ export async function getStaticPaths () {
   }
 }
 
-export const getStaticProps = async ({ params }: IPropsStatic) => {
-  try {
-    const [seasonNow, seasonUpcoming, topAnime]: IResponse[] = await Promise.all([GET_ANIME_SEASON_NOW({ page: 1 }), GET_ANIME_UPCOMING({ page: 1 }), GET_ANIME_MANGA_TOP({ page: 1, type: params.type })])
-    // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
-    // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
-    // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
+interface IContext {
+  params: {
+    type: 'manga' | 'anime'
+   }
+}
 
-    // console.log(animesSeasonNow)
+export const getStaticProps = async (context: IContext) => {
+  try {
+    const topAnime = await GET_ANIME_MANGA_TOP({ type: context.params.type, querys: { limit: 10 } })
+    const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page: 1 })
+    const animesUpcoming = await GET_ANIME_UPCOMING({ page: 1 })
     return {
       props: {
-        seasonNow: seasonNow.data?.slice(0, 9) || [],
-        seasonUpcoming: seasonUpcoming.data?.slice(0, 9) || [],
-        topAnime: topAnime.data?.slice(0, 9) || []
+        animesSeasonNow: animesSeasonNow?.data,
+        animesUpcoming: animesUpcoming.data?.slice(0, 10) || [],
+        topAnime: topAnime?.data,
+        pagination: topAnime?.pagination
       },
-      revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
+      revalidate: 60 * 60 * 24 // se genera la pagina cada 12 horas,
     }
   } catch (error) {
     console.error(error)

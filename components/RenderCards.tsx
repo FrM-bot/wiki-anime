@@ -10,18 +10,14 @@ import { useRouter } from 'next/router'
 import { IAnime } from 'interfaces/Anime'
 import { IManga } from 'interfaces/Manga'
 import Loader from './Loader'
-// import { setFormat } from 'utils/useDateFormat'
-// import Card from './Card'
-
-// style={{ backgroundImage: `url(${animeManga.images.webp.image_url})` }}
-type AnimeManga = IAnime & IManga
 interface IProps {
-  data: AnimeManga[]
+  data: IAnime[] | IManga[]
   typeCard?: 'small' | 'medium'
   pagination: IPagination
   isLoading?: boolean
+  type?: 'anime' | 'manga'
 }
-
+// Arreglar el error con los tipos de episodes y volumen
 const ContainerRender = ({ children }: { children: ReactElement }) => {
   return (
     <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
@@ -32,25 +28,25 @@ const ContainerRender = ({ children }: { children: ReactElement }) => {
   )
 }
 
-const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
+const RenderCards = ({ data, typeCard, pagination, isLoading, type }: IProps) => {
   const router = useRouter()
-  const [newData, setNewData] = useState<AnimeManga[]>()
+  const [newData, setNewData] = useState<(IAnime[] | IManga[])>()
   useEffect(() => setNewData(data), [data])
 
   if (isLoading) {
     return <div className='min-h-[60vw] w-full grid place-content-center'><Loader /></div>
   }
 
-  console.log(newData)
+  console.log()
 
   if (typeCard === 'small') {
     return (
       <>
-        <div className='grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 min-h-[60vw]'>
+        <div className='grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4'>
           {
-            newData?.map((animeManga) => (
+            newData?.map((animeManga: IAnime | IManga) => (
               <div key={animeManga.mal_id} className='grid place-content-center'>
-                  <ButtonLink href={`/${router.query.type}/${animeManga.mal_id}`}>
+                  <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`}>
                     <div className='relative lg:w-48 w-40'>
                       {
                         animeManga.rank &&
@@ -75,7 +71,7 @@ const RenderCards = ({ data, typeCard, pagination, isLoading }: IProps) => {
             ))
           }
         </div>
-        <Pagination currentPage={pagination.current_page} lastPage={pagination.last_visible_page} />
+        <Pagination currentPage={pagination?.current_page} lastPage={pagination?.last_visible_page} />
       </>
     )
   }
