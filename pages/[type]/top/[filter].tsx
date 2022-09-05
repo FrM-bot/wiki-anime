@@ -42,7 +42,8 @@ const TopPage = ({ data, pagination }: IProps) => {
 }
 
 interface IPropsServerSide {
-    query: { type: 'anime' | 'manga', filter: string }
+    query: { type: 'anime' | 'manga', filter: 'upcoming' | 'bypopularity' | 'favorite'
+  }
     resolvedUrl: string
   }
 

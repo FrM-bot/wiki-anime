@@ -9,8 +9,8 @@ import Carrousel from 'components/Carrousel'
 import Layout from 'Layouts/Layout'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { ButtonLink } from 'components/Button'
-import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
-import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
+// import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
+// import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
 // import { ButtonLink } from 'components/Button'
 
 interface Props {
@@ -76,7 +76,7 @@ const Home: FC<NextPage & Props> = ({ topAnime, animesSeasonNow, animesUpcoming 
                     </>
                 </Card>
                 <Carrousel animes={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
-                <Card className='flex justify-between items-center'>
+                {/* <Card className='flex justify-between items-center'>
                     <>
                         <h2>Top this season</h2>
                         <ButtonLink href={'/anime/season/now'}>See all</ButtonLink>
@@ -89,7 +89,7 @@ const Home: FC<NextPage & Props> = ({ topAnime, animesSeasonNow, animesUpcoming 
                         <ButtonLink href='/anime/season/upcoming'>See all</ButtonLink>
                     </>
                 </Card>
-                <Carrousel animes={animesUpcoming?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} />
+                <Carrousel animes={animesUpcoming?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, score }))} /> */}
             </div>
         </>
 
@@ -100,7 +100,7 @@ const Home: FC<NextPage & Props> = ({ topAnime, animesSeasonNow, animesUpcoming 
 export async function getStaticPaths () {
   return {
     paths: [{ params: { type: 'anime' } }, { params: { type: 'manga' } }],
-    fallback: false // can also be true or 'blocking'
+    fallback: true // can also be true or 'blocking'
   }
 }
 
@@ -113,14 +113,13 @@ interface IContext {
 export const getStaticProps = async (context: IContext) => {
   try {
     const topAnime = await GET_ANIME_MANGA_TOP({ type: context.params.type, querys: { limit: 10 } })
-    const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page: 1 })
-    const animesUpcoming = await GET_ANIME_UPCOMING({ page: 1 })
+    // const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page: 1 })
+    // const animesUpcoming = await GET_ANIME_UPCOMING({ page: 1 })
     return {
       props: {
-        animesSeasonNow: animesSeasonNow?.data,
-        animesUpcoming: animesUpcoming.data?.slice(0, 10) || [],
-        topAnime: topAnime?.data,
-        pagination: topAnime?.pagination
+        // animesSeasonNow: animesSeasonNow?.data,
+        // animesUpcoming: animesUpcoming.data?.slice(0, 10) || [],
+        topAnime: topAnime?.data
       },
       revalidate: 60 * 60 * 24 // se genera la pagina cada 12 horas,
     }
