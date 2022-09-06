@@ -37,8 +37,6 @@ const RenderCards = ({ data, typeCard, pagination, isLoading, type }: IProps) =>
     return <div className='min-h-[60vw] w-full grid place-content-center'><Loader /></div>
   }
 
-  console.log()
-
   if (typeCard === 'small') {
     return (
       <>
@@ -49,9 +47,9 @@ const RenderCards = ({ data, typeCard, pagination, isLoading, type }: IProps) =>
                   <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`}>
                     <div className='relative lg:w-48 w-40'>
                       {
-                        animeManga.rank &&
+                        animeManga?.rank &&
                         <div className='absolute top-0 w-full flex justify-end p-1'>
-                          <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga.rank}</span>
+                          <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                         </div>
                       }
                       <img loading='lazy' src={animeManga.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />

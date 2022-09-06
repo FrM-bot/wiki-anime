@@ -44,7 +44,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                     </div>
                     <div className='flex flex-wrap gap-2 my-2 h-fit'>
                         {
-                            genres.map(genere => (<span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 text-sm' key={genere.mal_id}>{genere.name}</span>))
+                            genres?.map(genere => (<span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 text-sm' key={genere.mal_id}>{genere.name}</span>))
                         }
                     </div>
                 </div>
@@ -55,7 +55,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
 
 export const CardText = ({ children, maxLines }: { children: ReactElement, maxLines?: number }) => {
   return (
-        <div className={`p-1 [display:-webkit-box] [overflow:hidden] [-webkit-box-orient:vertical] [-webkit-line-clamp:${maxLines || 1}]`}>
+        <div className={`bg-secondary/50 p-1 [display:-webkit-box] [overflow:hidden] [-webkit-box-orient:vertical] [-webkit-line-clamp:${maxLines || 1}]`}>
             {children}
         </div>
   )

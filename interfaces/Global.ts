@@ -68,9 +68,84 @@ export interface ITopAnimeQuery {
 }
 
 export interface ITopMangaQuery {
-  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
+  type?:
+    | 'manga'
+    | 'novel'
+    | 'lightnovel'
+    | 'oneshot'
+    | 'doujin'
+    | 'manhwa'
+    | 'manhua'
 
   filter?: 'publishing' | 'upcoming' | 'bypopularity' | 'favorite'
   page?: number
   limit?: number
+}
+
+export interface IQuerySearchAnime {
+  page?: number
+  limit?: number
+  q?: string
+  type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
+  score?: number
+  min_score?: number
+  max_score?: number
+  status?: 'airing' | 'complete' | 'upcoming'
+  rating?: 'g' | 'pg' | 'pg13' | 'r17' | 'r' | 'rx'
+  sfw?: boolean
+  genres?: string
+  genres_exclude?: string
+  order_by?:
+    | 'mal_id'
+    | 'title'
+    | 'type'
+    | 'rating'
+    | 'start_date'
+    | 'end_date'
+    | 'episodes'
+    | 'score'
+    | 'scored_by'
+    | 'rank'
+    | 'popularity'
+    | 'members'
+    | 'favorites'
+  sort?: 'desc' | 'asc'
+  letter?: string
+  producers?: string
+  start_date?: string
+  end_date?: string
+}
+
+export interface IQuerySearchManga {
+  page?: number
+  limit?: number
+  q?: string
+  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
+  score?: number
+  min_score?: number
+  max_score?: number
+  status?: 'airing' | 'complete' | 'upcoming'
+  rating?: 'g' | 'pg' | 'pg13' | 'r17' | 'r' | 'rx'
+  sfw?: boolean
+  genres?: string
+  genres_exclude?: string
+  order_by?:
+    | 'mal_id'
+    | 'title'
+    | 'type'
+    | 'rating'
+    | 'start_date'
+    | 'end_date'
+    | 'episodes'
+    | 'score'
+    | 'scored_by'
+    | 'rank'
+    | 'popularity'
+    | 'members'
+    | 'favorites'
+  sort?: 'desc' | 'asc'
+  letter?: string
+  producers?: string
+  start_date?: string
+  end_date?: string
 }

@@ -24,12 +24,7 @@ export const getServerSideProps = async (context: any) => {
   const type = context.query.type
   const genres = context?.query.genreID
   try {
-    const genreAnime = await SERACH({ type, querys: { page, genres } })
-    // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
-    // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
-    // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
-    // console.log(animesSeasonNow)
-    // console.log(top.data)
+    const genreAnime = await SERACH({ type, querys: { page, genres, type } })
     if (!genreAnime?.data) {
       return {
         notFound: true

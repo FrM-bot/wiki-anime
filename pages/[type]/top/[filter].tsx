@@ -1,6 +1,6 @@
 // import { Button } from 'components/Button'
 import RenderCards from 'components/RenderCards'
-import { IAnimeManga, IResponse } from 'interfaces/Global'
+import { IAnimeManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 // import { useRouter } from 'next/router'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
@@ -61,7 +61,7 @@ export const getServerSideProps = async (context: IPropsServerSide) => {
   const type = context.query.type
   const filter = context?.query?.filter
   try {
-    const topAnime: IResponse = await GET_ANIME_MANGA_TOP({ type, querys: { page, filter } })
+    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { page, filter } })
     // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
     // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
     // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })

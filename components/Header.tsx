@@ -1,21 +1,21 @@
 import { Button } from './Button'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { InputSearch } from './inputSearch'
-import { types } from 'utils/types'
+// import { useEffect } from 'react'
+import InputSearch from './inputSearch'
+// import { types } from 'utils/types'
 
 const Header = () => {
   const router = useRouter()
-  const { InputSearchComponent, inputValue, selectedValue } = InputSearch()
+  // const { InputSearchComponent, inputValue, selectedValue } = InputSearch()
   const back = () => {
     router.back()
   }
 
-  useEffect(() => {
-    types.includes(selectedValue) && inputValue && router.push({
-      pathname: `/${selectedValue}/s/${inputValue}`
-    })
-  }, [inputValue, selectedValue])
+  // useEffect(() => {
+  //   types.includes(selectedValue) && inputValue && router.push({
+  //     pathname: `/${selectedValue}/s/${inputValue}`
+  //   })
+  // }, [inputValue, selectedValue])
 
   return (
     <header className='sticky top-2 z-20 rounded-lg'>
@@ -25,7 +25,7 @@ const Header = () => {
       </Button>
       <ul className='flex gap-4 items-center'>
         <li>
-          <InputSearchComponent />
+          <InputSearch />
         </li>
       </ul>
     </nav>
