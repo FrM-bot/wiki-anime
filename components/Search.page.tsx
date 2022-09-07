@@ -14,7 +14,7 @@ import Layout from 'Layouts/Layout'
 import InputSearch from './inputSearch'
 // import RenderCardsCharacter from './RenderCardsCharacter'
 
-const isStringParam = (str: string | string[] | undefined): string => {
+export const isStringParam = (str: string | string[] | undefined): string => {
   if (typeof str !== 'string') {
     return ''
   }
@@ -42,14 +42,12 @@ const SearchPage = () => {
   const q = isStringParam(router.query.name)
   const type = validateTypeSearch(router.query.type)
   const { data, isLoading } = useFetch(searchTypesURL[type]({ querys: { q, page } }))
-  console.log(data)
 
   return (
     <Layout>
       <>
         <InputSearch valueSearched={q} />
         <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination || initialStatePagination} isLoading={isLoading} />
-        {/* { type === 'character' && <RenderCardsCharacter data={data?.data} pagination={data?.pagination} />} */}
       </>
     </Layout>
   )

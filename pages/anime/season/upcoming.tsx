@@ -32,9 +32,6 @@ export const getServerSideProps = async (context: IContext) => {
   try {
     const page = Number(context?.query?.page)
     const animesSeasonUpcoming = await GET_ANIME_UPCOMING({ page })
-    // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
-
-    // console.log(animesSeasonUpcoming)
     return {
       props: {
         data: animesSeasonUpcoming?.data,

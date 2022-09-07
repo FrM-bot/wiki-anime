@@ -1,20 +1,14 @@
-import Card from 'components/Card'
 import { CardLink } from 'components/Cards'
 import Loader from 'components/Loader'
-// import ImageComponent from 'components/Image'
 import { useModal } from 'components/Modal'
-// import { SubtitleCard } from 'components/Text'
 import { ICharacter } from 'interfaces/Character'
-import Layout from 'Layouts/Layout'
 import { useState, Suspense, lazy } from 'react'
 import { GET_CHARACTER } from 'services/GET_CHARACTER'
-// import { GET_CHARACTER_PICTURES } from 'services/GET_CHARACTER_PICTURES'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { useFetch } from 'utils/useFetch'
 import SectionInfo from 'components/SectionInfo'
 import { URL_CHARACTER_PICTURES } from 'services/endpoints'
-// import { useFetch } from 'utils/useFetch'
-// import { useState, useEffect } from 'react'
+import LayoutDetails from 'Layouts/LayoutDetails'
 interface IPicture {
   jpg: {
     image_url: string
@@ -41,21 +35,9 @@ const Character = ({ data }: IProps) => {
     setimageToShow({ src, alt })
     handlerShowModal()
   }
-  // console.log([data?.nicknames?.length], data)
   return (
-    <Layout>
+    <LayoutDetails h1={data?.name} h2={data?.name_kanji}>
       <>
-        <div className='flex flex-wrap gap-2 my-2'>
-          <Card className='w-fit'>
-            <h1>{data?.name}</h1>
-          </Card>
-          <ValidateAndRender dataToValidate={[data?.name_kanji?.length]}>
-            <Card className='w-fit'>
-              <h2>{data?.name_kanji}</h2>
-            </Card>
-          </ValidateAndRender>
-        </div>
-        <div className='grid sm:grid-cols-[minmax(80px,300px)_1fr] gap-2'>
           {/* Left Section */}
           <div className='flex flex-col gap-4'>
             <ImageComponent src={data?.images?.webp?.image_url} alt={data?.name} props={{ onClick: () => showModalImage({ alt: data?.name, src: data?.images?.webp?.image_url }) }} />
@@ -124,9 +106,8 @@ const Character = ({ data }: IProps) => {
           <Modal>
             <ImageComponent src={imageToShow?.src} alt={imageToShow?.alt} />
           </Modal>
-        </div>
       </>
-    </Layout>
+    </LayoutDetails>
   )
 }
 interface IResponse {

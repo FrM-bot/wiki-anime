@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const Genere = ({ data, pagination }: IProps) => {
-  console.log(data, pagination)
   return (
     <Layout>
       <RenderCards data={data || []} pagination={pagination} />
@@ -18,8 +17,6 @@ const Genere = ({ data, pagination }: IProps) => {
 }
 
 export const getServerSideProps = async (context: any) => {
-  // console.log(context.params.type)
-  // console.log(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page'), context.query.type.replace(' ', ''))
   const page = Number(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
   const type = context.query.type
   const genres = context?.query.genreID
@@ -35,7 +32,6 @@ export const getServerSideProps = async (context: any) => {
         data: genreAnime?.data || [],
         pagination: genreAnime?.pagination
       }
-      // revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
     }
   } catch (error) {
     console.error(error)

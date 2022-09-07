@@ -12,7 +12,6 @@ interface IProps {
 }
 
 const SeasonNow = ({ data, pagination }: IProps) => {
-  console.log(data, pagination)
   return (
         <Layout>
             <div className='flex flex-col gap-4'>
@@ -36,9 +35,7 @@ export const getServerSideProps = async (context: IContext) => {
   try {
     const page = Number(context?.query?.page)
     const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page })
-    // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
 
-    // console.log(animesSeasonNow)
     return {
       props: {
         data: animesSeasonNow?.data,

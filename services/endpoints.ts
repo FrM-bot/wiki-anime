@@ -25,7 +25,7 @@ export const URL_TOP_ANIME_MANGA = ({
   return baseURL
 }
 
-export const URL_DETAILS = ({ type, id }: { type: string; id: number }) =>
+export const URL_DETAILS = ({ type, id }: { type: 'anime' | 'manga'; id: number }) =>
   `https://api.jikan.moe/v4/${type}/${id}/full`
 
 export const URL_SEARCH_ANIME = ({

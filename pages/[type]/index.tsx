@@ -1,19 +1,14 @@
-import type { NextPage } from 'next'
-// import { useRouter } from 'next/router'
+import type { GetStaticProps, NextPage } from 'next'
 import Card from '../../components/Card'
 import { IAnime } from 'interfaces/Anime'
-// import { IResponse } from 'interfaces/Global'
 import type { FC } from 'react'
 import Carrousel from 'components/Carrousel'
-// import News from 'components/News'
 import Layout from 'Layouts/Layout'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { ButtonLink } from 'components/Button'
 import MainAnimePage from 'components/MainAnime.page'
 import MainMangaPage from 'components/MainManga.page'
-// import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
-// import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
-// import { ButtonLink } from 'components/Button'
+import { validateTypeAnimeManga } from './[id]'
 
 interface Props {
   topAnime: IAnime[]
@@ -21,9 +16,6 @@ interface Props {
 }
 
 const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
-  // const router = useRouter()
-  // console.log(router.query.type)
-  // console.log(topAnime)
   return (
       <Layout>
         <>
@@ -55,25 +47,20 @@ export async function getStaticPaths () {
   }
 }
 
-interface IContext {
-  params: {
-    type: 'manga' | 'anime'
-   }
-}
-
-export const getStaticProps = async (context: IContext) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const type = context.params.type
-    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
+    const type = context?.params?.type
+    const topAnime = await GET_ANIME_MANGA_TOP({ type: validateTypeAnimeManga(type), querys: { limit: 10 } })
     return {
       props: {
         topAnime: topAnime?.data,
         type
       },
-      revalidate: 60 * 60 * 24 // se genera la pagina cada 12 horas,
+      revalidate: 60 * 60 * 24 // se genera la pagina cada 24 horas,
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
+    return { props: { errors: error?.message } }
   }
 }
 
