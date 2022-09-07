@@ -1,7 +1,7 @@
 // import { IAnime } from 'interfaces/Anime'
 // import Card from './Card'
 // import { ButtonLink } from './Button'
-import { useState, useEffect, ReactElement } from 'react'
+import { useState, useEffect } from 'react'
 import { CardMedium } from 'components/Cards'
 import { IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
@@ -10,61 +10,66 @@ import { useRouter } from 'next/router'
 import { IAnime } from 'interfaces/Anime'
 import { IManga } from 'interfaces/Manga'
 import Loader from './Loader'
+import { TypesSearch } from 'utils/types'
+import { ICharacter } from 'interfaces/Character'
+import ValidateAndRender from './ValidateAndRender'
+import Card from './Card'
+// import { ICharacter } from 'interfaces/Character'
 interface IProps {
-  data: IAnime[] | IManga[]
-  typeCard?: 'small' | 'medium'
+  data: any[]
+  sizeCard?: 'small' | 'medium'
   pagination: IPagination
   isLoading?: boolean
-  type?: 'anime' | 'manga'
+  type?: TypesSearch
 }
 // Arreglar el error con los tipos de episodes y volumen
-const ContainerRender = ({ children }: { children: ReactElement }) => {
-  return (
-    <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
-      {
-        children
-      }
-    </div>
-  )
-}
+// const ContainerRender = ({ children }: { children: ReactElement }) => {
+//   return (
+//     <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
+//       {
+//         children
+//       }
+//     </div>
+//   )
+// }
 
-const RenderCards = ({ data, typeCard, pagination, isLoading, type }: IProps) => {
+const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) => {
   const router = useRouter()
-  const [newData, setNewData] = useState<(IAnime[] | IManga[])>()
+  const [newData, setNewData] = useState<any[]>()
   useEffect(() => setNewData(data), [data])
 
   if (isLoading) {
     return <div className='min-h-[60vw] w-full grid place-content-center'><Loader /></div>
   }
 
-  if (typeCard === 'small') {
+  if (sizeCard === 'small') {
     return (
       <>
         <div className='grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4'>
           {
             newData?.map((animeManga: IAnime | IManga) => (
               <div key={animeManga.mal_id} className='grid place-content-center'>
-                  <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`}>
-                    <div className='relative lg:w-48 w-40'>
-                      {
-                        animeManga?.rank &&
-                        <div className='absolute top-0 w-full flex justify-end p-1'>
-                          <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
-                        </div>
-                      }
-                      <img loading='lazy' src={animeManga.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />
-                      <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
-                        <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{animeManga.title}</h2>
-                        <p className='text-[0.7rem] flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
-                          <span>{animeManga?.type}</span>
-                          { animeManga?.episodes && <span>({animeManga?.episodes})</span> }
-                          { animeManga?.volumes && <span>({animeManga.volumes})</span> }
-                          <span>{animeManga?.score || 'N/A'}</span>
-                          <span>{animeManga?.members || 'N/A'}</span>
-                        </p>
+                <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`}>
+                  <div className='relative lg:w-48 w-40'>
+                    {
+                      animeManga?.rank &&
+                      <div className='absolute top-0 w-full flex justify-end p-1'>
+                        <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                       </div>
+                    }
+                    <img loading='lazy' src={animeManga.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />
+                    <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
+                      <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{animeManga.title}</h2>
+                      <p className='text-[0.7rem] flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
+                        <span>{animeManga?.type}</span>
+                        {animeManga?.episodes && <span>({animeManga?.episodes})</span>}
+                        {animeManga?.volumes && <span>({animeManga.volumes})</span>}
+                        <span>{animeManga?.score || 'N/A'}</span>
+                        <span>{animeManga?.members || 'N/A'}</span>
+                      </p>
                     </div>
-                  </ButtonLink>
+                  </div>
+                </ButtonLink>
               </div>
             ))
           }
@@ -78,15 +83,45 @@ const RenderCards = ({ data, typeCard, pagination, isLoading, type }: IProps) =>
 
   return (
     <>
-      <ContainerRender>
-        <>
+      {
+       (type === 'anime' || type === 'manga' || !type) && (
+
+          <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
+            <>
+              {
+                newData?.map((animeManga) => (
+                  <CardMedium episodes={animeManga.episodes} genres={animeManga.genres} image_url={animeManga.images.webp.image_url} mal_id={animeManga.mal_id} score={animeManga.score} title={animeManga.title} type={animeManga.type} volumes={animeManga?.volumes} key={animeManga.mal_id} />
+                ))
+              }
+            </>
+          </div>
+       )
+      }
+      {
+        type === 'character' && (<div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
           {
-            newData?.map((animeManga) => (
-              <CardMedium episodes={animeManga.episodes} genres={animeManga.genres} image_url={animeManga.images.webp.image_url} mal_id={animeManga.mal_id} score={animeManga.score} title={animeManga.title} type={animeManga.type} volumes={animeManga?.volumes} key={animeManga.mal_id} />
+            newData?.map((character: ICharacter) => (
+              <Card key={character?.mal_id} className='inline-block m-2 hover:shadow duration-300 sm:p-1'>
+                <div className='flex flex-col'>
+                  <ButtonLink href={`/character/${character?.mal_id}`}>
+                    <div className='rounded-lg grid place-content-center overflow-hidden relative'>
+                      <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={character?.images?.webp?.image_url} alt={character?.name} />
+                    </div>
+                  </ButtonLink>
+                  <div className='max-w-[225px] flex flex-col gap-2 py-2'>
+                    <ButtonLink href={`/character/${character?.name}`}>
+                      <>
+                        {character?.name}
+                      </>
+                    </ButtonLink>
+                    <ValidateAndRender title='favorites' data={character?.favorites} />
+                  </div>
+                </div>
+              </Card>
             ))
           }
-        </>
-      </ContainerRender>
+        </div>)
+      }
       <Pagination currentPage={pagination.current_page} lastPage={pagination.last_visible_page} />
     </>
   )

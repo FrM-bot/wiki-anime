@@ -47,7 +47,7 @@ const Character = ({ data }: IProps) => {
       <>
         <div className='flex flex-wrap gap-2 my-2'>
           <Card className='w-fit'>
-            <h1>{data.name}</h1>
+            <h1>{data?.name}</h1>
           </Card>
           <ValidateAndRender dataToValidate={[data?.name_kanji?.length]}>
             <Card className='w-fit'>
@@ -73,7 +73,7 @@ const Character = ({ data }: IProps) => {
                 <div className='grid grid-cols-2 gap-2'>
                   {
                     data?.manga?.map(({ manga, role }) => (
-                      <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga.images.webp.image_url} title={manga.title} subtitle={role} />
+                      <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
                     ))
                   }
                 </div>

@@ -8,12 +8,13 @@ import RenderCards from 'components/RenderCards'
 // import { IPagination } from 'interfaces/Anime'
 import { useFetch } from 'utils/useFetch'
 import { URL_SEARCH_ANIME, URL_SEARCH_MANGA, URL_SEARCH_CHARACTERS } from 'services/endpoints'
-import { types } from 'utils/types'
+import { types, TypesSearch } from 'utils/types'
 import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import InputSearch from './inputSearch'
+// import RenderCardsCharacter from './RenderCardsCharacter'
 
-const util = (str: string | string[] | undefined): string => {
+const isStringParam = (str: string | string[] | undefined): string => {
   if (typeof str !== 'string') {
     return ''
   }
@@ -26,7 +27,7 @@ const searchTypesURL = {
   manga: ({ querys }: { querys: IQuerySearchManga }) => URL_SEARCH_MANGA({ querys: { order_by: 'favorites', sort: 'desc', ...querys } })
 }
 
-export const validateTypeSearch = (str: string | string[] | undefined | 'character' | 'anime' | 'manga'): 'character' | 'anime' | 'manga' => {
+export const validateTypeSearch = (str: string | string[] | undefined | TypesSearch): TypesSearch => {
   if (typeof str === 'string') {
     for (const type of types) {
       if (str === type) return str
@@ -37,37 +38,18 @@ export const validateTypeSearch = (str: string | string[] | undefined | 'charact
 const initialStatePagination = { current_page: 1, has_next_page: false, last_visible_page: 1, items: { count: 0, per_page: 0, total: 0 } }
 const SearchPage = () => {
   const router = useRouter()
-  //   const [searched, setSearched] = useState<IAnimeManga[]>()
-  //   const [pagination, setPagination] = useState<IPagination>()
   const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
-  const q = util(router.query.name)
-  const { data, isError, isLoading } = useFetch(searchTypesURL[validateTypeSearch(router.query.type)]({ querys: { q, page } }))
-
-  //   useEffect(() => {
-  //     if ((typeof router.query.type !== 'string') || (typeof router.query.name !== 'string')) {
-  //       return () => {}
-  //     }
-  //     SERACH({ name: router.query.name, type: router.query.type, page: Number(new URLSearchParams(window?.location?.search).get('page')) || 1 })
-  //       .then(res => {
-  //         setPagination(res.pagination)
-  //         setSearched(res.data)
-  //       })
-  //   }, [router.query.name, router.query.type, globalThis?.window?.location?.search])
-  // console.log(pagination)
-  if (isError) {
-    return <div>error</div>
-  }
-  //   if (isLoading) {
-  //     return <div>loading...</div>
-  //   }
-  //   console.log(data?.pagination, { page }, data, globalThis?.window?.location?.search)
+  const q = isStringParam(router.query.name)
+  const type = validateTypeSearch(router.query.type)
+  const { data, isLoading } = useFetch(searchTypesURL[type]({ querys: { q, page } }))
   console.log(data)
 
   return (
     <Layout>
       <>
         <InputSearch valueSearched={q} />
-        <RenderCards data={data?.data || []} typeCard={'medium'} pagination={data?.pagination || initialStatePagination} isLoading={isLoading} />
+        <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination || initialStatePagination} isLoading={isLoading} />
+        {/* { type === 'character' && <RenderCardsCharacter data={data?.data} pagination={data?.pagination} />} */}
       </>
     </Layout>
   )

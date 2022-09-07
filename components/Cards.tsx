@@ -26,8 +26,8 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                 <ButtonLink href={`/${router.query.type}/${mal_id}`}>
                     <div className='rounded-lg grid place-content-center overflow-hidden relative'>
                         {score &&
-                            <div className='absolute top-2 right-2 bg-tertiary/50 rounded-lg p-2'>
-                                <span className='text-sm'>{score}</span>
+                            <div className='absolute top-2 right-2 bg-tertiary/50 rounded-lg p-1'>
+                                <span className='text-xs'>{score}</span>
                             </div>
                         }
                         <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={image_url} alt={title} />

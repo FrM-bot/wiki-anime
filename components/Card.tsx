@@ -6,7 +6,7 @@ interface ICard {
 }
 
 const Card: FC<ICard> = ({ children, className }) => {
-  const defaultStylesCard = 'p-2 shadow-xl shadow-black/40 rounded-md bg-tertiary'
+  const defaultStylesCard = 'p-1 shadow-xl shadow-black/40 rounded-md bg-tertiary'
 
   return (
     <div className={className ? `${defaultStylesCard} ${className}` : defaultStylesCard}>{ children }</div>

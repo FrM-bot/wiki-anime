@@ -10,7 +10,7 @@ export const TitleAndDescription = ({ title, description, children }: { title: s
   return (
     <div className='flex flex-wrap gap-2'>
       <h3 className='text-center bg-secondary grid place-content-center p-2'>{title}</h3>
-      {description && <h4 className='bg-tertiary p-2 shadow-lg'>{description}</h4>}
+      {description && <h4 className='bg-tertiary p-2 shadow-lg shadow-secondary'>{description}</h4>}
       {children}
     </div>
   )

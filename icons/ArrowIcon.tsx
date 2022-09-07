@@ -1,4 +1,4 @@
-import React, { SVGAttributes } from 'react'
+import { SVGAttributes } from 'react'
 
 const ArrowIcon = ({ props }: { props?: SVGAttributes<SVGSVGElement> }) => {
   return (

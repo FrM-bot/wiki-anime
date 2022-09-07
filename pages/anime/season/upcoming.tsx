@@ -3,7 +3,6 @@ import RenderCards from 'components/RenderCards'
 import { IAnime } from 'interfaces/Anime'
 import { IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
-import React from 'react'
 import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
 interface IProps {
   data: IAnime[]
@@ -16,7 +15,7 @@ const SeasonUpcoming = ({ data, pagination }: IProps) => {
         <Card>
           <h1>Seasonal Anime</h1>
         </Card>
-        <RenderCards type='anime' typeCard='small' data={data} pagination={pagination} />
+        <RenderCards type='anime' sizeCard='small' data={data} pagination={pagination} />
       </div>
     </Layout>
   )

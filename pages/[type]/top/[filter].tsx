@@ -35,7 +35,7 @@ const TopPage = ({ data, pagination }: IProps) => {
   return mounted && (
     <Layout>
 
-      <RenderCards data={data} typeCard='small' pagination={pagination} />
+      <RenderCards data={data} sizeCard='small' pagination={pagination} />
 
     </Layout>
   )

@@ -19,7 +19,7 @@ const SeasonNow = ({ data, pagination }: IProps) => {
                 <Card>
                     <h1>Seasonal Anime</h1>
                 </Card>
-                <RenderCards type='anime' typeCard='small' data={data} pagination={pagination} />
+                <RenderCards type='anime' sizeCard='small' data={data} pagination={pagination} />
             </div>
         </Layout>
   )
