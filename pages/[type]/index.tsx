@@ -49,8 +49,8 @@ export async function getStaticPaths () {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const type = context?.params?.type
-    const topAnime = await GET_ANIME_MANGA_TOP({ type: validateTypeAnimeManga(type), querys: { limit: 10 } })
+    const type = validateTypeAnimeManga(context?.params?.type)
+    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
     return {
       props: {
         topAnime: topAnime?.data,

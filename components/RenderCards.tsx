@@ -57,7 +57,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                         <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                       </div>
                     }
-                    <img loading='lazy' src={animeManga.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />
+                    <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />
                     <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
                       <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{animeManga.title}</h2>
                       <p className='text-[0.7rem] flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
@@ -79,7 +79,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
     )
   }
 
-  console.log(pagination)
+  // console.log(pagination)
 
   return (
     <>
@@ -122,7 +122,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
           }
         </div>)
       }
-      <Pagination currentPage={pagination.current_page} lastPage={pagination.last_visible_page} />
+      <Pagination currentPage={pagination?.current_page} lastPage={pagination?.last_visible_page} />
     </>
   )
 }

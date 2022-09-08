@@ -3,17 +3,17 @@ import Loader from './Loader'
 
 const LoadingComponent = ({ isLoading, isError, children }: { isLoading: boolean, isError: any, children: ReactElement }) => {
   if (isLoading) {
-    return <div className='w-full grid place-content-center'><Loader /></div>
+    return <div className='w-full grid place-content-center h-[40vh]'><Loader /></div>
   }
   if (isError) {
     return <div>Error... Click to reaload</div>
   }
   return (
-        <>
-            {
-                children
-            }
-        </>
+    <>
+      {
+        children
+      }
+    </>
   )
 }
 
