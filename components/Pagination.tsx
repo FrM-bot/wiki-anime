@@ -11,21 +11,14 @@ interface IProps {
 const Pagination = ({ currentPage, lastPage }: IProps) => {
   const refInput = useRef<HTMLInputElement>(null)
   const router = useRouter()
-  // const [page, setPage] = useState(currentPage)
   useEffect(() => {
-    console.log('se actualizaaa')
-    // const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
-    // setPage(page)
     if (!refInput.current) return
     refInput.current.value = currentPage?.toString()
   }, [currentPage])
 
-  console.log(lastPage)
-
   const handlerGo = () => {
     if (!refInput.current) return
     const page = Number(refInput.current.value) || 1
-    console.log(page, lastPage)
     if (page <= lastPage && page >= 1) {
       router.push({
         pathname: window?.location?.pathname,
@@ -33,12 +26,9 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
           page
         }
       })
-      // setPage(numberPage)
-      // navigate(`/dogs?page=${numberPage}`)
     }
   }
   const handlerNextPage = () => {
-    console.log(router, 'qr')
     if (currentPage <= lastPage) {
       router.push({
         pathname: window?.location?.pathname,
@@ -46,8 +36,6 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
           page: currentPage + 1
         }
       })
-      // setPage((prevPage: number) => prevPage + 1)
-      // navigate(`/dogs?page=${page + 1}`)
     }
   }
   const handlerPrevPage = () => {
@@ -58,11 +46,8 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
           page: currentPage - 1
         }
       })
-      // setPage((prevPage: number) => prevPage - 1)
-      // navigate(`/dogs?page=${page - 1}`)
     }
   }
-  // console.log(router, window.location.pathname)
   return (
     <Card className='my-4'>
       <div className='flex gap-4 justify-center items-center'>

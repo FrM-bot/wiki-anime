@@ -47,20 +47,4 @@ const MainAnimePage = () => {
   )
 }
 
-// export const getStaticProps = async () => {
-//   try {
-//     const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page: 1 })
-//     const animesUpcoming = await GET_ANIME_UPCOMING({ page: 1 })
-//     return {
-//       props: {
-//         animesSeasonNow: animesSeasonNow?.data,
-//         animesUpcoming: animesUpcoming?.data || []
-//       },
-//       revalidate: 60 * 60 * 24 // se genera la pagina cada 12 horas,
-//     }
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-
 export default MainAnimePage

@@ -22,7 +22,7 @@ const TopPage = ({ data, pagination, type }: IProps) => {
         <Card>
           <h1>Top {type}</h1>
         </Card>
-        <RenderCards data={data || []} sizeCard='small' pagination={pagination} />
+        <RenderCards type={type} data={data || []} sizeCard='small' pagination={pagination} />
       </div>
     </Layout>
   )

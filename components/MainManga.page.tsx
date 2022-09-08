@@ -23,7 +23,7 @@ const MainMangaPage = () => {
       <Card className='flex justify-between items-center'>
             <>
               <h2>Top characters</h2>
-              <ButtonLink href='/anime/season/upcoming'>See all characters</ButtonLink>
+              <ButtonLink href='/character/top'>See all characters</ButtonLink>
             </>
           </Card>
       <Carrousel type='character' data={data?.data?.map(({ images, name, mal_id, favorites }) => ({ images, title: name, mal_id, topRightgDataCard: favorites }))} />

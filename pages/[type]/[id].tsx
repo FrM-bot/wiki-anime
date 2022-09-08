@@ -209,6 +209,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   try {
     const { type, id } = query
     const details = await GET_DETAILS({ id: Number(id) ?? 9, type: validateTypeAnimeManga(type) })
+    // console.log({type}, query)
     if (!details?.data) {
       return {
         notFound: true
