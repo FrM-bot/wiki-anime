@@ -86,7 +86,7 @@ export interface IQuerySearchAnime {
   page?: number
   limit?: number
   q?: string
-  type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
+  type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music' | string
   score?: number
   min_score?: number
   max_score?: number
@@ -120,7 +120,7 @@ export interface IQuerySearchManga {
   page?: number
   limit?: number
   q?: string
-  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
+  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua' | string
   score?: number
   min_score?: number
   max_score?: number

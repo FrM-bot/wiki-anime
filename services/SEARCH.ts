@@ -8,7 +8,7 @@ const searchTypesURL = {
   manga: ({ querys }: { querys: IQuerySearchManga }) => URL_SEARCH_MANGA({ querys: { order_by: 'score', sort: 'desc', ...querys } })
 }
 
-export const SERACH = async ({ type, querys }: { type: 'anime' | 'manga', querys: any }): Promise<IResponse | undefined> => {
+export const SERACH = async ({ type, querys }: { type: 'anime' | 'manga', querys: IQuerySearchAnime & IQuerySearchManga}): Promise<IResponse | undefined> => {
   try {
     const response = await fetch(searchTypesURL[type]({ querys }))
     const responseJSON = await response.json()
