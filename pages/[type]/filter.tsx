@@ -1,3 +1,4 @@
+import Card from 'components/Card'
 import RenderCards from 'components/RenderCards'
 // import { isStringParam } from 'components/Search.page'
 import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
@@ -79,7 +80,9 @@ const Filter = () => {
   return (
     <Layout>
       <>
-        <div>Filter</div>
+        <Card>
+          <h1>Filter</h1>
+        </Card>
         <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
       </>
     </Layout>

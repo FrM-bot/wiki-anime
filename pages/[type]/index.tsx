@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const type = validateTypeAnimeManga(context?.params?.type)
     const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
-    if (topAnime?.data) {
+    if (!topAnime?.data) {
       return {
         notFound: true
       }

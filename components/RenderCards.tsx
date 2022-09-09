@@ -33,6 +33,8 @@ interface IProps {
 //   )
 // }
 
+const initialStatePagination = { current_page: 1, has_next_page: false, last_visible_page: 1, items: { count: 0, per_page: 0, total: 0 } }
+
 const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) => {
   const router = useRouter()
   const [newData, setNewData] = useState<any[]>()
@@ -74,7 +76,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
             ))
           }
         </div>
-        <Pagination currentPage={pagination?.current_page} lastPage={pagination?.last_visible_page} />
+        <Pagination currentPage={pagination?.current_page || initialStatePagination?.current_page} lastPage={pagination?.last_visible_page || initialStatePagination?.last_visible_page} />
       </>
     )
   }
@@ -122,7 +124,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
           }
         </div>)
       }
-      <Pagination currentPage={pagination?.current_page} lastPage={pagination?.last_visible_page} />
+      <Pagination currentPage={pagination?.current_page || initialStatePagination?.current_page} lastPage={pagination?.last_visible_page || initialStatePagination?.last_visible_page} />
     </>
   )
 }

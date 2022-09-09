@@ -20,9 +20,11 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
     if (!refInput.current) return
     const page = Number(refInput.current.value) || 1
     if (page <= lastPage && page >= 1) {
+      const { type, ...rest } = router.query
       router.push({
         pathname: window?.location?.pathname,
         query: {
+          ...rest,
           page
         }
       })
@@ -30,9 +32,11 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
   }
   const handlerNextPage = () => {
     if (currentPage <= lastPage) {
+      const { type, ...rest } = router.query
       router.push({
         pathname: window?.location?.pathname,
         query: {
+          ...rest,
           page: currentPage + 1
         }
       })
@@ -40,31 +44,34 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
   }
   const handlerPrevPage = () => {
     if (currentPage > 1) {
+      const { type, ...rest } = router.query
       router.push({
         pathname: window?.location?.pathname,
         query: {
+          ...rest,
           page: currentPage - 1
         }
       })
     }
   }
+  console.log(router, globalThis?.window?.location, globalThis?.window?.location?.pathname.concat(globalThis?.window?.location?.search))
   return (
     <Card className='my-4'>
       <div className='flex gap-4 justify-center items-center'>
 
         <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage() }}>
-            <span>Prev</span>
+          <span>Prev</span>
         </Button>
 
         <div className='flex gap-2'>
-            <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
-            <Button props={{ onClick: () => handlerGo() }}>Go</Button>
+          <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
+          <Button props={{ onClick: () => handlerGo() }}>Go</Button>
         </div>
         <span>of</span>
         <span>{lastPage}</span>
 
         <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
-            <span>Next</span>
+          <span>Next</span>
         </Button>
       </div>
     </Card>

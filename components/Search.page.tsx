@@ -35,7 +35,6 @@ export const validateTypeSearch = (str: string | string[] | undefined | TypesSea
   }
   return 'anime'
 }
-const initialStatePagination = { current_page: 1, has_next_page: false, last_visible_page: 1, items: { count: 0, per_page: 0, total: 0 } }
 const SearchPage = () => {
   const router = useRouter()
   const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
@@ -47,7 +46,7 @@ const SearchPage = () => {
     <Layout>
       <>
         <InputSearch valueSearched={q} />
-        <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination || initialStatePagination} isLoading={isLoading} />
+        <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination} isLoading={isLoading} />
       </>
     </Layout>
   )
