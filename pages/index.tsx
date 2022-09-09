@@ -34,19 +34,17 @@ interface IProps {
 
 const Index = ({ mangaGenres, animeGenres }: IProps) => {
   const refForm = useRef<HTMLFormElement | null>(null)
-  const [selectedType, setSelectedType] = useState('anime')
-  const [genresToRender, setGenresToRender] = useState<IGenre[]>(animeGenres.data)
+  const [selectedType, setSelectedType] = useState<'anime'| 'manga'>('anime')
+  const [genresToRender] = useState({ anime: animeGenres, manga: mangaGenres })
   const [subTypesToRender, setSubTypesToRender] = useState(subTypesAnime)
 
   const router = useRouter()
   const handlerTypeSearch = (e: any) => {
     setSelectedType(e.target.value)
     if (e.target.value === 'manga') {
-      setGenresToRender(mangaGenres.data)
       setSubTypesToRender(subTypesManga)
     }
     if (e.target.value === 'anime') {
-      setGenresToRender(animeGenres.data)
       setSubTypesToRender(subTypesAnime)
     }
   }
@@ -89,7 +87,7 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
             <select name="genre" id="genres" className='bg-secondary outline-none p-2 text-center rounded'>
               <option value="">All</option>
               {
-                genresToRender?.map(genre => (<option key={genre?.mal_id} value={genre?.mal_id}>{genre?.name}</option>))
+                genresToRender[selectedType]?.data?.map(genre => (<option key={genre?.mal_id} value={genre?.mal_id}>{genre?.name}</option>))
               }
             </select>
             <select name="subType" id="subType" className='bg-secondary outline-none p-2 text-center rounded'>

@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Card from '../../components/Card'
 import { IAnime } from 'interfaces/Anime'
 import type { FC } from 'react'
@@ -40,23 +40,20 @@ const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
   )
 }
 
-export async function getStaticPaths () {
-  return {
-    paths: [{ params: { type: 'anime' } }, { params: { type: 'manga' } }],
-    fallback: false // can also be true or 'blocking'
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const type = validateTypeAnimeManga(context?.params?.type)
     const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
+    if (topAnime?.data) {
+      return {
+        notFound: true
+      }
+    }
     return {
       props: {
         topAnime: topAnime?.data,
         type
-      },
-      revalidate: 60 * 60 * 24 // se genera la pagina cada 24 horas,
+      }
     }
   } catch (error: any) {
     console.error(error)
