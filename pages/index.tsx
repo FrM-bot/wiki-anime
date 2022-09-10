@@ -1,25 +1,8 @@
-import { Button } from 'components/Button'
+
+import NavFilters from 'components/NavFilters'
 import Layout from 'Layouts/Layout'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { SyntheticEvent, useRef, useState } from 'react'
-
-const fromObjectToString = (object: any, baseString = '') => {
-  Object.entries(object)?.forEach(([key, value], index) => {
-    if (value) {
-      baseString =
-        index === 0
-          ? baseString.concat(`?${key}=${value}`)
-          : baseString.concat(`&${key}=${value}`)
-    }
-  })
-  return baseString
-}
-
-const subTypesAnime = ['tv', 'movie', 'ova', 'special', 'ona', 'music']
-const subTypesManga = ['manga', 'novel', 'lightnovel', 'oneshot', 'doujin', 'manhwa', 'manhua']
-
 interface IGenre {
   mal_id: number,
   name: string,
@@ -33,34 +16,6 @@ interface IProps {
 }
 
 const Index = ({ mangaGenres, animeGenres }: IProps) => {
-  const refForm = useRef<HTMLFormElement | null>(null)
-  const [selectedType, setSelectedType] = useState<'anime'| 'manga'>('anime')
-  const [genresToRender] = useState({ anime: animeGenres, manga: mangaGenres })
-  const [subTypesToRender, setSubTypesToRender] = useState(subTypesAnime)
-
-  const router = useRouter()
-  const handlerTypeSearch = (e: any) => {
-    setSelectedType(e.target.value)
-    if (e.target.value === 'manga') {
-      setSubTypesToRender(subTypesManga)
-    }
-    if (e.target.value === 'anime') {
-      setSubTypesToRender(subTypesAnime)
-    }
-  }
-  const handlerApplyFilters = (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(e)
-    const form = refForm.current
-    if (!form) return
-    const data = Object.fromEntries(new FormData(form))
-    console.log(data)
-    const { type, ...rest } = data
-    router.push({
-      pathname: `/${type}/filter`,
-      search: fromObjectToString(rest)
-    })
-  }
   return (
     <Layout>
       <>
@@ -75,38 +30,8 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
 
           </div>
         </div>
-        <div className='w-full flex justify-center gap-6'>
-          <div>
-          </div>
-          <form ref={refForm} onSubmit={handlerApplyFilters} className='flex flex-col gap-4'>
-            <select name='type' defaultValue='anime' className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
-              <option value="anime">anime</option>
-              <option value="manga">manga</option>
-            </select>
-            <h2 className='text-center'>{selectedType} genres</h2>
-            <select name="genre" id="genres" className='bg-secondary outline-none p-2 text-center rounded'>
-              <option value="">All</option>
-              {
-                genresToRender[selectedType]?.data?.map(genre => (<option key={genre?.mal_id} value={genre?.mal_id}>{genre?.name}</option>))
-              }
-            </select>
-            <select name="subType" id="subType" className='bg-secondary outline-none p-2 text-center rounded'>
-              {
-                subTypesToRender?.map(subType => <option key={subType} value={subType}>{subType}</option>)
-              }
-            </select>
-            <label className='flex flex-col gap-2' htmlFor='max_score'>
-              <span>Max score</span>
-              <input name='max_score' type="number" step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
-            </label>
-            <label className='flex flex-col gap-2' htmlFor='min_score'>
-              <span>Min score</span>
-              <input name='min_score' type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
-            </label>
-            <div className='flex justify-center mt-4'>
-              <Button props={{ type: 'submit' }}>Apply filters</Button>
-            </div>
-          </form>
+        <div className='w-full flex justify-center'>
+         <NavFilters mangaGenres={mangaGenres} animeGenres={animeGenres} />
         </div>
       </>
     </Layout>
