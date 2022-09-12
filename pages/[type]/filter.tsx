@@ -1,15 +1,23 @@
 import Card from 'components/Card'
-import NavFilters from 'components/NavFilters'
+import LoadingComponent from 'components/LoadingComponent'
+// import NavFilters from 'components/NavFilters'
 import RenderCards from 'components/RenderCards'
+import { isStringParam } from 'components/Search.page'
+// import GenresContext from 'context/Genres.context'
 // import { isStringParam } from 'components/Search.page'
 import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
+import { getGenres, getGenresFile, writeFile } from 'lib/files'
+import { GetStaticProps } from 'next'
+// import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+import { lazy, Suspense } from 'react'
 // import React, { useEffect, useState } from 'react'
 import { URL_SEARCH_ANIME, URL_SEARCH_MANGA } from 'services/endpoints'
 // import { SERACH } from 'services/SEARCH'
 import { useFetch } from 'utils/useFetch'
 import { validateTypeAnimeManga } from './[id]'
+// import { GenresContext } from 'context/Genres.context'
 
 const searchTypesURL = {
   anime: ({ querys }: { querys: IQuerySearchAnime }) => URL_SEARCH_ANIME({ querys: { ...querys } }),
@@ -67,28 +75,90 @@ export const validateTypeAnime = (str: string | string[] | undefined): 'tv' | 'm
   return 'tv'
 }
 
-const Filter = () => {
+const NavFilters = lazy(() => import('components/NavFilters'))
+
+interface IGenre {
+  mal_id: number,
+  name: string,
+  url: string,
+  count: number
+}
+
+interface IProps {
+  mangaGenres: IGenre[]
+  animeGenres: IGenre[]
+}
+
+const Filter = ({ mangaGenres, animeGenres }: IProps) => {
+  // const { genresAnime, genresManga } = useContext(GenresContext)
   const router = useRouter()
-  // const [data, setData] = useState()
   const { type, subType, ...rest } = router.query
-  const { data } = useFetch(searchTypesURL[validateTypeAnimeManga(type)]({ querys: { type: type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType), ...rest } }))
+  const { data, isLoading, isError } = useFetch(searchTypesURL[validateTypeAnimeManga(type)]({ querys: { type: type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType), ...rest } }))
   // useEffect(() => {
   //   console.log({ rest })
   //   SERACH({ type, querys: { ...rest } }).then(setData)
   // }, [])
 
-  console.log(data, router)
+  // console.log(router?.query, router?.query?.type, 'type')
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>
+  // }
+
   return (
     <Layout>
       <>
         <Card>
           <h1>Filter</h1>
         </Card>
-        <NavFilters />
-        <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
+        <LoadingComponent isLoading={isLoading} isError={isError}>
+          <>
+            <Suspense fallback={'loading'}>
+              <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} defaultGenre={isStringParam(router?.query?.genre)} defaultType={validateTypeAnimeManga(router?.query?.type)} defaultMinScore={Number(router?.query?.min_score) || undefined} defaultMaxScore={Number(router?.query?.max_score) || undefined} defaultSubType={isStringParam(router?.query?.subType)} />
+            </Suspense>
+            <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
+          </>
+        </LoadingComponent>
       </>
     </Layout>
   )
+}
+
+export async function getStaticPaths () {
+  return {
+    paths: [{ params: { type: 'anime' } }, { params: { type: 'manga' } }],
+    fallback: false // can also be true or 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const { animeGenresFileJSON, mangaGenresFileJSON, error } = await getGenresFile('./data')
+    console.log('files')
+    if (error) {
+      const { animeGenres, mangaGenres } = await getGenres()
+      await writeFile(animeGenres, './data/animeGenres.json')
+      await writeFile(mangaGenres, './data/mangaGenres.json')
+      console.log('no files')
+
+      return {
+        props: {
+          mangaGenres,
+          animeGenres
+        }
+      }
+    }
+
+    return {
+      props: {
+        mangaGenres: animeGenresFileJSON,
+        animeGenres: mangaGenresFileJSON
+      }
+    }
+  } catch (error: any) {
+    console.error(error)
+    return { props: { errors: error?.message } }
+  }
 }
 
 export default Filter

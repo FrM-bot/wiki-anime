@@ -1,8 +1,12 @@
-
 import NavFilters from 'components/NavFilters'
+// import { GenresContext } from 'context/Genres.context'
 import Layout from 'Layouts/Layout'
+import { getGenres, getGenresFile, writeFile } from 'lib/files'
 import { GetStaticProps } from 'next'
+// import { GetStaticProps } from 'next'
 import Link from 'next/link'
+// import fs from 'node:fs/promises'
+// import { useContext } from 'react'
 interface IGenre {
   mal_id: number,
   name: string,
@@ -11,11 +15,25 @@ interface IGenre {
 }
 
 interface IProps {
-  mangaGenres: { data: IGenre[] }
-  animeGenres: { data: IGenre[] }
+  mangaGenres: IGenre[]
+  animeGenres: IGenre[]
 }
 
 const Index = ({ mangaGenres, animeGenres }: IProps) => {
+  // const handlerShowNotification = () => {
+  //   Notification.requestPermission().then(perm => {
+  //     if (perm === 'granted') {
+  //       const notification = new Notification('Example', {
+  //         body: 'Test',
+  //         data: { hello: 'wordl' }
+  //       })
+  //       notification.addEventListener('error', e => {
+  //         alert('eroor')
+  //       })
+  //     }
+  //   })
+  // }
+  // console.log(mangaGenres, animeGenres)
   return (
     <Layout>
       <>
@@ -31,7 +49,7 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
           </div>
         </div>
         <div className='w-full flex justify-center'>
-         <NavFilters mangaGenres={mangaGenres} animeGenres={animeGenres} />
+          <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} />
         </div>
       </>
     </Layout>
@@ -40,14 +58,26 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const [responseMangaGenres, responseAnimeGenres] = await Promise.all([fetch('https://api.jikan.moe/v4/genres/manga'), fetch('https://api.jikan.moe/v4/genres/anime')])
-    const mangaGenres = await responseMangaGenres.json()
-    const animeGenres = await responseAnimeGenres.json()
+    const { animeGenresFileJSON, mangaGenresFileJSON, error } = await getGenresFile('./data')
+    console.log('files')
+    if (error) {
+      const { animeGenres, mangaGenres } = await getGenres()
+      await writeFile(animeGenres, './data/animeGenres.json')
+      await writeFile(mangaGenres, './data/mangaGenres.json')
+      console.log('no files')
+
+      return {
+        props: {
+          mangaGenres,
+          animeGenres
+        }
+      }
+    }
 
     return {
       props: {
-        mangaGenres,
-        animeGenres
+        mangaGenres: animeGenresFileJSON,
+        animeGenres: mangaGenresFileJSON
       }
     }
   } catch (error: any) {
