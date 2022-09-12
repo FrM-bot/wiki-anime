@@ -1,5 +1,6 @@
 import Card from 'components/Card'
 import RenderCards from 'components/RenderCards'
+import SeasonSearch from 'components/SeasonSearch'
 import { IAnime } from 'interfaces/Anime'
 import { IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
@@ -12,9 +13,11 @@ interface IProps {
 }
 
 const SeasonNow = ({ data, pagination }: IProps) => {
+  console.log()
   return (
         <Layout>
             <div className='flex flex-col gap-4'>
+              <SeasonSearch />
                 <Card>
                     <h1>Seasonal Anime</h1>
                 </Card>

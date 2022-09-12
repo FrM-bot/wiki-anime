@@ -114,7 +114,7 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
         <LoadingComponent isLoading={isLoading} isError={isError}>
           <>
             <Suspense fallback={'loading'}>
-              <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} defaultGenre={isStringParam(router?.query?.genre)} defaultType={validateTypeAnimeManga(router?.query?.type)} defaultMinScore={Number(router?.query?.min_score) || undefined} defaultMaxScore={Number(router?.query?.max_score) || undefined} defaultSubType={isStringParam(router?.query?.subType)} />
+              <NavFilters defaultLetter={isStringParam(router?.query?.letter)} animeGenres={animeGenres} mangaGenres={mangaGenres} defaultGenre={isStringParam(router?.query?.genre)} defaultType={validateTypeAnimeManga(router?.query?.type)} defaultMinScore={Number(router?.query?.min_score) || undefined} defaultMaxScore={Number(router?.query?.max_score) || undefined} defaultSubType={isStringParam(router?.query?.subType)} />
             </Suspense>
             <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
           </>

@@ -5,8 +5,7 @@ import { getGenres, getGenresFile, writeFile } from 'lib/files'
 import { GetStaticProps } from 'next'
 // import { GetStaticProps } from 'next'
 import Link from 'next/link'
-// import fs from 'node:fs/promises'
-// import { useContext } from 'react'
+import RandomData from 'components/RamdomData'
 interface IGenre {
   mal_id: number,
   name: string,
@@ -50,6 +49,9 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
         </div>
         <div className='w-full flex justify-center'>
           <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} />
+        </div>
+        <div className='w-full flex justify-center'>
+          <RandomData />
         </div>
       </>
     </Layout>

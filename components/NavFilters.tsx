@@ -33,6 +33,7 @@ interface IProps {
   defaultMinScore?: number
   defaultMaxScore?: number
   defaultSubType?: string
+  defaultLetter?: string
 }
 
 const subTypesAnime = ['tv', 'movie', 'ova', 'special', 'ona', 'music']
@@ -69,7 +70,7 @@ const orderBy = ['members', 'favorites', 'score', 'rank', 'popularity', 'title']
 //   }
 // }
 
-const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defaultMinScore, defaultMaxScore, defaultSubType }: IProps) => {
+const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defaultMinScore, defaultMaxScore, defaultSubType, defaultLetter }: IProps) => {
   // const { data: mangaGenres } = useFetch('https://api.jikan.moe/v4/genres/manga')
   // const { data: animeGenres } = useFetch('https://api.jikan.moe/v4/genres/anime')
   const refForm = useRef<HTMLFormElement | null>(null)
@@ -129,7 +130,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Genres</span>
         </CardText>
-        <select name="genre" id="genres" defaultValue={defaultGenre} className='bg-secondary outline-none p-2 text-center rounded'>
+        <select name="genres" id="genres" defaultValue={defaultGenre} className='bg-secondary outline-none p-2 text-center rounded'>
           <option value="">All</option>
           {
             genresToRender[selectedType]?.map(genre => (<option key={genre?.mal_id} value={genre?.mal_id}>{genre?.name}</option>))
@@ -141,6 +142,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
           <span>Sub type</span>
         </CardText>
         <select name="subType" id="subType" defaultValue={defaultSubType} className='bg-secondary outline-none p-2 text-center rounded'>
+        <option value="">All</option>
           {
             subTypesToRender?.map(subType => <option key={subType} value={subType}>{subType}</option>)
           }
@@ -184,7 +186,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Letter</span>
         </CardText>
-        <input name='letter' type="text" className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
+        <input defaultValue={defaultLetter || ''} name='letter' type="text" className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
       </label>
       <div className='flex w-full justify-center'>
         <Button props={{ type: 'submit' }}>Apply filters</Button>
