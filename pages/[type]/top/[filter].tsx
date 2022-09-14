@@ -1,10 +1,7 @@
-// import { Button } from 'components/Button'
 import RenderCards from 'components/RenderCards'
 import { IAnimeManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
-// import { useRouter } from 'next/router'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
-// import { useEffect, useState } from 'react'
 import { useState, useEffect } from 'react'
 
 interface IProps {
@@ -17,20 +14,10 @@ interface IProps {
     }
   }
 const TopPage = ({ data, pagination }: IProps) => {
-  // const router = useRouter()
-  // const [data, setData] = useState()
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  // useEffect(() => {
-  //   GET_ANIME_MANGA_TOP({ page: 1, type: router.query.type || 'anime' }).then(res => setData(res.data))
-  //   const status = new URLSearchParams(window.location.search).get(
-  //     'page'
-  //   )
-  //   console.log({ status })
-  // }, [router.query.type])
 
   return mounted && (
     <Layout>
@@ -47,26 +34,12 @@ interface IPropsServerSide {
     resolvedUrl: string
   }
 
-// export async function getStaticPaths () {
-//   return {
-//     paths: [{ params: { type: 'anime' } }, { params: { type: 'manga' } }],
-//     fallback: false // can also be true or 'blocking'
-//   }
-// }
-
 export const getServerSideProps = async (context: IPropsServerSide) => {
-  // console.log(context.params.type)
-  // console.log(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page'), context.query.type.replace(' ', ''))
   const page = Number(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
   const type = context.query.type
   const filter = context?.query?.filter
   try {
     const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { page, filter } })
-    // const animesSeasonNow: IResponse = await GET_ANIME_SEASON_NOW({ page: 1 })
-    // const animesSeasonUpcoming: IResponse = await GET_ANIME_SEASON_UPCOMING({ page: 1 })
-    // const topAnime = await GET_ANIME_TOP({ page: 1, type: params.type })
-    // console.log(animesSeasonNow)
-    // console.log(top.data)
     if (!topAnime?.data) {
       return {
         notFound: true

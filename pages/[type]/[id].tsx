@@ -1,25 +1,18 @@
 import { Button, ButtonLink, LinkExternal } from 'components/Button'
 // import Card from 'components/Card'
 import { IAnimeManga } from 'interfaces/Global'
-// import { IAnimeManga } from 'interfaces/Global'
-// import Layout from 'Layouts/Layout'
 import { GET_DETAILS } from 'services/GET_DETAILS'
-// import { useFetch } from 'utils/useFetch'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { CardLink } from 'components/Cards'
 import { SubtitleCard, TitleAndDescription } from 'components/Text'
 import ImageComponent from 'components/Image'
-// import { GET_CHARACTERS } from 'services/GET_CHARACTERS'
 import ValidateAndRender from 'components/ValidateAndRender'
 import SectionInfo from 'components/SectionInfo'
 import { useFetch } from 'utils/useFetch'
 import { URL_CHARACTERS } from 'services/endpoints'
 import LayoutDetails from 'Layouts/LayoutDetails'
 import type { GetServerSideProps } from 'next'
-// import LoadingComponent from 'components/LoadingComponent'
-// import { type } from 'os'
-// import { setFormat } from 'utils/useDateFormat'
 
 interface ICharacter {
   character: {
@@ -50,12 +43,6 @@ interface IProps {
   characters: ICharacter[]
   type: string
 }
-
-// interface IResponseDetails {
-//   data: { data: IAnimeManga }
-//   isLoading: boolean
-//   isError: any
-// }
 
 const Details = ({ details, type }: IProps) => {
   const router = useRouter()
@@ -209,7 +196,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
   try {
     const { type, id } = query
     const details = await GET_DETAILS({ id: Number(id) ?? 9, type: validateTypeAnimeManga(type) })
-    // console.log({type}, query)
     if (!details?.data) {
       return {
         notFound: true

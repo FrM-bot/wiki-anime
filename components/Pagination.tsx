@@ -54,7 +54,7 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
       })
     }
   }
-  // console.log(router, globalThis?.window?.location, globalThis?.window?.location?.pathname.concat(globalThis?.window?.location?.search))
+
   return (
     <Card className='my-4'>
       <div className='flex gap-4 justify-center items-center'>

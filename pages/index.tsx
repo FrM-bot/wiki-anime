@@ -19,20 +19,6 @@ interface IProps {
 }
 
 const Index = ({ mangaGenres, animeGenres }: IProps) => {
-  // const handlerShowNotification = () => {
-  //   Notification.requestPermission().then(perm => {
-  //     if (perm === 'granted') {
-  //       const notification = new Notification('Example', {
-  //         body: 'Test',
-  //         data: { hello: 'wordl' }
-  //       })
-  //       notification.addEventListener('error', e => {
-  //         alert('eroor')
-  //       })
-  //     }
-  //   })
-  // }
-  // console.log(mangaGenres, animeGenres)
   return (
     <Layout>
       <>
@@ -61,12 +47,10 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const { animeGenresFileJSON, mangaGenresFileJSON, error } = await getGenresFile('./data')
-    console.log('files')
     if (error) {
       const { animeGenres, mangaGenres } = await getGenres()
       await writeFile(animeGenres, './data/animeGenres.json')
       await writeFile(mangaGenres, './data/mangaGenres.json')
-      console.log('no files')
 
       return {
         props: {

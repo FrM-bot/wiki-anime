@@ -1,6 +1,7 @@
 import RenderCards from 'components/RenderCards'
 import { IAnimeManga, IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
+import { GetServerSidePropsContext } from 'next'
 import { SERACH } from 'services/SEARCH'
 
 interface IProps {
@@ -18,8 +19,8 @@ const Genere = ({ data, pagination }: IProps) => {
 
 export const getServerSideProps = async (context: any) => {
   const page = Number(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
-  const type = context.query.type
-  const genres = context?.query.genreID
+  const type = context?.query?.type
+  const genres = context?.query?.genreID
   try {
     const genreAnime = await SERACH({ type, querys: { page, genres, type } })
     if (!genreAnime?.data) {
@@ -33,14 +34,9 @@ export const getServerSideProps = async (context: any) => {
         pagination: genreAnime?.pagination
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
-    return {
-      props: {
-        data: []
-      },
-      revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
-    }
+    return { props: { errors: error?.message } }
   }
 }
 

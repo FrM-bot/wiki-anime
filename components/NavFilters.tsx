@@ -2,9 +2,6 @@ import { Button } from 'components/Button'
 import { CardText } from 'components/Cards'
 import { useRouter } from 'next/router'
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
-// import { useFetch } from 'utils/useFetch'
-// import animeGenres from 'data/animeGenres.json'
-// import mangaGenres from 'data/mangaGenres.json'
 
 const fromObjectToString = (object: any, baseString = '') => {
   Object.entries(object)?.forEach(([key, value], index) => {
@@ -40,39 +37,7 @@ const subTypesAnime = ['tv', 'movie', 'ova', 'special', 'ona', 'music']
 const subTypesManga = ['manga', 'novel', 'lightnovel', 'oneshot', 'doujin', 'manhwa', 'manhua']
 const orderBy = ['members', 'favorites', 'score', 'rank', 'popularity', 'title']
 
-// const getGenreAnime = async (): Promise<{ animeGenres: IGenre[] }> => {
-//   try {
-//     const responseAnimeGenres = await fetch('https://api.jikan.moe/v4/genres/anime')
-//     const animeGenres = await responseAnimeGenres.json()
-//     return {
-//       animeGenres: animeGenres?.data
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return {
-//       animeGenres: []
-//     }
-//   }
-// }
-
-// const getGenreManga = async (): Promise<{ mangaGenres: IGenre[] }> => {
-//   try {
-//     const responseMangaGenres = await fetch('https://api.jikan.moe/v4/genres/manga')
-//     const mangaGenres = await responseMangaGenres.json()
-//     return {
-//       mangaGenres: mangaGenres?.data
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return {
-//       mangaGenres: []
-//     }
-//   }
-// }
-
 const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defaultMinScore, defaultMaxScore, defaultSubType, defaultLetter }: IProps) => {
-  // const { data: mangaGenres } = useFetch('https://api.jikan.moe/v4/genres/manga')
-  // const { data: animeGenres } = useFetch('https://api.jikan.moe/v4/genres/anime')
   const refForm = useRef<HTMLFormElement | null>(null)
   const [selectedType, setSelectedType] = useState<'anime' | 'manga'>(defaultType ?? 'anime')
   const [genresToRender] = useState({ anime: animeGenres, manga: mangaGenres })
@@ -87,8 +52,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     if (defaultType === 'anime') {
       setSubTypesToRender(subTypesAnime)
     }
-    // !genresToRender.anime?.length && getGenreAnime().then(({ animeGenres }) => setGenresToRender({ ...genresToRender, anime: animeGenres }))
-    // !genresToRender.manga?.length && getGenreManga().then(({ mangaGenres }) => setGenresToRender({ ...genresToRender, manga: mangaGenres }))
   }, [])
 
   const router = useRouter()
@@ -114,7 +77,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
       search: fromObjectToString(rest)
     })
   }
-  console.log({ defaultType, defaultGenre, defaultMinScore, defaultSubType })
+
   return (
     <form ref={refForm} onSubmit={handlerApplyFilters} className='flex items-center flex-wrap gap-4 my-4'>
       <label className='flex flex-col gap-2' htmlFor='max_score'>

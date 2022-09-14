@@ -1,9 +1,6 @@
 import { IAnime } from 'interfaces/Anime'
 import { URL_SEASON_NOW, URL_SEASON_UPCOMING } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
-// import React from 'react'
-// import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
-// import { GET_ANIME_UPCOMING } from 'services/GET_ANIME_UPCOMING'
 import { ButtonLink } from './Button'
 import Card from './Card'
 import Carrousel from './Carrousel'
@@ -11,7 +8,6 @@ import ValidateAndRender from './ValidateAndRender'
 
 interface IResponse {
   data: { data: IAnime[] }
-  // animesUpcoming: IAnime[]
 }
 
 const MainAnimePage = () => {

@@ -34,7 +34,6 @@ interface IContext {
   }
 
 export const getServerSideProps = async (context: IContext) => {
-  console.log(context.query.page, 'page')
   try {
     const page = Number(context?.query?.page)
     const animesSeasonNow = await GET_ANIME_SEASON_NOW({ page })

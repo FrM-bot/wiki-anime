@@ -1,18 +1,11 @@
-// import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-// import LayoutSearch from 'Layouts/LayoutSearch'
-// import { SERACH } from 'services/SEARCH'
-// import { IAnime } from 'interfaces/Anime'
 import RenderCards from 'components/RenderCards'
-// import { IAnimeManga } from 'interfaces/Global'
-// import { IPagination } from 'interfaces/Anime'
 import { useFetch } from 'utils/useFetch'
 import { URL_SEARCH_ANIME, URL_SEARCH_MANGA, URL_SEARCH_CHARACTERS } from 'services/endpoints'
 import { types, TypesSearch } from 'utils/types'
 import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import InputSearch from './inputSearch'
-// import RenderCardsCharacter from './RenderCardsCharacter'
 
 export const isStringParam = (str: string | string[] | undefined): string => {
   if (typeof str !== 'string') {

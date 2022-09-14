@@ -4,9 +4,7 @@ import SectionInfo from 'components/SectionInfo'
 import { SubtitleCard } from 'components/Text'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { IProducer } from 'interfaces/Producers'
-// import Layout from 'Layouts/Layout'
 import LayoutDetails from 'Layouts/LayoutDetails'
-// import React, { useEffect, useState } from 'react'
 import { setFormat } from 'utils/useDateFormat'
 
 interface IResponse {
@@ -14,10 +12,6 @@ interface IResponse {
 }
 
 const ProducerPage = ({ producer }: IResponse) => {
-  // const router = useRouter()
-  // const { data: producer, isLoading, isError }: IResponse = useFetch(`https://api.jikan.moe/v4/producers/${router?.query?.producerID}/full`)
-
-  // console.log(router, globalThis.window?.location)
   return (
     <LayoutDetails>
         <>

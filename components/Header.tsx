@@ -1,18 +1,9 @@
 import { Button } from './Button'
 import { useRouter } from 'next/router'
-// import { useEffect } from 'react'
 import InputSearch from './inputSearch'
-// import { types } from 'utils/types'
 
 const Header = () => {
   const router = useRouter()
-  // const { InputSearchComponent, inputValue, selectedValue } = InputSearch()
-
-  // useEffect(() => {
-  //   types.includes(selectedValue) && inputValue && router.push({
-  //     pathname: `/${selectedValue}/s/${inputValue}`
-  //   })
-  // }, [inputValue, selectedValue])
 
   return (
     <header className='sticky top-2 z-20 rounded-lg'>

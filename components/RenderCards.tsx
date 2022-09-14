@@ -1,6 +1,3 @@
-// import { IAnime } from 'interfaces/Anime'
-// import Card from './Card'
-// import { ButtonLink } from './Button'
 import { useState, useEffect } from 'react'
 import { CardMedium } from './Cards'
 import { IPagination } from 'interfaces/Global'
@@ -14,7 +11,7 @@ import { TypesSearch } from 'utils/types'
 import { ICharacter } from 'interfaces/Character'
 import ValidateAndRender from './ValidateAndRender'
 import Card from './Card'
-// import { ICharacter } from 'interfaces/Character'
+
 interface IProps {
   data: any[]
   sizeCard?: 'small' | 'medium'
@@ -23,15 +20,6 @@ interface IProps {
   type?: TypesSearch
 }
 // Arreglar el error con los tipos de episodes y volumen
-// const ContainerRender = ({ children }: { children: ReactElement }) => {
-//   return (
-//     <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
-//       {
-//         children
-//       }
-//     </div>
-//   )
-// }
 
 const initialStatePagination = { current_page: 1, has_next_page: false, last_visible_page: 1, items: { count: 0, per_page: 0, total: 0 } }
 
