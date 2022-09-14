@@ -2,7 +2,7 @@
 // import Card from './Card'
 // import { ButtonLink } from './Button'
 import { useState, useEffect } from 'react'
-import { CardMedium } from 'components/Cards'
+import { CardMedium } from './Cards'
 import { IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
 import { ButtonLink } from './Button'
@@ -92,7 +92,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
             <>
               {
                 newData?.map((animeManga) => (
-                  <CardMedium episodes={animeManga.episodes} genres={animeManga.genres} image_url={animeManga.images.webp.image_url} mal_id={animeManga.mal_id} score={animeManga.score} title={animeManga.title} type={animeManga.type} volumes={animeManga?.volumes} key={animeManga.mal_id} />
+                  <CardMedium episodes={animeManga?.episodes} genres={animeManga?.genres} image_url={animeManga?.images?.webp?.image_url} mal_id={animeManga?.mal_id} score={animeManga?.score} title={animeManga?.title} type={animeManga?.type} volumes={animeManga?.volumes} key={animeManga?.mal_id} />
                 ))
               }
             </>

@@ -23,7 +23,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
   return (
         <Card key={mal_id} className='inline-block m-2 hover:shadow duration-300'>
             <div className='flex flex-col'>
-                <ButtonLink href={`/${router.query.type}/${mal_id}`}>
+                <ButtonLink href={`/${router?.query?.type}/${mal_id}`}>
                     <div className='rounded-lg grid place-content-center overflow-hidden relative'>
                         {score &&
                             <div className='absolute top-2 right-2 bg-tertiary/50 rounded-lg p-1'>
@@ -34,7 +34,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                     </div>
                 </ButtonLink>
                 <div className='max-w-[225px] flex flex-col gap-2 py-2'>
-                    <ButtonLink href={`/${router.query.type}/${mal_id}`}>
+                    <ButtonLink href={`/${router?.query?.type}/${mal_id}`}>
                         <>
                             {title}
                         </>
@@ -44,7 +44,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                     </div>
                     <div className='flex flex-wrap gap-2 my-2 h-fit'>
                         {
-                            genres?.map(genere => (<span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 text-sm' key={genere.mal_id}>{genere.name}</span>))
+                            genres?.map(genere => (<span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 text-sm' key={genere?.mal_id}>{genere?.name}</span>))
                         }
                     </div>
                 </div>

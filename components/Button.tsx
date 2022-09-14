@@ -8,7 +8,7 @@ interface Props {
 
 export const Button: FC<Props> = ({ children, props }) => (
     <button
-        className='rounded-md bg-primary shadow-xl shadow-black/40 py-1 px-2 border-[#373737] border-[2px]'
+        className='rounded-md bg-primary shadow-xl shadow-black/40 py-1 px-2 border-tertiary border-[2px] hover:shadow duration-300'
         {...props}
     >
         {children}

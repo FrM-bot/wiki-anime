@@ -1,12 +1,10 @@
 import { ICharacter } from 'interfaces/Character'
-import React from 'react'
 import { URL_CHARACTERS_TOP } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
 import { ButtonLink } from './Button'
 import Card from './Card'
 import Carrousel from './Carrousel'
 // import { GET_CHARACTERS_TOP } from 'services/GET_CHARACTERS_TOP'
-
 interface IResponse {
   data: { data: ICharacter[] }
   // animesUpcoming: IAnime[]
