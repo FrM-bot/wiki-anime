@@ -1,7 +1,6 @@
 import RenderCards from 'components/RenderCards'
 import { IAnimeManga, IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
-import { GetServerSidePropsContext } from 'next'
 import { SERACH } from 'services/SEARCH'
 
 interface IProps {
