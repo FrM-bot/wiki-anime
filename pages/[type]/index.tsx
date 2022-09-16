@@ -9,13 +9,14 @@ import { ButtonLink } from 'components/Button'
 import MainAnimePage from 'components/MainAnime.page'
 import MainMangaPage from 'components/MainManga.page'
 import { validateTypeAnimeManga } from './[id]'
+import { IManga } from 'interfaces/Manga'
 
 interface Props {
-  topAnime: IAnime[]
+  topAnimeManga: IAnime[] | IManga[]
   type: 'anime' | 'manga'
 }
 
-const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
+const Home: FC<NextPage & Props> = ({ topAnimeManga, type }: Props) => {
   return (
       <Layout title={type}>
         <>
@@ -29,7 +30,7 @@ const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
                         <ButtonLink href={`/${type}/top`}><>See all {type}</></ButtonLink>
                     </>
                 </Card>
-                <Carrousel data={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+                <Carrousel data={topAnimeManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
                 {type === 'anime' && <MainAnimePage />}
                 {type === 'manga' && <MainMangaPage />}
 
@@ -43,8 +44,8 @@ const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   try {
     const type = validateTypeAnimeManga(query?.type)
-    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
-    if (!topAnime?.data) {
+    const topAnimeManga = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
+    if (!topAnimeManga?.data) {
       return {
         notFound: true
       }
@@ -55,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }) => 
     )
     return {
       props: {
-        topAnime: topAnime?.data,
+        topAnimeManga: topAnimeManga?.data,
         type
       }
     }

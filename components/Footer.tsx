@@ -1,20 +1,20 @@
 import React from 'react'
-import Image from 'next/image'
+import { ButtonLink } from './Button'
 
 const Footer = () => {
   return (
-    <footer className="border-t-[2px] border-solid border-tertiary p-4 grid place-content-center rounded-md">
-    <a
-      href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Powered by{' '}
-      <span>
-        <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-      </span>
-    </a>
-  </footer>
+    <footer>
+      <div className='py-4 bg-secondary/70 rounded-md px-4 mb relative bottom-2'>
+
+        <div className='flex mb-1'>
+          <p className='whitespace-nowrap flex items-center gap-2'>Built and Design by <ButtonLink href='https://frm-bot.xyz' props={{ target: '_blank' }}>Maciel Franco</ButtonLink></p>
+        </div>
+        <div className="flex justify-end">
+          <ButtonLink href='mailto:damianmaciel0@gmail.com?subject = Feedback&body = Message' props={{ target: '_blank' }}>damianmaciel0@gmail.com</ButtonLink>
+        </div>
+      </div>
+
+    </footer>
   )
 }
 

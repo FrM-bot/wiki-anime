@@ -18,7 +18,7 @@ const Layout = ({ children, title }: IProps) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
-        <main className='min-h-[100vh] py-6'>
+        <main className='min-h-[100vh] py-8'>
           { children }
         </main>
         <Footer />

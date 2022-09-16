@@ -136,19 +136,19 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Max score</span>
         </CardText>
-        <input name='max_score' type="number" defaultValue={defaultMaxScore} step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
+        <input name='max_score' placeholder='10' type="number" defaultValue={defaultMaxScore} step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
           <span>Min score</span>
         </CardText>
-        <input name='min_score' defaultValue={defaultMinScore} type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
+        <input name='min_score' placeholder='7.5' defaultValue={defaultMinScore} type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
-          <span>Letter</span>
+          <span className='w-fit'>Letter</span>
         </CardText>
-        <input defaultValue={defaultLetter || ''} name='letter' type="text" className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
+        <input defaultValue={defaultLetter || ''} name='letter' placeholder='Berserk, Shingeki...' type="text" className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
       </label>
       <div className='flex w-full justify-center'>
         <Button props={{ type: 'submit' }}>Apply filters</Button>
