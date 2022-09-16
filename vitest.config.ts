@@ -8,8 +8,6 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    globals: true,
-    root: '.'
-  },
-  root: '.'
+    include: ['__tests__']
+  }
 })

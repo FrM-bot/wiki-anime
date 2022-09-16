@@ -1,16 +1,7 @@
 import RenderCards from '../components/RenderCards'
 import { expect, it, describe } from 'vitest'
 import { render, screen } from '@testing-library/react'
-
-// const UsFch = () => {
-//   const { data, isLoading, isError } = useFetch(URL_SEARCH_ANIME({ querys: { q: '' } }))
-//   console.log({ isError }, { isLoading })
-//   return (
-//         <LoadingComponent isError={isError} isLoading={isLoading}>
-//             {data}
-//         </LoadingComponent>
-//   )
-// }
+import '@vitejs/plugin-react'
 
 const pagination = {
   last_visible_page: 1660,

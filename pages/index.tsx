@@ -1,11 +1,15 @@
+import { GetStaticProps } from 'next'
+import Link from 'next/link'
 import NavFilters from 'components/NavFilters'
-// import { GenresContext } from 'context/Genres.context'
 import Layout from 'Layouts/Layout'
 import { getGenres, getGenresFile, writeFile } from 'lib/files'
-import { GetStaticProps } from 'next'
-// import { GetStaticProps } from 'next'
-import Link from 'next/link'
 import RandomData from 'components/RamdomData'
+import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
+import { IAnime } from 'interfaces/Anime'
+import { IManga } from 'interfaces/Manga'
+import Carrousel from 'components/Carrousel'
+import Card from '@components/Card'
+import { ButtonLink } from '@components/Button'
 interface IGenre {
   mal_id: number,
   name: string,
@@ -16,13 +20,15 @@ interface IGenre {
 interface IProps {
   mangaGenres: IGenre[]
   animeGenres: IGenre[]
+  topAnime: IAnime[]
+  topManga: IManga[]
 }
 
-const Index = ({ mangaGenres, animeGenres }: IProps) => {
+const Index = ({ mangaGenres, animeGenres, topAnime, topManga }: IProps) => {
   return (
-    <Layout>
+    <Layout title='Wiki Anime'>
       <>
-        <div className='flex justify-center'>
+        <div className='flex justify-center my-4'>
           <div className='flex w-fit text-xl'>
             <Link href='/anime'>
               <a className='rounded-tl-2xl rounded-bl-2xl bg-primary hover:shadow-xl hover:shadow-black/40 py-2 px-4 border-[#202020] border-[2px] duration-300'>Anime</a>
@@ -33,6 +39,21 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
 
           </div>
         </div>
+        <Card className='flex justify-between items-center'>
+          <>
+            <h2>Top anime</h2>
+            <ButtonLink href={'/anime/top'}><>See top anime</></ButtonLink>
+          </>
+        </Card>
+        <Carrousel type='anime' data={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+        <Card className='flex justify-between items-center'>
+          <>
+            <h2>Top manga</h2>
+            <ButtonLink href={'/$manga/top'}><>See top manga</></ButtonLink>
+          </>
+        </Card>
+        <Carrousel type='manga' data={topManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+
         <div className='w-full flex justify-center'>
           <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} />
         </div>
@@ -47,6 +68,9 @@ const Index = ({ mangaGenres, animeGenres }: IProps) => {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const { animeGenresFileJSON, mangaGenresFileJSON, error } = await getGenresFile('./data')
+    const topAnime = await GET_ANIME_MANGA_TOP({ type: 'anime', querys: { limit: 10 } })
+    const topManga = await GET_ANIME_MANGA_TOP({ type: 'manga', querys: { limit: 10 } })
+
     if (error) {
       const { animeGenres, mangaGenres } = await getGenres()
       await writeFile(animeGenres, './data/animeGenres.json')
@@ -55,7 +79,9 @@ export const getStaticProps: GetStaticProps = async () => {
       return {
         props: {
           mangaGenres,
-          animeGenres
+          animeGenres,
+          topAnime: topAnime?.data,
+          topManga: topManga?.data
         }
       }
     }
@@ -63,7 +89,9 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       props: {
         mangaGenres: animeGenresFileJSON,
-        animeGenres: mangaGenresFileJSON
+        animeGenres: mangaGenresFileJSON,
+        topAnime: topAnime?.data,
+        topManga: topManga?.data
       }
     }
   } catch (error: any) {

@@ -1,7 +1,7 @@
-import { Button } from 'components/Button'
-import { CardText } from 'components/Cards'
-import { useRouter } from 'next/router'
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Button } from './Button'
+import { CardText } from './Cards'
 
 const fromObjectToString = (object: any, baseString = '') => {
   Object.entries(object)?.forEach(([key, value], index) => {
@@ -66,7 +66,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
   }
   const handlerApplyFilters = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(e)
     const form = refForm.current
     if (!form) return
     const data = Object.fromEntries(new FormData(form))

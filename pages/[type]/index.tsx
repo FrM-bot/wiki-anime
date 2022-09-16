@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import Card from '../../components/Card'
+import Card from 'components/Card'
 import { IAnime } from 'interfaces/Anime'
 import type { FC } from 'react'
 import Carrousel from 'components/Carrousel'
@@ -17,7 +17,7 @@ interface Props {
 
 const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
   return (
-      <Layout>
+      <Layout title={type}>
         <>
             <Card className='w-fit mb-4'>
                 <h1>{type?.toUpperCase()}</h1>
@@ -40,15 +40,19 @@ const Home: FC<NextPage & Props> = ({ topAnime, type }: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   try {
-    const type = validateTypeAnimeManga(context?.params?.type)
+    const type = validateTypeAnimeManga(query?.type)
     const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { limit: 10 } })
     if (!topAnime?.data) {
       return {
         notFound: true
       }
     }
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=10, stale-while-revalidate=59'
+    )
     return {
       props: {
         topAnime: topAnime?.data,

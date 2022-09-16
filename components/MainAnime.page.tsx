@@ -21,7 +21,7 @@ const MainAnimePage = () => {
           <Card className='flex justify-between items-center'>
             <>
               <h2>Top this season</h2>
-              <ButtonLink href={'/anime/season/now'}>See all</ButtonLink>
+              <ButtonLink href={'/anime/season/now'}>See season</ButtonLink>
             </>
           </Card>
           <Carrousel data={animesSeasonNow?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
@@ -33,7 +33,7 @@ const MainAnimePage = () => {
           <Card className='flex justify-between items-center'>
             <>
               <h2>Top animes upcoming</h2>
-              <ButtonLink href='/anime/season/upcoming'>See all</ButtonLink>
+              <ButtonLink href='/anime/season/upcoming'>See upcoming</ButtonLink>
             </>
           </Card>
           <Carrousel data={animesUpcoming?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />

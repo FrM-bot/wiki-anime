@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { ICarrousel } from 'interfaces/Anime'
-import ArrowIcon from 'icons/ArrowIcon'
+import ArrowIcon from '../icons/ArrowIcon'
 import { ButtonTransparent } from './Button'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

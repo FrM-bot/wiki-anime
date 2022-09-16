@@ -13,7 +13,7 @@ interface IProps {
 
 const LayoutDetails = ({ children, h1, h2 }: IProps) => {
   return (
-        <Layout>
+        <Layout title={h1 ?? ''}>
             <>
                 <ValidateAndRender dataToValidate={[h1]}>
                     <div className='flex flex-wrap gap-2 mb-4'>
