@@ -25,7 +25,7 @@ const TopCharacter = () => {
   const { data, isLoading, isError }: IResponse = useFetch(URL_CHARACTERS_TOP({ querys: { page: Number(router.query.page) || 1 } }))
 
   return (
-    <Layout>
+    <Layout title='Top characters'>
       <>
         <Card>
           <h1>Top characters</h1>

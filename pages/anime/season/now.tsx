@@ -15,7 +15,7 @@ interface IProps {
 const SeasonNow = ({ data, pagination }: IProps) => {
   console.log()
   return (
-        <Layout>
+        <Layout title='Seasonal anime'>
             <div className='flex flex-col gap-4'>
               <SeasonSearch />
                 <Card>

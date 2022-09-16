@@ -88,7 +88,7 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
   const { data, isLoading, isError } = useFetch(searchTypesURL[validateTypeAnimeManga(type)]({ querys: { type: type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType), ...rest } }))
 
   return (
-    <Layout>
+    <Layout title={`Search ${type}`}>
       <>
         <Card>
           <h1>Filter</h1>

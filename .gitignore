@@ -37,6 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 pnpm-lock.yaml
+package-lock.json
 /test-results/
 /playwright-report/
 /playwright/.cache/

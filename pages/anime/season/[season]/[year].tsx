@@ -16,7 +16,7 @@ interface IProps {
 
 const Season = ({ seasonAnimes, pagination, season, year }: IProps) => {
   return (
-    <Layout>
+    <Layout title={`Season ${season} of ${year}`}>
       <>
         <div className='flex flex-col gap-4 mb-4'>
           <SeasonSearch season={season} year={year} />

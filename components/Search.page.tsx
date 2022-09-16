@@ -36,7 +36,7 @@ const SearchPage = () => {
   const { data, isLoading } = useFetch(searchTypesURL[type]({ querys: { q, page } }))
 
   return (
-    <Layout>
+    <Layout title={q}>
       <>
         <InputSearch valueSearched={q} />
         <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination} isLoading={isLoading} />

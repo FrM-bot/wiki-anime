@@ -6,11 +6,12 @@ import { SERACH } from 'services/SEARCH'
 interface IProps {
   data: IAnimeManga[]
   pagination: IPagination
+  type: 'anime' | 'manga'
 }
 
-const Genere = ({ data, pagination }: IProps) => {
+const Genere = ({ data, pagination, type }: IProps) => {
   return (
-    <Layout>
+    <Layout title={`Genre ${type}`}>
       <RenderCards data={data || []} pagination={pagination} />
     </Layout>
   )
@@ -30,7 +31,8 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         data: genreAnime?.data || [],
-        pagination: genreAnime?.pagination
+        pagination: genreAnime?.pagination,
+        type
       }
     }
   } catch (error: any) {

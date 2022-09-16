@@ -17,7 +17,7 @@ interface IProps {
 }
 const TopPage = ({ data, pagination, type }: IProps) => {
   return (
-    <Layout>
+    <Layout title={`Top ${type}`}>
       <div className='flex flex-col gap-4'>
         <Card>
           <h1>Top {type}</h1>

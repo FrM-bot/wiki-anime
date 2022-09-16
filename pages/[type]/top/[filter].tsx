@@ -11,16 +11,17 @@ interface IProps {
       has_next_page: boolean,
       current_page: number,
       items: { count: number, total: number, per_page: number }
-    }
+    },
+    type: 'anime' | 'manga'
   }
-const TopPage = ({ data, pagination }: IProps) => {
+const TopPage = ({ data, pagination, type }: IProps) => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)
   }, [])
 
   return mounted && (
-    <Layout>
+    <Layout title={`Top ${type}`}>
 
       <RenderCards data={data} sizeCard='small' pagination={pagination} />
 
@@ -48,7 +49,8 @@ export const getServerSideProps = async (context: IPropsServerSide) => {
     return {
       props: {
         data: topAnime?.data || [],
-        pagination: topAnime?.pagination
+        pagination: topAnime?.pagination,
+        type
       }
       // revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
     }

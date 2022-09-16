@@ -10,7 +10,7 @@ interface IProps {
 }
 const SeasonUpcoming = ({ data, pagination }: IProps) => {
   return (
-    <Layout>
+    <Layout title='Season upcoming'>
       <div className='flex flex-col gap-4'>
         <Card>
           <h1>Seasonal Anime</h1>
