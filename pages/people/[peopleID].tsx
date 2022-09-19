@@ -56,7 +56,7 @@ const People = ({ people }: IProps) => {
           </SectionInfo>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-2'>
           <SectionInfo title='About'>
             <p>{people?.about}</p>
           </SectionInfo>
@@ -70,7 +70,7 @@ const People = ({ people }: IProps) => {
                 </div>
               </SubtitleCard>
 
-              <div className='grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2 my-4'>
+              <div className='grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2'>
                 {
                   people?.voices?.slice(0, isShowAllCharacters ? people?.voices?.length : 10)?.map(({ anime, role }) => (
                     <CardLink key={anime?.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime?.title} subtitle={role} />

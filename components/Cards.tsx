@@ -77,7 +77,7 @@ export const CardLink = ({ href, imageSrc, title, subtitle }: ICardLink) => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <CardText maxLines={3}>
-                            <h4>
+                            <h4 className='[line-break:anywhere]'>
                                 {title}
                             </h4>
                         </CardText>
