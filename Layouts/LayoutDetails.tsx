@@ -1,7 +1,5 @@
-import { Button } from 'components/Button'
 import Card from 'components/Card'
 import ValidateAndRender from 'components/ValidateAndRender'
-import ArrowIcon from 'icons/ArrowIcon'
 import React, { ReactElement } from 'react'
 import Layout from './Layout'
 
@@ -29,9 +27,6 @@ const LayoutDetails = ({ children, h1, h2 }: IProps) => {
                 </ValidateAndRender>
                 <div className='grid sm:grid-cols-[minmax(80px,300px)_1fr] gap-2'>
                     {children}
-                </div>
-                <div className='sticky flex justify-end bottom-3'>
-                    <Button><ArrowIcon props={{ style: { transform: 'rotate(-90deg)' }, onClick: () => window.scroll(0, 0) }} /></Button>
                 </div>
             </>
         </Layout>

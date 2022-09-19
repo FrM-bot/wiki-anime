@@ -53,6 +53,7 @@ const Details = ({ details, type }: IProps) => {
   const handlerShowAllCharacters = () => {
     setIsShowAllCharacters(prevValue => !prevValue)
   }
+  console.log({ details })
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
       <>
@@ -123,6 +124,7 @@ const Details = ({ details, type }: IProps) => {
               <TitleAndDescription title='TMO'>
                 <LinkExternal href={`https://lectortmo.com/library?_pg=1&title=${details?.title}`}>{details?.title}</LinkExternal>
               </TitleAndDescription>
+              <LinkExternal href={details?.url}>MyAnimeList</LinkExternal>
             </>
           </SectionInfo>
         </div>
