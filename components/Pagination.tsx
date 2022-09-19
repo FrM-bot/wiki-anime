@@ -57,25 +57,27 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
   }
 
   return (
-    <Card className='my-4'>
-      <div className='flex gap-4 justify-center items-center'>
+    <div className='w-full grid place-content-center'>
+      <Card className='my-4 w-fit'>
+        <div className='flex gap-4 justify-center items-center'>
 
-        <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage() }}>
-          <ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} />
-        </Button>
+          <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage() }}>
+            <ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} />
+          </Button>
 
-        <div className='flex gap-2'>
-          <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none w-16' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
-          <Button props={{ onClick: () => handlerGo() }}>Go</Button>
+          <div className='flex gap-2'>
+            <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none w-16' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
+            <Button props={{ onClick: () => handlerGo() }}>Go</Button>
+          </div>
+          <span>of</span>
+          <span>{lastPage}</span>
+
+          <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
+            <ArrowIcon />
+          </Button>
         </div>
-        <span>of</span>
-        <span>{lastPage}</span>
-
-        <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
-          <ArrowIcon />
-        </Button>
-      </div>
-    </Card>
+      </Card>
+    </div>
   )
 }
 
