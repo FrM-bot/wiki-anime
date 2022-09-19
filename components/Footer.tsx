@@ -1,11 +1,12 @@
 import { Button, ButtonLink } from 'components/Button'
 import ArrowIcon from 'icons/ArrowIcon'
+import ShareIcon from 'icons/ShareIcon'
 
 const Footer = () => {
   const sharePage = () => {
     window.navigator.share({
-      url: 'https://anime-app-eight.vercel.app',
-      title: 'Wiki Anime'
+      url: window.location.href,
+      title: window.location.hostname
     })
   }
   return (
@@ -18,11 +19,11 @@ const Footer = () => {
         <div className='flex mb-1'>
           <p className='whitespace-nowrap flex items-center gap-2'>Built and Design by <ButtonLink href='https://frm-bot.xyz' props={{ target: '_blank' }}>Maciel Franco</ButtonLink></p>
         </div>
-        <div className="flex justify-end">
-          <ButtonLink href='mailto:damianmaciel0@gmail.com?subject = Feedback&body = Message' props={{ target: '_blank' }}>damianmaciel0@gmail.com</ButtonLink>
-        </div>
-        <div className='w-full flex justify-end mt-2'>
-          <Button props={{ onClick: () => sharePage() }}>Share</Button>
+        <div className="flex items-center justify-end">
+          <div className='flex gap-2'>
+            <Button props={{ onClick: () => sharePage() }}><ShareIcon /></Button>
+            <ButtonLink href='mailto:damianmaciel0@gmail.com?subject = Feedback&body = Message' props={{ target: '_blank' }}>damianmaciel0@gmail.com</ButtonLink>
+          </div>
         </div>
       </div>
 
