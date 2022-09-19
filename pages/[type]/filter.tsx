@@ -86,7 +86,6 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
   const router = useRouter()
   const { type, subType, ...rest } = router.query
   const { data, isLoading, isError } = useFetch(searchTypesURL[validateTypeAnimeManga(type)]({ querys: { type: type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType), ...rest } }))
-  console.log({ rest })
   return (
     <Layout title={`Search ${type}`}>
       <>

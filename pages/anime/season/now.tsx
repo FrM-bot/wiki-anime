@@ -13,7 +13,6 @@ interface IProps {
 }
 
 const SeasonNow = ({ data, pagination }: IProps) => {
-  console.log()
   return (
         <Layout title='Seasonal anime'>
             <div className='flex flex-col gap-4'>

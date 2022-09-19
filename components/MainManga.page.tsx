@@ -10,7 +10,6 @@ interface IResponse {
 
 const MainMangaPage = () => {
   const { data }: IResponse = useFetch(URL_CHARACTERS_TOP({ querys: { page: 1 } }))
-  console.log({ data })
   return (
     <div>
       <Card className='flex justify-between items-center'>

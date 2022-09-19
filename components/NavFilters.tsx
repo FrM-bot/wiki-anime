@@ -53,7 +53,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
 
   useEffect(() => {
     setSelectedType(defaultType ?? 'anime')
-    console.log(defaultType, 'effect', defaultSubType)
     if (defaultType === 'manga') {
       setSubTypesToRender(subTypesManga)
     }
@@ -77,7 +76,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     const form = refForm.current
     if (!form) return
     const data = Object.fromEntries(new FormData(form))
-    console.log(data)
     const { type, ...rest } = data
     router.push({
       pathname: `/${type}/filter`,
@@ -88,8 +86,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
   const handlerSubTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setDefaultSubTypeState(selectedType === 'anime' ? validateTypeAnime(e.target.value) : validateTypeManga(e.target.value))
   }
-
-  console.log({ defaultSubType, defaultGenre })
 
   return (
     <form ref={refForm} onSubmit={handlerApplyFilters} className='flex items-center flex-wrap gap-4 my-4'>

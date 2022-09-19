@@ -25,7 +25,6 @@ const RamdomData = () => {
   const getRandomManga = () => {
     GET_RANDOM({ type: 'manga' }).then(setManga)
   }
-  console.log(manga, anime)
   return (
         <div className='grid sm:grid-cols-[minmax(80px,300px)_minmax(80px,300px)] gap-4'>
             <div className='flex flex-col gap-4 justify-center items-center'>

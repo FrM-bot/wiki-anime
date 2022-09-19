@@ -53,7 +53,6 @@ const Details = ({ details, type }: IProps) => {
   const handlerShowAllCharacters = () => {
     setIsShowAllCharacters(prevValue => !prevValue)
   }
-  console.log({ details })
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
       <>

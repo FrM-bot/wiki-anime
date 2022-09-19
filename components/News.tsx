@@ -39,7 +39,6 @@ const News = () => {
   useEffect(() => {
     GET_ANIME_NEWS({ id: 48417 }).then((res) => setanimeNews(res?.data)).catch(console.error)
   }, [])
-  console.log({ animeNews })
   return (
         <div>
             <Card className='my-4'>

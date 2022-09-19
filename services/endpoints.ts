@@ -39,7 +39,6 @@ export const URL_DETAILS = ({
 }) => `https://api.jikan.moe/v4/${type}/${id}/full`
 
 export const URL_SEARCH_ANIME = ({ querys }: { querys: IQuerySearchAnime }) => {
-  console.log(querys)
   let baseURL = 'https://api.jikan.moe/v4/anime'
   Object.entries(querys)?.forEach(([key, value], index) => {
     baseURL =
@@ -51,7 +50,6 @@ export const URL_SEARCH_ANIME = ({ querys }: { querys: IQuerySearchAnime }) => {
 }
 
 export const URL_SEARCH_MANGA = ({ querys }: { querys: IQuerySearchManga }) => {
-  console.log(querys)
   let baseURL = 'https://api.jikan.moe/v4/manga'
   Object.entries(querys)?.forEach(([key, value], index) => {
     baseURL =
@@ -74,7 +72,6 @@ export const URL_SEARCH_CHARACTERS = ({
     letter?: string
   }
 }) => {
-  console.log(querys)
   let baseURL = 'https://api.jikan.moe/v4/characters'
   Object.entries(querys)?.forEach(([key, value], index) => {
     if (value) {
@@ -94,7 +91,6 @@ export const URL_CHARACTERS_TOP = ({
 }: {
   querys: { page?: number; limit?: number }
 }) => {
-  console.log(querys)
   let baseURL = 'https://api.jikan.moe/v4/top/characters'
   if (querys) {
     Object.entries(querys)?.forEach(([key, value], index) => {
