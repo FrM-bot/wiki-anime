@@ -8,8 +8,8 @@ import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { IAnime } from 'interfaces/Anime'
 import { IManga } from 'interfaces/Manga'
 import Carrousel from 'components/Carrousel'
-import Card from '@components/Card'
-import { ButtonLink } from '@components/Button'
+import Card from 'components/Card'
+import { ButtonLink } from 'components/Button'
 interface IGenre {
   mal_id: number,
   name: string,

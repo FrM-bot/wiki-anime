@@ -86,7 +86,7 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
   const router = useRouter()
   const { type, subType, ...rest } = router.query
   const { data, isLoading, isError } = useFetch(searchTypesURL[validateTypeAnimeManga(type)]({ querys: { type: type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType), ...rest } }))
-
+  console.log({ rest })
   return (
     <Layout title={`Search ${type}`}>
       <>
@@ -96,7 +96,16 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
         <LoadingComponent isLoading={isLoading} isError={isError}>
           <>
             <Suspense fallback={'loading'}>
-              <NavFilters defaultLetter={isStringParam(router?.query?.letter)} animeGenres={animeGenres} mangaGenres={mangaGenres} defaultGenre={isStringParam(router?.query?.genre)} defaultType={validateTypeAnimeManga(router?.query?.type)} defaultMinScore={Number(router?.query?.min_score) || undefined} defaultMaxScore={Number(router?.query?.max_score) || undefined} defaultSubType={isStringParam(router?.query?.subType)} />
+              <NavFilters
+                defaultOrderBy={isStringParam(rest?.order_by)}
+                defaultLetter={isStringParam(rest?.letter)}
+                animeGenres={animeGenres} mangaGenres={mangaGenres}
+                defaultGenre={isStringParam(rest?.genres)}
+                defaultType={validateTypeAnimeManga(type)}
+                defaultMinScore={Number(rest?.min_score)}
+                defaultMaxScore={Number(rest?.max_score)}
+                defaultSubType={type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType)}
+                defaultSort={isStringParam(rest?.sort)} />
             </Suspense>
             <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
           </>

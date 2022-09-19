@@ -11,6 +11,8 @@ import { TypesSearch } from 'utils/types'
 import { ICharacter } from 'interfaces/Character'
 import ValidateAndRender from './ValidateAndRender'
 import Card from './Card'
+import StartIcon from 'icons/StartIcon'
+import UsersIcon from 'icons/UsersIcon'
 
 interface IProps {
   data: any[]
@@ -40,23 +42,21 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
             newData?.map((animeManga: IAnime | IManga) => (
               <div key={animeManga.mal_id} className='grid place-content-center'>
                 <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`}>
-                  <div className='relative lg:w-48 w-40'>
+                  <div className='relative lg:w-48'>
                     {
                       animeManga?.rank &&
                       <div className='absolute top-0 w-full flex justify-end p-1'>
                         <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                       </div>
                     }
-                    <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga.title} className='aspect-[5/8]' />
+                    <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='aspect-[5/8] min-w-[190px]' />
                     <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
-                      <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm'>{animeManga.title}</h2>
-                      <p className='text-[0.7rem] flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
-                        <span>{animeManga?.type}</span>
-                        {animeManga?.episodes && <span>({animeManga?.episodes})</span>}
-                        {animeManga?.volumes && <span>({animeManga.volumes})</span>}
-                        <span>{animeManga?.score || 'N/A'}</span>
-                        <span>{animeManga?.members || 'N/A'}</span>
-                      </p>
+                      <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm font-semibold'>{animeManga.title}</h2>
+                      <div className='text-[0.68rem] font-light flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
+                        <span>{animeManga?.type}{animeManga?.episodes && (`(${animeManga?.episodes})`)}{animeManga?.volumes && (`(${animeManga?.volumes})`)}</span>
+                        <span className='flex gap-[2px] items-center'><StartIcon props={{ style: { width: 14, height: 14 } }} /> {animeManga?.score || 'N/A'}</span>
+                        <span className='flex gap-[2px] items-center'><UsersIcon props={{ style: { width: 14, height: 14 } }}/> {animeManga?.members || 'N/A'}</span>
+                      </div>
                     </div>
                   </div>
                 </ButtonLink>

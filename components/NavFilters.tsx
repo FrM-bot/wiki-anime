@@ -1,7 +1,8 @@
-import { SyntheticEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from './Button'
 import { CardText } from './Cards'
+import { validateTypeAnime, validateTypeManga } from 'pages/[type]/filter'
 
 const fromObjectToString = (object: any, baseString = '') => {
   Object.entries(object)?.forEach(([key, value], index) => {
@@ -22,6 +23,10 @@ interface IGenre {
   count: number
 }
 
+type TypeSubTyapeAnime = 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
+
+type TypeSubTyapeManga = 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
+
 interface IProps {
   mangaGenres?: IGenre[]
   animeGenres?: IGenre[]
@@ -29,30 +34,33 @@ interface IProps {
   defaultGenre?: string
   defaultMinScore?: number
   defaultMaxScore?: number
-  defaultSubType?: string
+  defaultSubType?: TypeSubTyapeAnime | TypeSubTyapeManga
   defaultLetter?: string
+  defaultOrderBy?: string
+  defaultSort?: string
 }
 
 const subTypesAnime = ['tv', 'movie', 'ova', 'special', 'ona', 'music']
 const subTypesManga = ['manga', 'novel', 'lightnovel', 'oneshot', 'doujin', 'manhwa', 'manhua']
 const orderBy = ['members', 'favorites', 'score', 'rank', 'popularity', 'title']
 
-const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defaultMinScore, defaultMaxScore, defaultSubType, defaultLetter }: IProps) => {
+const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defaultMinScore, defaultMaxScore, defaultSubType, defaultLetter, defaultOrderBy, defaultSort }: IProps) => {
   const refForm = useRef<HTMLFormElement | null>(null)
-  const [selectedType, setSelectedType] = useState<'anime' | 'manga'>(defaultType ?? 'anime')
+  const [selectedType, setSelectedType] = useState<'anime' | 'manga'>(defaultType ?? 'manga')
   const [genresToRender] = useState({ anime: animeGenres, manga: mangaGenres })
   const [subTypesToRender, setSubTypesToRender] = useState(subTypesAnime)
+  const [defaultSubTypeState, setDefaultSubTypeState] = useState(defaultSubType)
 
   useEffect(() => {
     setSelectedType(defaultType ?? 'anime')
-    console.log(defaultType, 'effect')
+    console.log(defaultType, 'effect', defaultSubType)
     if (defaultType === 'manga') {
       setSubTypesToRender(subTypesManga)
     }
     if (defaultType === 'anime') {
       setSubTypesToRender(subTypesAnime)
     }
-  }, [])
+  }, [defaultSubType, defaultType])
 
   const router = useRouter()
   const handlerTypeSearch = (e: any) => {
@@ -77,13 +85,19 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     })
   }
 
+  const handlerSubTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDefaultSubTypeState(selectedType === 'anime' ? validateTypeAnime(e.target.value) : validateTypeManga(e.target.value))
+  }
+
+  console.log({ defaultSubType, defaultGenre })
+
   return (
     <form ref={refForm} onSubmit={handlerApplyFilters} className='flex items-center flex-wrap gap-4 my-4'>
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
           <span>Type</span>
         </CardText>
-        <select name='type' id='type' defaultValue={defaultType} className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
+        <select role='type' name='type' id='type' defaultValue={defaultType} className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
           <option value="anime">anime</option>
           <option value="manga">manga</option>
         </select>
@@ -103,7 +117,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Sub type</span>
         </CardText>
-        <select name="subType" id="subType" defaultValue={defaultSubType} className='bg-secondary outline-none p-2 text-center rounded'>
+        <select onChange={handlerSubTypeChange} name="subType" id="subType" value={defaultSubTypeState} className='bg-secondary outline-none p-2 text-center rounded'>
         <option value="">All</option>
           {
             subTypesToRender?.map(subType => <option key={subType} value={subType}>{subType}</option>)
@@ -115,7 +129,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Order by</span>
         </CardText>
-        <select name="order_by" id="order_by" defaultValue='score' className='bg-secondary outline-none p-2 text-center rounded'>
+        <select name="order_by" id="order_by" defaultValue={defaultOrderBy} className='bg-secondary outline-none p-2 text-center rounded'>
           {
             orderBy?.map(subType => <option key={subType} value={subType}>{subType}</option>)
           }
@@ -126,7 +140,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Sort</span>
         </CardText>
-        <select name="sort" id="sort" defaultValue='desc' className='bg-secondary outline-none p-2 text-center rounded'>
+        <select name="sort" id="sort" defaultValue={defaultSort} className='bg-secondary outline-none p-2 text-center rounded'>
           <option value='asc'>Ascendant</option>
           <option value='desc'>Descendant</option>
         </select>

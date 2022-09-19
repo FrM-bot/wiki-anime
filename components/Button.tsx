@@ -24,7 +24,7 @@ interface PropsLink {
 }
 
 export const ButtonLink: FC<PropsLink> = ({ children, href, props, className }) => {
-  const defaultStylesCard = `after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded-sm after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-[5] grid place-content-center relative py-1 px-2 w-fit hover:after:scale-x-100 shadow-xl
+  const defaultStylesCard = `after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded-sm after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-[5] grid place-content-center relative p-1 w-fit hover:after:scale-x-100 shadow-xl
   shadow-black/50 border-[1px] border-tertiary rounded-sm bg-primary hover:shadow duration-300`
 
   return (<Link href={href}>

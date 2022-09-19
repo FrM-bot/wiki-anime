@@ -1,11 +1,16 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 
-const URL_TEST = 'http://localhost:3000'
+const URL_TEST = 'https://anime-app-eight.vercel.app'
+
+// test.describe.configure({ mode: 'serial' })
 
 test.describe('Homepage', () => {
-  test('should visiting an anime from the main page and show the data correctly', async ({
-    page
-  }) => {
+  let page: Page
+  test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage()
+  })
+  // test.slow()
+  test('should visiting an anime from the main page and show the data correctly', async () => {
     await page.goto(URL_TEST)
 
     // Expect a title "to contain" a substring.
@@ -24,9 +29,7 @@ test.describe('Homepage', () => {
     )
   })
 
-  test('should visiting an manga from the main page and show the data correctly', async ({
-    page
-  }) => {
+  test('should visiting an manga from the main page and show the data correctly', async () => {
     // Go to http://localhost:3000/
     await page.goto(URL_TEST)
     await expect(page).toHaveTitle(/Wiki Anime/)
@@ -42,7 +45,7 @@ test.describe('Homepage', () => {
     await expect(page).toHaveURL(URL_TEST)
   })
 
-  test('should be applied filters and search correctly the data from the home page', async ({ page }) => {
+  test('should be applied filters and search correctly the data from the home page', async () => {
     // Go to http://localhost:3000/
     await page.goto(URL_TEST)
 
