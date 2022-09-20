@@ -84,7 +84,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Type</span>
         </CardText>
-        <select role='type' name='type' id='type' defaultValue={defaultType} className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
+        <select name='type' id='type' defaultValue={defaultType} className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
           <option value="anime">anime</option>
           <option value="manga">manga</option>
         </select>

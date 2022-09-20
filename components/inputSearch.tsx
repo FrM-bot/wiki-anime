@@ -23,7 +23,7 @@ const InputSearch = ({ valueSearched }: { valueSearched?: string | undefined }) 
           types?.map(type => (<option key={type} value={type}>{type}</option>))
         }
       </select>
-      <input placeholder='Search' ref={refInput} type="search" defaultValue={valueSearched || ''} onKeyDown={e => e.key === 'Enter' && handlerSearch()} className='bg-tertiary w-full p-2 focus:outline-none' /><button onClick={handlerSearch} className='bg-tertiary p-2 rounded-tr-md rounded-br-md hover:shadow-xl hover:shadow-black/50 duration-300'><SearchIcon /></button>
+      <input placeholder='Search' ref={refInput} type="search" defaultValue={valueSearched || ''} onKeyDown={e => e.key === 'Enter' && handlerSearch()} className='bg-tertiary w-full p-2 focus:outline-none' /><button aria-label="search" onClick={handlerSearch} className='bg-tertiary p-2 rounded-tr-md rounded-br-md hover:shadow-xl hover:shadow-black/50 duration-300'><SearchIcon /></button>
     </div>
   )
 }

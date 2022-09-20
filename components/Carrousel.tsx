@@ -19,26 +19,26 @@ const Carrousel = ({ data, type }: Props) => {
 
     (refSlider.current.clientWidth + refSlider.current.scrollLeft - refSlider.current.scrollWidth === 0)
       ? refSlider.current.scrollLeft = 0
-      : refSlider.current.scrollLeft += 200
+      : refSlider.current.scrollLeft += 300
   }
 
   const scrollLeft = () => {
     if (!refSlider.current) return
     (refSlider.current?.scrollLeft !== 0)
-      ? (refSlider.current.scrollLeft -= 200)
+      ? (refSlider.current.scrollLeft -= 300)
       : (refSlider.current.scrollLeft += refSlider.current.scrollWidth)
   }
   return (
     <div ref={refSlider} className='flex gap-4 w-full flex-nowrap my-4 overflow-x-scroll snap-x relative lg:h-80 h-64' style={{ scrollBehavior: 'smooth' }} id="container-carrousel">
       <div className='sticky left-0 z-[5] flex-shrink-0 flex-grow-0 rounded grid place-content-center'>
-        <ButtonTransparent props={{ onClick: () => scrollLeft() }}><ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} /></ButtonTransparent>
+        <ButtonTransparent props={{ onClick: () => scrollLeft(), 'aria-label': 'arrow' }}><ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} /></ButtonTransparent>
       </div>
       {
         data?.map((anime) => (
           <div key={anime.mal_id} className='rounded-md snap-center overflow-hidden align-middle flex-shrink-0 flex-grow-0 relative' id={`to-${anime.mal_id}`}>
             <Link href={`/${type || router.query.type}/${anime?.mal_id}`}>
               <a>
-                <img className='hover:scale-110 duration-300 h-full aspect-[5/8]' src={anime.images.webp.image_url} alt={anime.title} />
+                <img className='hover:scale-110 duration-300 h-full' src={anime.images.webp.image_url} alt={anime.title} />
               </a>
             </Link>
             {anime?.topRightgDataCard &&
@@ -55,7 +55,7 @@ const Carrousel = ({ data, type }: Props) => {
         ))
       }
       <div className='sticky right-1 z-[5] flex-shrink-0 flex-grow-0 rounded grid place-content-center'>
-        <ButtonTransparent props={{ onClick: () => scrollRight() }}><ArrowIcon /></ButtonTransparent>
+        <ButtonTransparent props={{ onClick: () => scrollRight(), 'aria-label': 'arrow' }}><ArrowIcon /></ButtonTransparent>
       </div>
     </div>
   )

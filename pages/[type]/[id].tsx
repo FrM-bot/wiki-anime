@@ -177,7 +177,7 @@ const Details = ({ details, type }: IProps) => {
           </div>
           <ValidateAndRender dataToValidate={[details?.trailer?.embed_url]}>
             <SectionInfo title='Trailer'>
-              <iframe loading='lazy' className='aspect-video w-full' src={details?.trailer?.embed_url} allowFullScreen />
+              <iframe loading='lazy' title="trailer" className='aspect-video w-full' src={details?.trailer?.embed_url} allowFullScreen />
             </SectionInfo>
           </ValidateAndRender>
         </div>

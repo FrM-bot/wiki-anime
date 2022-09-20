@@ -48,7 +48,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                         <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                       </div>
                     </ValidateAndRender>
-                    <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='aspect-[5/8] min-w-[180px]' />
+                    <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='min-w-[180px]' />
                     <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
                       <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm font-semibold'>{animeManga.title}</h2>
                       <div className='text-[0.68rem] font-light flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>

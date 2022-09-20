@@ -61,7 +61,7 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
       <Card className='my-4 w-fit'>
         <div className='flex gap-4 justify-center items-center'>
 
-          <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage() }}>
+          <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage(), 'aria-label': 'arrow' }}>
             <ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} />
           </Button>
 
@@ -73,7 +73,7 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
           <span>{lastPage}</span>
 
           <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
-            <ArrowIcon />
+            <ArrowIcon props={{ 'aria-label': 'arrow' }} />
           </Button>
         </div>
       </Card>

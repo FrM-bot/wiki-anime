@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className='relative'>
       <div className='absolute right-2 flex justify-end top-[-25%] z-10'>
-        <Button props={{ onClick: () => window.scroll(0, 0) }}><ArrowIcon props={{ style: { transform: 'rotate(-90deg)' } }} /></Button>
+        <Button props={{ onClick: () => window.scroll(0, 0), 'aria-label': 'arrow' }}><ArrowIcon props={{ style: { transform: 'rotate(-90deg)' } }} /></Button>
       </div>
       <div className='py-4 bg-secondary/70 rounded-md px-4 mb relative bottom-2'>
 
@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
         <div className="flex items-center justify-end">
           <div className='flex gap-2'>
-            <Button props={{ onClick: () => sharePage() }}><ShareIcon /></Button>
+            <Button props={{ onClick: () => sharePage(), 'aria-label': 'share' }}><ShareIcon /></Button>
             <ButtonLink href='mailto:damianmaciel0@gmail.com?subject = Feedback&body = Message' props={{ target: '_blank' }}>damianmaciel0@gmail.com</ButtonLink>
           </div>
         </div>
