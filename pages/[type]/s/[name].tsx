@@ -1,3 +1,4 @@
+import Loader from 'components/Loader'
 import { lazy, Suspense, useState, useEffect } from 'react'
 const SearchPage = lazy(() => import('components/Search.page'))
 
@@ -8,7 +9,7 @@ const Search = () => {
   }, [])
 
   return mounted && (
-    <Suspense fallback="loading...">
+    <Suspense fallback={<div className='w-full grid place-content-center h-[40vh]'><Loader /></div>}>
       <SearchPage />
     </Suspense>
   )
