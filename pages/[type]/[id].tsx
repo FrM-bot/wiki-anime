@@ -15,6 +15,7 @@ import LayoutDetails from 'Layouts/LayoutDetails'
 import type { GetServerSideProps } from 'next'
 import LoadingComponent from 'components/LoadingComponent'
 import { validateTypeAnimeManga } from 'utils/validators'
+import { EpisodesAnime } from '../../components/EpisodesAnime'
 
 interface ICharacter {
   character: {
@@ -46,13 +47,29 @@ interface IProps {
   type: string
 }
 
+export interface IEpisode {
+  mal_id: number,
+  title: string,
+  episode: string,
+  url: string,
+  images: {
+    jpg: {
+      image_url: string
+    }
+  }
+}
+
 const Details = ({ details, type }: IProps) => {
   const router = useRouter()
+  const [showEpisodes, setShowEpisodes] = useState(false)
   const { data: characters, isError, isLoading }: IResponseCharacters = useFetch(URL_CHARACTERS(type, details?.mal_id))
 
   const [isShowAllCharacters, setIsShowAllCharacters] = useState(false)
   const handlerShowAllCharacters = () => {
     setIsShowAllCharacters(prevValue => !prevValue)
+  }
+  const handlerShowEpisodes = () => {
+    setShowEpisodes(true)
   }
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
@@ -154,7 +171,7 @@ const Details = ({ details, type }: IProps) => {
                   characters?.data?.slice(0, isShowAllCharacters ? characters?.data?.length : 10)?.map(({ character, role }: ICharacter) => (
                     <CardLink key={character.mal_id} href={`/character/${character?.mal_id}`} imageSrc={character.images.webp.image_url} title={character.name} subtitle={role} />
                   ))
-                  }
+                }
               </div>
             </LoadingComponent>
             <ValidateAndRender dataToValidate={[details?.relations?.length]}>
@@ -180,6 +197,16 @@ const Details = ({ details, type }: IProps) => {
               <iframe loading='lazy' title="trailer" className='aspect-video w-full' src={details?.trailer?.embed_url} allowFullScreen />
             </SectionInfo>
           </ValidateAndRender>
+          {
+            type === 'anime' &&
+            < SectionInfo title='Episodes'>
+              {
+                showEpisodes
+                  ? <EpisodesAnime mal_id={details?.mal_id} />
+                  : <div className='grid place-content-center'><Button props={{ onClick: () => handlerShowEpisodes() }}>Get episodes</Button></div>
+              }
+            </SectionInfo>
+          }
         </div>
       </>
     </LayoutDetails >
