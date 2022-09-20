@@ -14,6 +14,7 @@ import { URL_CHARACTERS } from 'services/endpoints'
 import LayoutDetails from 'Layouts/LayoutDetails'
 import type { GetServerSideProps } from 'next'
 import LoadingComponent from 'components/LoadingComponent'
+import { validateTypeAnimeManga } from 'utils/validators'
 
 interface ICharacter {
   character: {
@@ -183,18 +184,6 @@ const Details = ({ details, type }: IProps) => {
       </>
     </LayoutDetails >
   )
-}
-
-export const validateTypeAnimeManga = (str: string | string[] | undefined): 'anime' | 'manga' => {
-  if (typeof str === 'string') {
-    if (str === 'anime') {
-      return str
-    }
-    if (str === 'manga') {
-      return str
-    }
-  }
-  return 'anime'
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {

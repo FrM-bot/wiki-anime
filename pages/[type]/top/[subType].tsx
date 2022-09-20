@@ -3,6 +3,8 @@ import { IAnimeManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { useState, useEffect } from 'react'
+import { GetServerSideProps } from 'next/types'
+import { validateTypeAnime, validateTypeAnimeManga, validateTypeManga } from 'utils/validators'
 
 interface IProps {
   data: IAnimeManga[]
@@ -29,38 +31,34 @@ const TopPage = ({ data, pagination, type }: IProps) => {
   )
 }
 
-interface IPropsServerSide {
-    query: { type: 'anime' | 'manga', filter: 'upcoming' | 'bypopularity' | 'favorite'
-  }
-    resolvedUrl: string
-  }
-
-export const getServerSideProps = async (context: IPropsServerSide) => {
-  const page = Number(new URLSearchParams(context.resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
-  const type = context.query.type
-  const filter = context?.query?.filter
+export const getServerSideProps: GetServerSideProps = async ({ res, query, resolvedUrl }) => {
+  const page = Number(new URLSearchParams(resolvedUrl.split('/').at(-1)?.split('?').at(-1)).get('page')) || 1
+  const type = validateTypeAnimeManga(query.type)
+  const subType = type === 'anime' ? validateTypeAnime(query?.subType) : validateTypeManga(query?.subType)
   try {
-    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { page, filter } })
+    const topAnime = await GET_ANIME_MANGA_TOP({ type, querys: { page, type: subType } })
     if (!topAnime?.data) {
       return {
         notFound: true
       }
     }
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=10, stale-while-revalidate=59'
+    )
     return {
       props: {
         data: topAnime?.data || [],
         pagination: topAnime?.pagination,
         type
       }
-      // revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
     }
   } catch (error) {
     console.error(error)
     return {
       props: {
         data: []
-      },
-      revalidate: 60 * 60 * 12 // se genera la pagina cada 12 horas,
+      }
     }
   }
 }

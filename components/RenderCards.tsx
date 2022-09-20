@@ -43,12 +43,11 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
               <div key={animeManga.mal_id} className='grid place-content-center'>
                 <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} className='sm:p-1 p-0'>
                   <div className='relative lg:w-48'>
-                    {
-                      animeManga?.rank &&
+                    <ValidateAndRender dataToValidate={[animeManga?.rank]}>
                       <div className='absolute top-0 w-full flex justify-end p-1'>
                         <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
                       </div>
-                    }
+                    </ValidateAndRender>
                     <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='aspect-[5/8] min-w-[180px]' />
                     <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
                       <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-sm font-semibold'>{animeManga.title}</h2>
@@ -76,7 +75,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
       {
        (type === 'anime' || type === 'manga' || !type) && (
 
-          <div className='w-full xl:columns-4 lg:columns-3 sm:columns-3 columns-2 gap-4 py-4 min-h-[60vw]'>
+          <div className='w-full xl:columns-5 lg:columns-4 sm:columns-4 columns-2 gap-4 py-4 min-h-[60vw]'>
             <>
               {
                 newData?.map((animeManga) => (
@@ -100,9 +99,9 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                   </ButtonLink>
                   <div className='max-w-[225px] flex flex-col gap-2 py-2'>
                     <ButtonLink href={`/character/${character?.name}`}>
-                      <>
+                      <span className='text-sm'>
                         {character?.name}
-                      </>
+                      </span>
                     </ButtonLink>
                     <ValidateAndRender title='favorites' data={character?.favorites} />
                   </div>

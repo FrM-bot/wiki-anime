@@ -16,7 +16,7 @@ const Footer = () => {
       </div>
       <div className='py-4 bg-secondary/70 rounded-md px-4 mb relative bottom-2'>
 
-        <div className='flex mb-1'>
+        <div className='flex mb-2'>
           <p className='whitespace-nowrap flex items-center gap-2'>Built and Design by <ButtonLink href='https://frm-bot.xyz' props={{ target: '_blank' }}>Maciel Franco</ButtonLink></p>
         </div>
         <div className="flex items-center justify-end">

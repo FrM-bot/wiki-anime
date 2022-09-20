@@ -2,7 +2,7 @@ import SearchIcon from 'icons/SearchIcon'
 import { ChangeEvent, useRef, useState } from 'react'
 import { types, TypesSearch } from 'utils/types'
 import { useRouter } from 'next/router'
-import { validateTypeSearch } from './Search.page'
+import { validateTypeSearch } from 'utils/validators'
 
 const InputSearch = ({ valueSearched }: { valueSearched?: string | undefined }) => {
   const router = useRouter()

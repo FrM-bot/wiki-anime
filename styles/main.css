@@ -12,6 +12,7 @@
   src: url("../public/Quicksand.otf");
   font-style: normal;
   font-weight: normal;
+  font-display: fallback;
 }
 @layer base {
   :root {

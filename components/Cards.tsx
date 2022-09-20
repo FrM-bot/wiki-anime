@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import Card from './Card'
 import { ButtonLink } from './Button'
 import { useRouter } from 'next/router'
@@ -21,7 +21,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
   const router = useRouter()
 
   return (
-        <Card key={mal_id} className='inline-block m-2 hover:shadow duration-300'>
+        <Card key={mal_id} className='inline-block m-1 hover:shadow duration-300'>
             <div className='flex flex-col'>
                 <ButtonLink href={`/${router?.query?.type}/${mal_id}`}>
                     <div className='rounded-lg grid place-content-center overflow-hidden relative'>
@@ -35,9 +35,9 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                 </ButtonLink>
                 <div className='max-w-[225px] flex flex-col gap-2 py-2'>
                     <ButtonLink href={`/${router?.query?.type}/${mal_id}`}>
-                        <>
+                        <span>
                             {title}
-                        </>
+                        </span>
                     </ButtonLink>
                     <div className='mt-4'>
                         <span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 my-4'>{type} {episodes || volumes}</span>

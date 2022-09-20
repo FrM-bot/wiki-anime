@@ -58,10 +58,14 @@ export interface IResponse {
   pagination: IPagination
 }
 
+type TypeFilter = 'upcoming' | 'bypopularity' | 'favorite'
+export type TypeFilterAnime = 'airing' | TypeFilter
+export type TypeFilterManga = 'publishing' | TypeFilter
+
 export interface ITopAnimeQuery {
   type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
 
-  filter?: 'airing' | 'upcoming' | 'bypopularity' | 'favorite'
+  filter?: TypeFilterAnime
 
   page?: number
   limit?: number
@@ -77,16 +81,17 @@ export interface ITopMangaQuery {
     | 'manhwa'
     | 'manhua'
 
-  filter?: 'publishing' | 'upcoming' | 'bypopularity' | 'favorite'
+  filter?: TypeFilterManga
   page?: number
   limit?: number
 }
+export type TQueryAnimeType = 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music'
 
 export interface IQuerySearchAnime {
   page?: number
   limit?: number
   q?: string
-  type?: 'tv' | 'movie' | 'ova' | 'special' | 'ona' | 'music' | string
+  type?: TQueryAnimeType | string
   score?: number
   min_score?: number
   max_score?: number
@@ -96,19 +101,19 @@ export interface IQuerySearchAnime {
   genres?: string
   genres_exclude?: string
   order_by?:
-    | 'mal_id'
-    | 'title'
-    | 'type'
-    | 'rating'
-    | 'start_date'
-    | 'end_date'
-    | 'episodes'
-    | 'score'
-    | 'scored_by'
-    | 'rank'
-    | 'popularity'
-    | 'members'
-    | 'favorites'
+  | 'mal_id'
+  | 'title'
+  | 'type'
+  | 'rating'
+  | 'start_date'
+  | 'end_date'
+  | 'episodes'
+  | 'score'
+  | 'scored_by'
+  | 'rank'
+  | 'popularity'
+  | 'members'
+  | 'favorites'
   sort?: 'desc' | 'asc'
   letter?: string
   producers?: string
@@ -116,11 +121,12 @@ export interface IQuerySearchAnime {
   end_date?: string
 }
 
+export type TQueryMangaType = 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua'
 export interface IQuerySearchManga {
   page?: number
   limit?: number
   q?: string
-  type?: 'manga' | 'novel' | 'lightnovel' | 'oneshot' | 'doujin' | 'manhwa' | 'manhua' | string
+  type?: TQueryMangaType | string
   score?: number
   min_score?: number
   max_score?: number

@@ -16,7 +16,7 @@ export const URL_TOP_ANIME_MANGA = ({
   querys
 }: {
   type: 'anime' | 'manga'
-  querys?: ITopAnimeQuery & ITopMangaQuery
+  querys?: ITopAnimeQuery | ITopMangaQuery
 }) => {
   let baseURL = `https://api.jikan.moe/v4/top/${type}`
   if (querys) {

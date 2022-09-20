@@ -8,7 +8,7 @@ import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { ButtonLink } from 'components/Button'
 import MainAnimePage from 'components/MainAnime.page'
 import MainMangaPage from 'components/MainManga.page'
-import { validateTypeAnimeManga } from './[id]'
+import { validateTypeAnimeManga } from 'utils/validators'
 import { IManga } from 'interfaces/Manga'
 
 interface Props {

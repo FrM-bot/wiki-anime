@@ -2,19 +2,8 @@ import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from './Button'
 import { CardText } from './Cards'
-import { validateTypeAnime, validateTypeManga } from 'pages/[type]/filter'
-
-const fromObjectToString = (object: any, baseString = '') => {
-  Object.entries(object)?.forEach(([key, value], index) => {
-    if (value) {
-      baseString =
-        index === 0
-          ? baseString.concat(`?${key}=${value}`)
-          : baseString.concat(`&${key}=${value}`)
-    }
-  })
-  return baseString
-}
+import { validateTypeAnime, validateTypeManga } from 'utils/validators'
+import { fromObjectToStringQuery } from 'utils/fromObjectToStringQuery'
 
 interface IGenre {
   mal_id: number,
@@ -79,12 +68,14 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     const { type, ...rest } = data
     router.push({
       pathname: `/${type}/filter`,
-      search: fromObjectToString(rest)
+      search: fromObjectToStringQuery(rest)
     })
   }
 
   const handlerSubTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDefaultSubTypeState(selectedType === 'anime' ? validateTypeAnime(e.target.value) : validateTypeManga(e.target.value))
+    // console.log()
+    const defaultSubType = selectedType === 'anime' ? validateTypeAnime(e?.target?.value) : validateTypeManga(e?.target?.value)
+    setDefaultSubTypeState(defaultSubType)
   }
 
   return (
@@ -146,13 +137,13 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
         <CardText>
           <span>Max score</span>
         </CardText>
-        <input name='max_score' placeholder='10' type="number" defaultValue={defaultMaxScore} step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
+        <input name='max_score' placeholder='10' type="number" defaultValue={defaultMaxScore || undefined} step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
           <span>Min score</span>
         </CardText>
-        <input name='min_score' placeholder='7.5' defaultValue={defaultMinScore} type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
+        <input name='min_score' placeholder='7.5' defaultValue={defaultMinScore || undefined} type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
