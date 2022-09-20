@@ -31,7 +31,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
   useEffect(() => setNewData(data), [data])
 
   if (isLoading) {
-    return <div className='min-h-[60vw] w-full grid place-content-center'><Loader /></div>
+    return <div className='min-h-[60vh] w-full grid place-content-center'><Loader /></div>
   }
 
   if (sizeCard === 'small') {
@@ -75,7 +75,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
       {
        (type === 'anime' || type === 'manga' || !type) && (
 
-          <div className='w-full xl:columns-5 lg:columns-4 sm:columns-4 columns-2 gap-4 py-4 min-h-[60vw]'>
+          <div className='w-full xl:columns-5 lg:columns-4 sm:columns-3 columns-2 gap-4 py-4 min-h-[80vh]'>
             <>
               {
                 newData?.map((animeManga) => (

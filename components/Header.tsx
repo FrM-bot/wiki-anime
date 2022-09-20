@@ -1,18 +1,16 @@
-import { ButtonLink } from './Button'
 import InputSearch from './inputSearch'
+import Link from 'next/link'
 
 const Header = () => {
   return (
     <header className='sticky top-2 z-20 rounded-lg'>
-    <nav className='w-full px-4 flex justify-between items-center z-20 border-b-[1px] border-solid border-tertiary bg-secondary/70 backdrop-blur-sm p-4 rounded-md gap-2 shadow-lg'>
-      <ButtonLink href='/'>
-        <span className='whitespace-nowrap'>Wiki Anime</span>
-      </ButtonLink>
-      <ul className='flex gap-4 items-center'>
-        <li>
-          <InputSearch />
-        </li>
-      </ul>
+    <nav className='w-full px-4 flex justify-between items-center z-20 border-b-[1px] border-solid border-tertiary bg-secondary/70 backdrop-blur-sm p-4 rounded-md sm:gap-2 gap-2 shadow-lg'>
+      <Link href='/'>
+        <a className='whitespace-nowrap bg-tertiary p-2 rounded-md'>
+          Wiki Anime
+        </a>
+      </Link>
+      <InputSearch />
     </nav>
   </header>
   )
