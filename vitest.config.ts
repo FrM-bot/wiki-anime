@@ -8,6 +8,21 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    include: ['./__tests__/**']
+    include: ['./__tests__/**'],
+    alias: {
+      '@/components/*': 'components/*',
+      '@/utils/*': 'utils/*',
+      '@/interfaces/*': 'interfaces/*',
+      '@/icons/*': 'icons/*'
+    }
+  },
+  base: '/',
+  resolve: {
+    alias: {
+      '@/components/*': 'components/*',
+      '@/utils/*': 'utils/*',
+      '@/interfaces/*': 'interfaces/*',
+      '@/icons/*': 'icons/*'
+    }
   }
 })

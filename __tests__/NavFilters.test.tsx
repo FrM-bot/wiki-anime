@@ -1,7 +1,6 @@
 import NavFilters from '../components/NavFilters'
-import { it, describe } from 'vitest'
+import { it, describe, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { expect } from '@playwright/test'
 import '@testing-library/dom'
 
 describe.concurrent('components/NavFilters.tsx', () => {
