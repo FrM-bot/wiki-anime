@@ -5,7 +5,7 @@ import { SubtitleCard } from 'components/Text'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { IProducer } from 'interfaces/Producers'
 import LayoutDetails from 'Layouts/LayoutDetails'
-import { setFormat } from 'utils/useDateFormat'
+import { setDateFormat } from 'utils/useDateFormat'
 
 interface IResponse {
   producer: IProducer
@@ -27,7 +27,7 @@ const ProducerPage = ({ producer }: IResponse) => {
             <SectionInfo title='Information'>
               <>
                 <ValidateAndRender title='Favorites' data={producer?.favorites} />
-                <ValidateAndRender title='Established' dataToValidate={[producer?.established]} data={setFormat(producer?.established)} />
+                <ValidateAndRender title='Established' dataToValidate={[producer?.established]} data={setDateFormat({ date: producer?.established })} />
               </>
             </SectionInfo>
             <SectionInfo title='External'>

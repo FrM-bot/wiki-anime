@@ -25,7 +25,7 @@ const LayoutDetails = ({ children, h1, h2 }: IProps) => {
                         </ValidateAndRender>
                     </div>
                 </ValidateAndRender>
-                <div className='grid sm:grid-cols-[minmax(80px,300px)_1fr] gap-2'>
+                <div className='grid grid-cols-[minmax(80px,300px)_1fr] sm:grid-cols-1 xs:grid-cols-1 gap-2'>
                     {children}
                 </div>
             </>

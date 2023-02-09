@@ -20,7 +20,7 @@ export const EpisodesAnime = ({ mal_id }: { mal_id: number; }) => {
   return (
     <LoadingComponent isError={isError} isLoading={isLoading}>
       <>
-        <div className='grid sm:grid-cols-4 gap-2'>
+        <div className='grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-2'>
           {episodes?.data?.map(episode => (
             <Card key={episode?.mal_id} className='hover:shadow duration-300'>
 

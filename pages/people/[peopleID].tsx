@@ -7,7 +7,7 @@ import ValidateAndRender from 'components/ValidateAndRender'
 import { IPeople } from 'interfaces/People'
 import LayoutDetails from 'Layouts/LayoutDetails'
 import { useState } from 'react'
-import { setFormat } from 'utils/useDateFormat'
+import { setDateFormat } from 'utils/useDateFormat'
 interface IProps {
   people: IPeople
 }
@@ -33,7 +33,7 @@ const People = ({ people }: IProps) => {
           <ValidateAndRender title='Name' data={people?.name} />
           <ValidateAndRender title='Family name' data={people?.family_name} />
           <ValidateAndRender title='Given name' data={people?.given_name} />
-          <ValidateAndRender title='Birthday' dataToValidate={[people?.birthday?.length]} data={setFormat(people?.birthday)} />
+          <ValidateAndRender title='Birthday' dataToValidate={[people?.birthday?.length]} data={setDateFormat({ date: people?.birthday })} />
           <SectionInfo title='Anime'>
             <div className='grid grid-cols-2 gap-2'>
 

@@ -31,9 +31,9 @@ interface IProps {
 
 const CardRamdomData: FC<IProps> = ({ type, mal_id, title, images, score, favorites, genres }) => {
   return (
-        <Link href={`/${type}/${mal_id}`}>
+        <Link type='Card' href={`/${type}/${mal_id}`}>
         <div className='flex flex-col gap-3'>
-            <img className='rounded' src={images?.webp?.large_image_url || ''} alt={title || ''} />
+            <img className='rounded w-auto' src={images?.webp?.large_image_url || ''} alt={title || ''} />
             <CardText>
                 <h2>{title}</h2>
             </CardText>
@@ -70,7 +70,7 @@ const RamdomData = () => {
     GET_RANDOM({ type: 'manga' }).then(setManga)
   }
   return (
-        <div className='grid sm:grid-cols-[minmax(80px,300px)_minmax(80px,300px)] gap-4'>
+        <div className='grid grid-cols-[minmax(80px,300px)_minmax(80px,300px)] xs:grid-cols-1 gap-4'>
             <div className='flex flex-col gap-4 justify-start items-center'>
 
                 <div>

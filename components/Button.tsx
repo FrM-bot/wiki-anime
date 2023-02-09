@@ -12,7 +12,7 @@ const Button: FC<Props> = ({ children, props, className, variant }) => {
   if (variant === 'Transparent') {
     return (
             <button
-                className={classNamesJoin(className ?? '', 'backdrop-blur bg-secondary/50 hover:backdrop-blur-0 hover:bg-transparent duration-300 rounded p-2 h-fit grid place-content-center outline-none')}
+                className={classNamesJoin(className ?? '', 'backdrop-blur-[2px] bg-secondary/50 hover:bg-secondary/80 duration-300 rounded h-fit grid place-content-center outline-none')}
                 {...props}
             >
             {children}

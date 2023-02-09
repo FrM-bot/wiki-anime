@@ -11,7 +11,7 @@ interface IProps {
 const Layout = ({ children, title }: IProps) => {
   return (
     <div className='bg-primary text-cyan-50'>
-      <div className='lg:max-w-[85vw] 2xl:max-w-[70vw] md:max-w-[96vw] max-w-[95vw] m-auto'>
+      <div className='lg:max-w-[85vw] max-w-[75vw] md:max-w-[95vw] sm:max-w-[95vw] xs:max-w-[95vw] m-auto'>
         <Head>
           <title>{title}</title>
           <meta name="description" content="Welcome! Here you will find information about anime, manga, authors, etc." />
