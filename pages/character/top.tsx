@@ -6,7 +6,7 @@ import { ICharacter } from 'interfaces/Character'
 import { IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import { useRouter } from 'next/router'
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { URL_CHARACTERS_TOP } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
 interface IResponse {

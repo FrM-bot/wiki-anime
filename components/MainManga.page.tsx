@@ -1,9 +1,9 @@
 import { ICharacter } from 'interfaces/Character'
 import { URL_CHARACTERS_TOP } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
-import { ButtonLink } from './Button'
+import Link from './Link'
 import Card from './Card'
-import Carrousel from './Carrousel'
+import Carousel from './Carousel'
 interface IResponse {
   data: { data: ICharacter[] }
 }
@@ -15,10 +15,10 @@ const MainMangaPage = () => {
       <Card className='flex justify-between items-center'>
             <>
               <h2>Top characters</h2>
-              <ButtonLink href='/character/top'>See all characters</ButtonLink>
+              <Link href='/character/top'>See all characters</Link>
             </>
           </Card>
-      <Carrousel type='character' data={data?.data?.map(({ images, name, mal_id, favorites }) => ({ images, title: name, mal_id, topRightgDataCard: favorites }))} />
+      <Carousel type='character' data={data?.data?.map(({ images, name, mal_id, favorites }) => ({ images, title: name, mal_id, topRightgDataCard: favorites }))} />
     </div>
   )
 }

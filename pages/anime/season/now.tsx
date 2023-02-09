@@ -4,7 +4,6 @@ import SeasonSearch from 'components/SeasonSearch'
 import { IAnime } from 'interfaces/Anime'
 import { IPagination } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
-import React from 'react'
 import { GET_ANIME_SEASON_NOW } from 'services/GET_ANIME_SEASON_NOW'
 
 interface IProps {

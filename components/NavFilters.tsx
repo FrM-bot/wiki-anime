@@ -1,6 +1,6 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button } from './Button'
+import Button from './Button'
 import { CardText } from './Cards'
 import { fromObjectToStringQuery } from 'utils/fromObjectToStringQuery'
 import { validateTypeAnime, validateTypeManga } from '../utils/validators'
@@ -39,6 +39,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
   const [genresToRender] = useState({ anime: animeGenres, manga: mangaGenres })
   const [subTypesToRender, setSubTypesToRender] = useState(subTypesAnime)
   const [defaultSubTypeState, setDefaultSubTypeState] = useState(defaultSubType)
+  const router = useRouter()
 
   useEffect(() => {
     setSelectedType(defaultType ?? 'anime')
@@ -50,7 +51,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     }
   }, [defaultSubType, defaultType])
 
-  const router = useRouter()
   const handlerTypeSearch = (e: any) => {
     setSelectedType(e.target.value)
     if (e.target.value === 'manga') {
@@ -73,7 +73,6 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
   }
 
   const handlerSubTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    // console.log()
     const defaultSubType = selectedType === 'anime' ? validateTypeAnime(e?.target?.value) : validateTypeManga(e?.target?.value)
     setDefaultSubTypeState(defaultSubType)
   }

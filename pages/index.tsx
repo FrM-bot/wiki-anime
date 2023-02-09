@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next'
-import Link from 'next/link'
 import NavFilters from 'components/NavFilters'
 import Layout from 'Layouts/Layout'
 import { getGenres, getGenresFile, writeFile } from 'lib/files'
@@ -7,9 +6,9 @@ import RandomData from 'components/RamdomData'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
 import { IAnime } from 'interfaces/Anime'
 import { IManga } from 'interfaces/Manga'
-import Carrousel from 'components/Carrousel'
+import Carousel from '@/components/Carousel'
 import Card from 'components/Card'
-import { ButtonLink } from 'components/Button'
+import Link from 'components/Link'
 interface IGenre {
   mal_id: number,
   name: string,
@@ -29,12 +28,12 @@ const Index = ({ mangaGenres, animeGenres, topAnime, topManga }: IProps) => {
     <Layout title='Wiki Anime'>
       <>
         <div className='flex justify-center my-4'>
-          <div className='flex w-fit text-xl'>
-            <Link href='/anime'>
-              <a className='rounded-tl-2xl rounded-bl-2xl bg-primary hover:shadow-xl hover:shadow-black/40 py-2 px-4 border-[#202020] border-[2px] duration-300'>Anime</a>
+          <div className='flex w-full text-xl'>
+            <Link className='w-full' href='/anime'>
+               Anime
             </Link>
-            <Link href='/manga'>
-              <a className='rounded-tr-2xl rounded-br-2xl bg-primary hover:shadow-xl hover:shadow-black/40 py-2 px-4 border-[#202020] border-[2px] duration-300'>Manga</a>
+            <Link className='w-full' href='/manga'>
+              Manga
             </Link>
 
           </div>
@@ -42,17 +41,17 @@ const Index = ({ mangaGenres, animeGenres, topAnime, topManga }: IProps) => {
         <Card className='flex justify-between items-center'>
           <>
             <h2>Top anime</h2>
-            <ButtonLink href={'/anime/top'}><>See top anime</></ButtonLink>
+            <Link href='/anime/top'>See top anime</Link>
           </>
         </Card>
-        <Carrousel type='anime' data={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+        <Carousel type='anime' data={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
         <Card className='flex justify-between items-center'>
           <>
             <h2>Top manga</h2>
-            <ButtonLink href={'/$manga/top'}><>See top manga</></ButtonLink>
+            <Link href={'/$manga/top'}>See top manga</Link>
           </>
         </Card>
-        <Carrousel type='manga' data={topManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+        <Carousel type='manga' data={topManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
 
         <div className='w-full flex justify-center'>
           <NavFilters animeGenres={animeGenres} mangaGenres={mangaGenres} />

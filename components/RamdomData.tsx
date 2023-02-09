@@ -4,7 +4,8 @@ import { IAnime } from 'interfaces/Anime'
 import { IGeneres, IImage } from 'interfaces/Global'
 import { IManga } from 'interfaces/Manga'
 import { FC, useState } from 'react'
-import { Button, ButtonLink } from './Button'
+import Button from './Button'
+import Link from './Link'
 import { CardText } from './Cards'
 // import ImageComponent from './Image'
 
@@ -30,7 +31,7 @@ interface IProps {
 
 const CardRamdomData: FC<IProps> = ({ type, mal_id, title, images, score, favorites, genres }) => {
   return (
-        <ButtonLink href={`/${type}/${mal_id}`}>
+        <Link href={`/${type}/${mal_id}`}>
         <div className='flex flex-col gap-3'>
             <img className='rounded' src={images?.webp?.large_image_url || ''} alt={title || ''} />
             <CardText>
@@ -54,7 +55,7 @@ const CardRamdomData: FC<IProps> = ({ type, mal_id, title, images, score, favori
                 }
             </div>
         </div>
-    </ButtonLink>
+    </Link>
   )
 }
 

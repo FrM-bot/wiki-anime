@@ -1,4 +1,4 @@
-import { LinkExternal } from 'components/Button'
+import Link from 'components/Link'
 import ImageComponent from 'components/Image'
 import SectionInfo from 'components/SectionInfo'
 import { SubtitleCard } from 'components/Text'
@@ -34,7 +34,7 @@ const ProducerPage = ({ producer }: IResponse) => {
               <>
                 {
                   producer?.external?.map(({ name, url }) => (
-                    <LinkExternal key={url} href={url}>{name}</LinkExternal>
+                    <Link key={url} href={url}>{name}</Link>
                   ))
                 }
               </>

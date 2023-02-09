@@ -1,9 +1,9 @@
 import { IAnime } from 'interfaces/Anime'
 import { URL_SEASON_NOW, URL_SEASON_UPCOMING } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
-import { ButtonLink } from './Button'
+import Link from './Link'
 import Card from './Card'
-import Carrousel from './Carrousel'
+import Carousel from './Carousel'
 import ValidateAndRender from './ValidateAndRender'
 
 interface IResponse {
@@ -21,10 +21,11 @@ const MainAnimePage = () => {
           <Card className='flex justify-between items-center'>
             <>
               <h2>Top this season</h2>
-              <ButtonLink href={'/anime/season/now'}>See season</ButtonLink>
+              <Link href={'/anime/season/now'}>See season</Link>
             </>
           </Card>
-          <Carrousel data={animesSeasonNow?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+        <Carousel data={animesSeasonNow?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+
         </>
       </ValidateAndRender>
 
@@ -33,10 +34,10 @@ const MainAnimePage = () => {
           <Card className='flex justify-between items-center'>
             <>
               <h2>Top animes upcoming</h2>
-              <ButtonLink href='/anime/season/upcoming'>See upcoming</ButtonLink>
+              <Link href='/anime/season/upcoming'>See upcoming</Link>
             </>
           </Card>
-          <Carrousel data={animesUpcoming?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
+          <Carousel data={animesUpcoming?.data?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
         </>
       }
     </>

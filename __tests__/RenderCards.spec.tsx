@@ -1,5 +1,5 @@
 import RenderCards from '../components/RenderCards'
-import { expect, it, describe } from 'vitest'
+import { expect, it, describe, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import '@vitejs/plugin-react'
 
@@ -457,6 +457,7 @@ const data = [
 
 describe.concurrent('components/RenderCards,tsx', () => {
   it('Cards must be rendered with correct data', async () => {
+    vi.mock('next/router', () => import('next-router-mock'))
     render(<RenderCards type='anime' data={data} pagination={pagination} isLoading={false} />)
     const divLoader = screen.getAllByRole('img')
     data?.forEach(anime => {

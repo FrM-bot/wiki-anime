@@ -1,4 +1,4 @@
-import { Button } from 'components/Button'
+import Button from 'components/Button'
 import { CardLink, CardText } from 'components/Cards'
 import ImageComponent from 'components/Image'
 import SectionInfo from 'components/SectionInfo'

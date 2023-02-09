@@ -34,7 +34,7 @@ test('test', async ({ page }) => {
 
   // Click text=Apply filters
   await page.locator('text=Apply filters').click()
-  await expect(page).toHaveURL('http://localhost:3000/manga/filter?genres=1&subType=manga&order_by=score&sort=desc&max_score=10&min_score=8&letter=shingeki')
+  await expect(page).toHaveURL('http://localhost:3000/manga/filter?genres=1&subType=manga&order_by=members&sort=asc&max_score=10&min_score=8&letter=shingeki')
 
   // Click img[alt="Shingeki no Kyojin"]
   await page.locator('img[alt="Shingeki no Kyojin"]').click()

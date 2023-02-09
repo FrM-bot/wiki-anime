@@ -1,4 +1,4 @@
-import { Button } from 'components/Button'
+import Button from 'components/Button'
 import { IPagination } from 'interfaces/Global'
 import { useState } from 'react'
 import { CardText } from 'components/Cards'

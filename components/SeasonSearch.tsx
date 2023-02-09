@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useFetch } from 'utils/useFetch'
-import { Button } from 'components/Button'
+import Button from 'components/Button'
 import Card from './Card'
 
 interface IResponse {

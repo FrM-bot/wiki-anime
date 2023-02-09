@@ -2,10 +2,10 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Card from 'components/Card'
 import { IAnime } from 'interfaces/Anime'
 import type { FC } from 'react'
-import Carrousel from 'components/Carrousel'
+import Carousel from 'components/Carousel'
 import Layout from 'Layouts/Layout'
 import { GET_ANIME_MANGA_TOP } from 'services/GET_ANIME_MANGA_TOP'
-import { ButtonLink } from 'components/Button'
+import Link from 'components/Link'
 import MainAnimePage from 'components/MainAnime.page'
 import MainMangaPage from 'components/MainManga.page'
 import { validateTypeAnimeManga } from 'utils/validators'
@@ -18,26 +18,31 @@ interface Props {
 
 const Home: FC<NextPage & Props> = ({ topAnimeManga, type }: Props) => {
   return (
-      <Layout title={type}>
-        <>
-            <Card className='w-fit mb-4'>
-                <h1>{type?.toUpperCase()}</h1>
-            </Card>
-            <div className='flex flex-col gap-4'>
-                <Card className='flex justify-between items-center'>
-                    <>
-                        <h2>Top {type}</h2>
-                        <ButtonLink href={`/${type}/top`}><>See all {type}</></ButtonLink>
-                    </>
-                </Card>
-                <Carrousel data={topAnimeManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
-                {type === 'anime' && <MainAnimePage />}
-                {type === 'manga' && <MainMangaPage />}
+    <Layout title={type}>
+      <>
+        <Card className='w-full text-center mb-4'>
+          <h1>{type?.toUpperCase()}</h1>
+        </Card>
+        <div className='flex flex-col gap-4'>
+          <Card className='flex justify-between items-center'>
+            <>
+              <h2>Top {type}</h2>
+              <Link href={`/${type}/top`}>
+                <>
+                  See all {type}
+                </>
+              </Link>
+            </>
+          </Card>
+        <Carousel data={topAnimeManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
 
-            </div>
-        </>
+          {type === 'anime' && <MainAnimePage />}
+          {type === 'manga' && <MainMangaPage />}
 
-      </Layout>
+        </div>
+      </>
+
+    </Layout>
   )
 }
 

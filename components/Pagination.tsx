@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { Button } from './Button'
+import Button from './Button'
 import Card from './Card'
 import { useRouter } from 'next/router'
 import ArrowIcon from '../icons/ArrowIcon'

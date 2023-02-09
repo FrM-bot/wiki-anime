@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { CardMedium } from './Cards'
 import { IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
-import { ButtonLink } from './Button'
+import Link from './Link'
 import { IAnime } from 'interfaces/Anime'
 import { IManga } from 'interfaces/Manga'
 import Loader from './Loader'
@@ -41,7 +41,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
           {
             newData?.map((animeManga: IAnime | IManga) => (
               <div key={animeManga.mal_id} className='grid place-content-center'>
-                <ButtonLink href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} className='sm:p-1 p-0'>
+                <Link href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} className='sm:p-1 p-0'>
                   <div className='relative lg:w-48'>
                     <ValidateAndRender dataToValidate={[animeManga?.rank]}>
                       <div className='absolute top-0 w-full flex justify-end p-1'>
@@ -58,7 +58,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                       </div>
                     </div>
                   </div>
-                </ButtonLink>
+                </Link>
               </div>
             ))
           }
@@ -92,17 +92,17 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
             newData?.map((character: ICharacter) => (
               <Card key={character?.mal_id} className='inline-block m-2 hover:shadow duration-300 sm:p-1'>
                 <div className='flex flex-col'>
-                  <ButtonLink href={`/character/${character?.mal_id}`}>
+                  <Link href={`/character/${character?.mal_id}`}>
                     <div className='rounded-lg grid place-content-center overflow-hidden relative'>
                       <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={character?.images?.webp?.image_url} alt={character?.name} />
                     </div>
-                  </ButtonLink>
+                  </Link>
                   <div className='max-w-[225px] flex flex-col gap-2 py-2'>
-                    <ButtonLink href={`/character/${character?.name}`}>
+                    <Link href={`/character/${character?.name}`}>
                       <span className='text-sm'>
                         {character?.name}
                       </span>
-                    </ButtonLink>
+                    </Link>
                     <ValidateAndRender title='favorites' data={character?.favorites} />
                   </div>
                 </div>

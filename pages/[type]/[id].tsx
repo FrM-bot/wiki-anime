@@ -1,4 +1,5 @@
-import { Button, ButtonLink, LinkExternal } from 'components/Button'
+import Button from 'components/Button'
+import Link from 'components/Link'
 // import Card from 'components/Card'
 import { IAnimeManga } from 'interfaces/Global'
 import { GET_DETAILS } from 'services/GET_DETAILS'
@@ -90,35 +91,35 @@ const Details = ({ details, type }: IProps) => {
           </SectionInfo>
           <SectionInfo title='Information'>
             <>
-              <TitleAndDescription title='Type'><ButtonLink href={`/${router.query.type}/top/${details?.type?.toLowerCase().replace(' ', '')}`}>{details?.type}</ButtonLink></TitleAndDescription>
+              <TitleAndDescription title='Type'><Link href={`/${router.query.type}/top/${details?.type?.toLowerCase().replace(' ', '')}`}>{details?.type}</Link></TitleAndDescription>
               <ValidateAndRender title='Episodes' data={details?.episodes} />
               <ValidateAndRender title='Duration' data={details?.duration} />
               <ValidateAndRender title='Status' data={details?.status} />
               <ValidateAndRender title='Aired' data={details?.aired?.string} />
               <ValidateAndRender title='Published' data={details?.published?.string} />
               <ValidateAndRender title='Season' dataToValidate={[details?.season, details?.year]}>
-                <ButtonLink href={`/anime/season/${details?.season}/${details?.year}`}>{`${details?.season} ${details?.year}`}</ButtonLink>
+                <Link href={`/anime/season/${details?.season}/${details?.year}`}>{`${details?.season} ${details?.year}`}</Link>
               </ValidateAndRender>
               <ValidateAndRender title='Genres' dataToValidate={[details?.genres?.length]}>
-                <>{details?.genres?.map((genre) => (<ButtonLink href={`/${genre?.type?.toLowerCase()}/genres/${genre?.mal_id}`} key={genre?.mal_id}>{genre?.name}</ButtonLink>))}</>
+                <>{details?.genres?.map((genre) => (<Link href={`/${genre?.type?.toLowerCase()}/genres/${genre?.mal_id}`} key={genre?.mal_id}>{genre?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Source' data={details?.source} />
               <ValidateAndRender title='Broadcast' data={details?.broadcast?.string} />
               <ValidateAndRender title='Rating' data={details?.rating} />
               <ValidateAndRender title='Themes' dataToValidate={[details?.themes?.length]}>
-                <>{details?.themes?.map((theme) => (<ButtonLink href={`/${theme?.type?.toLowerCase()}/genres/${theme?.mal_id}`} key={theme?.mal_id}>{theme?.name}</ButtonLink>))}</>
+                <>{details?.themes?.map((theme) => (<Link href={`/${theme?.type?.toLowerCase()}/genres/${theme?.mal_id}`} key={theme?.mal_id}>{theme?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Authors' dataToValidate={[details?.authors]}>
-                <>{details?.authors?.map((author) => (<ButtonLink href={`/${author?.type?.toLowerCase()}/${author?.mal_id}`} key={author?.mal_id}>{author?.name}</ButtonLink>))}</>
+                <>{details?.authors?.map((author) => (<Link href={`/${author?.type?.toLowerCase()}/${author?.mal_id}`} key={author?.mal_id}>{author?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Studios' dataToValidate={[details?.studios?.length]}>
-                <>{details?.studios?.map((studio) => (<ButtonLink href={`/${studio?.type?.toLowerCase()}/producer/${studio?.mal_id}`} key={studio?.mal_id}>{studio?.name}</ButtonLink>))}</>
+                <>{details?.studios?.map((studio) => (<Link href={`/${studio?.type?.toLowerCase()}/producer/${studio?.mal_id}`} key={studio?.mal_id}>{studio?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Demographics' dataToValidate={[details?.demographics?.length]}>
-                <>{details?.demographics?.map((demographic) => (<ButtonLink href={`/${demographic?.type.toLowerCase()}/genres/${demographic?.mal_id}`} key={demographic?.mal_id}>{demographic?.name}</ButtonLink>))}</>
+                <>{details?.demographics?.map((demographic) => (<Link href={`/${demographic?.type.toLowerCase()}/genres/${demographic?.mal_id}`} key={demographic?.mal_id}>{demographic?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Licensors' dataToValidate={[details?.licensors?.length]}>
-                <>{details?.licensors?.map((licensor) => (<ButtonLink href={`/${licensor?.type?.toLowerCase()}/producer/${licensor?.mal_id}`} key={licensor?.mal_id}>{licensor?.name}</ButtonLink>))}</>
+                <>{details?.licensors?.map((licensor) => (<Link href={`/${licensor?.type?.toLowerCase()}/producer/${licensor?.mal_id}`} key={licensor?.mal_id}>{licensor?.name}</Link>))}</>
               </ValidateAndRender>
             </>
           </SectionInfo>
@@ -135,13 +136,13 @@ const Details = ({ details, type }: IProps) => {
           <SectionInfo title='External Links'>
             <>
               <ValidateAndRender dataToValidate={[details?.external]}>
-                <>{details?.external?.map((link) => (<LinkExternal href={link?.url} key={link?.name}>{link?.name || link?.url}</LinkExternal>))}</>
+                <>{details?.external?.map((link) => (<Link props={{ target: '_blank' }} href={link?.url} key={link?.name}>{link?.name || link?.url}</Link>))}</>
               </ValidateAndRender>
 
               <TitleAndDescription title='TMO'>
-                <LinkExternal href={`https://lectortmo.com/library?_pg=1&title=${details?.title}`}>{details?.title}</LinkExternal>
+                <Link props={{ target: '_blank' }} href={`https://lectortmo.com/library?_pg=1&title=${details?.title}`}>{details?.title}</Link>
               </TitleAndDescription>
-              <LinkExternal href={details?.url}>MyAnimeList</LinkExternal>
+              <Link props={{ target: '_blank' }} href={details?.url}>MyAnimeList</Link>
             </>
           </SectionInfo>
         </div>
@@ -182,7 +183,7 @@ const Details = ({ details, type }: IProps) => {
                       <TitleAndDescription title={relation?.relation} key={relation?.relation}>
                         <>
                           {
-                            relation?.entry.map(({ mal_id, name, type }: any) => (<ButtonLink href={`/${type}/${mal_id}`} key={mal_id}>{name}</ButtonLink>))
+                            relation?.entry.map(({ mal_id, name, type }: any) => (<Link href={`/${type}/${mal_id}`} key={mal_id}>{name}</Link>))
                           }
                         </>
                       </TitleAndDescription>
