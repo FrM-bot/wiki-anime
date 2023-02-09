@@ -36,7 +36,7 @@ const Carrousel = ({ data, type }: Props) => {
       <div className='absolute left-1 z-[5] flex-shrink-0 flex-grow-0 rounded grid place-content-center'>
         <Button variant='Transparent' props={{ onClick: () => scrollLeft(), 'aria-label': 'arrow' }}><ArrowIcon props={{ style: { transform: 'rotate(180deg)', width: 35, height: 35 } }} /></Button>
       </div>
-      <div ref={refSlider} className='flex gap-4 w-full flex-nowrap my-4 overflow-x-scroll snap-x relative lg:h-80 h-64' style={{ scrollBehavior: 'smooth' }} id="container-carrousel">
+      <div ref={refSlider} className='flex gap-4 w-full flex-nowrap my-4 overflow-x-scroll snap-x relative h-72 sm:h-60' style={{ scrollBehavior: 'smooth' }} id="container-carrousel">
         {
           data?.map((anime) => (
             <div key={anime.mal_id} className='rounded-md snap-center overflow-hidden align-middle flex-shrink-0 flex-grow-0 relative' id={`to-${anime.mal_id}`}>

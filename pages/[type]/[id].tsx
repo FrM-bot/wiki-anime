@@ -167,7 +167,8 @@ const Details = ({ details, type }: IProps) => {
             </SubtitleCard>
 
             <LoadingComponent isError={isError} isLoading={isLoading}>
-              <div className='grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2 my-4'>
+              {/* <div className='grid 2xl:grid-cols-5 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2 my-4'> */}
+              <div className='grid grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 gap-2 my-4'>
                 {
                   characters?.data?.slice(0, isShowAllCharacters ? characters?.data?.length : 10)?.map(({ character, role }: ICharacter) => (
                     <CardLink key={character.mal_id} href={`/character/${character?.mal_id}`} imageSrc={character.images.webp.image_url} title={character.name} subtitle={role} />

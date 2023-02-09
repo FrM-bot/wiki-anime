@@ -48,7 +48,7 @@ const Index = ({ mangaGenres, animeGenres, topAnime, topManga }: IProps) => {
         <Card className='flex justify-between items-center'>
           <>
             <h2>Top manga</h2>
-            <Link href={'/$manga/top'}>See top manga</Link>
+            <Link href={'/manga/top'}>See top manga</Link>
           </>
         </Card>
         <Carousel type='manga' data={topManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />

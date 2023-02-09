@@ -52,7 +52,7 @@ const Character = ({ data }: IProps) => {
             </ValidateAndRender>
             <ValidateAndRender dataToValidate={[data?.manga?.length]}>
               <SectionInfo title='Manga'>
-                <div className='grid grid-cols-2 gap-2'>
+                <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
                   {
                     data?.manga?.map(({ manga, role }) => (
                       <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
@@ -63,7 +63,7 @@ const Character = ({ data }: IProps) => {
             </ValidateAndRender>
             <ValidateAndRender dataToValidate={[data?.anime?.length]}>
               <SectionInfo title='Anime'>
-                <div className='grid grid-cols-2 gap-2'>
+                <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
 
                   {
                     data?.anime?.map(({ anime, role }) => (
@@ -83,7 +83,7 @@ const Character = ({ data }: IProps) => {
             </ValidateAndRender>
             <ValidateAndRender dataToValidate={[characterPictures?.data?.length]}>
               <SectionInfo title='Pictures'>
-                <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3'>
+                <div className='grid grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 gap-3'>
                   {characterPictures?.data?.map(({ jpg }) => (
                     <Suspense fallback={<Loader />} key={jpg?.image_url}>
                       <ImageComponent src={jpg?.image_url} alt={data?.name} props={{ onClick: () => showModalImage({ src: jpg?.image_url, alt: data?.name }) }} />
@@ -94,7 +94,7 @@ const Character = ({ data }: IProps) => {
             </ValidateAndRender>
             <ValidateAndRender dataToValidate={[data?.voices?.length]}>
               <SectionInfo title='Voice Actors'>
-                <div className='grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-2'>
+                <div className='grid grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 gap-2'>
                   {
                     data?.voices?.map(({ person, language }) =>
                       (<CardLink key={person.mal_id} href={`/people/${person.mal_id}`} imageSrc={person.images.jpg.image_url} title={person.name} subtitle={language} />))

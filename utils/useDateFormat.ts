@@ -1,7 +1,7 @@
 
-export const setFormat = (date: number | Date | string, locale?: string, option?: string) => {
+export const setDateFormat = ({ date, locales, option }: {date: string, locales?: string | string[] | undefined, option?: Intl.DateTimeFormatOptions | undefined}) => {
   try {
-    return new Intl.DateTimeFormat('en-EN', { dateStyle: 'long' }).format(new Date(date))
+    return new Intl.DateTimeFormat(locales ?? 'en-EN', option ?? { dateStyle: 'long' }).format(new Date(date))
   } catch (error) {
     console.error(error)
   }
