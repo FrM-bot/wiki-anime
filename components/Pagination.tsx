@@ -58,7 +58,7 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
 
   return (
     <div className='w-full grid place-content-center'>
-      <Card className='my-4 w-fit'>
+      <Card className='my-2 w-fit'>
         <div className='flex gap-4 justify-center items-center'>
 
           <Button props={{ disabled: currentPage === 1, onClick: () => handlerPrevPage(), 'aria-label': 'arrow' }}>

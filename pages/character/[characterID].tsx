@@ -9,6 +9,7 @@ import { useFetch } from 'utils/useFetch'
 import SectionInfo from 'components/SectionInfo'
 import { URL_CHARACTER_PICTURES } from 'services/endpoints'
 import LayoutDetails from 'Layouts/LayoutDetails'
+import Grid from '@/components/Grid'
 interface IPicture {
   jpg: {
     image_url: string
@@ -38,74 +39,78 @@ const Character = ({ data }: IProps) => {
   return (
     <LayoutDetails h1={data?.name} h2={data?.name_kanji}>
       <>
-          {/* Left Section */}
-          <div className='flex flex-col gap-4'>
-            <ImageComponent src={data?.images?.webp?.image_url} alt={data?.name} props={{ onClick: () => showModalImage({ alt: data?.name, src: data?.images?.webp?.image_url }) }} />
-            <ValidateAndRender dataToValidate={[data?.nicknames?.length]}>
-              <SectionInfo title='Nicknames'>
-                <div className='flex gap-1 flex-wrap'>
-                  {
-                    data?.nicknames?.map(name => (<span className='bg-tertiary p-2 shadow-lg' key={name}>{name}</span>))
-                  }
-                </div>
-              </SectionInfo>
-            </ValidateAndRender>
-            <ValidateAndRender dataToValidate={[data?.manga?.length]}>
-              <SectionInfo title='Manga'>
-                <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
-                  {
-                    data?.manga?.map(({ manga, role }) => (
-                      <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
-                    ))
-                  }
-                </div>
-              </SectionInfo>
-            </ValidateAndRender>
-            <ValidateAndRender dataToValidate={[data?.anime?.length]}>
-              <SectionInfo title='Anime'>
-                <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
+        {/* Left Section */}
+        <div className='flex flex-col gap-4'>
+          <ImageComponent src={data?.images?.webp?.image_url} alt={data?.name} props={{ onClick: () => showModalImage({ alt: data?.name, src: data?.images?.webp?.image_url }) }} />
+          <ValidateAndRender dataToValidate={[data?.nicknames?.length]}>
+            <SectionInfo title='Nicknames'>
+              <div className='flex gap-1 flex-wrap'>
+                {
+                  data?.nicknames?.map(name => (<span className='bg-tertiary p-2 shadow-lg' key={name}>{name}</span>))
+                }
+              </div>
+            </SectionInfo>
+          </ValidateAndRender>
+          <ValidateAndRender dataToValidate={[data?.manga?.length]}>
+            <SectionInfo title='Manga'>
+              <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
+                {
+                  data?.manga?.map(({ manga, role }) => (
+                    <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
+                  ))
+                }
+              </div>
+            </SectionInfo>
+          </ValidateAndRender>
+          <ValidateAndRender dataToValidate={[data?.anime?.length]}>
+            <SectionInfo title='Anime'>
+              <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
 
-                  {
-                    data?.anime?.map(({ anime, role }) => (
-                      <CardLink key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={role} />
-                    ))
-                  }
-                </div>
-              </SectionInfo>
-            </ValidateAndRender>
-          </div>
-          {/* Right section */}
-          <div className='flex flex-col gap-4'>
-            <ValidateAndRender dataToValidate={[data?.about]}>
-              <SectionInfo title='About'>
-                <p>{data?.about}</p>
-              </SectionInfo>
-            </ValidateAndRender>
-            <ValidateAndRender dataToValidate={[characterPictures?.data?.length]}>
-              <SectionInfo title='Pictures'>
-                <div className='grid grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 gap-3'>
+                {
+                  data?.anime?.map(({ anime, role }) => (
+                    <CardLink key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={role} />
+                  ))
+                }
+              </div>
+            </SectionInfo>
+          </ValidateAndRender>
+        </div>
+        {/* Right section */}
+        <div className='flex flex-col gap-4'>
+          <ValidateAndRender dataToValidate={[data?.about]}>
+            <SectionInfo title='About'>
+              <p>{data?.about}</p>
+            </SectionInfo>
+          </ValidateAndRender>
+          <ValidateAndRender dataToValidate={[characterPictures?.data?.length]}>
+            <SectionInfo title='Pictures'>
+              <Grid>
+                <>
                   {characterPictures?.data?.map(({ jpg }) => (
                     <Suspense fallback={<Loader />} key={jpg?.image_url}>
                       <ImageComponent src={jpg?.image_url} alt={data?.name} props={{ onClick: () => showModalImage({ src: jpg?.image_url, alt: data?.name }) }} />
                     </Suspense>
                   ))}
-                </div>
-              </SectionInfo>
-            </ValidateAndRender>
-            <ValidateAndRender dataToValidate={[data?.voices?.length]}>
-              <SectionInfo title='Voice Actors'>
-                <div className='grid grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 xs:grid-cols-2 gap-2'>
+                </>
+              </Grid>
+            </SectionInfo>
+          </ValidateAndRender>
+          <ValidateAndRender dataToValidate={[data?.voices?.length]}>
+            <SectionInfo title='Voice Actors'>
+              <Grid>
+                <>
                   {
                     data?.voices?.map(({ person, language }) =>
                       (<CardLink key={person.mal_id} href={`/people/${person.mal_id}`} imageSrc={person.images.jpg.image_url} title={person.name} subtitle={language} />))
                   }
-                </div>
-              </SectionInfo>
-            </ValidateAndRender>
-          </div>
-          <Modal>
-            <ImageComponent src={imageToShow?.src} alt={imageToShow?.alt} />
-          </Modal>
+                </>
+              </Grid>
+            </SectionInfo>
+          </ValidateAndRender>
+        </div>
+        <Modal>
+          <ImageComponent src={imageToShow?.src} alt={imageToShow?.alt} />
+        </Modal>
       </>
     </LayoutDetails>
   )

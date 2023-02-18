@@ -6,6 +6,7 @@ import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import InputSearch from './inputSearch'
 import { isStringParam, validateTypeSearch } from 'utils/validators'
+import Card from './Card'
 
 const searchTypesURL = {
   character: ({ querys }: {querys: { page?: number, limit?: number, q?: string, order_by?: 'mal_id' | 'name' | 'favorites', sort?: 'desc' | 'asc', letter?: string }}): string => URL_SEARCH_CHARACTERS({ querys: { order_by: 'favorites', sort: 'desc', ...querys } }),
@@ -24,6 +25,11 @@ const SearchPage = () => {
     <Layout title={q}>
       <>
         <InputSearch valueSearched={q} />
+        <Card className='mt-2'>
+          <>
+            Results for: {q}
+          </>
+        </Card>
         <RenderCards type={type} data={data?.data || []} sizeCard={'medium'} pagination={data?.pagination} isLoading={isLoading} />
       </>
     </Layout>

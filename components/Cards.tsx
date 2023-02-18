@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import Card from './Card'
 import Link from './Link'
-import { useRouter } from 'next/router'
+import { SubtitleCard } from './Text'
 
 interface IProps {
     mal_id: number
@@ -18,12 +18,9 @@ interface IProps {
 }
 
 export const CardMedium = ({ mal_id, image_url, title, score, type, genres, episodes, volumes }: IProps) => {
-  const router = useRouter()
-
   return (
         <div>
-
-            <Link type='Card' href={`/${router?.query?.type}/${mal_id}`}>
+            <Card >
                 <div className='flex flex-col'>
                     <div className='rounded grid place-content-center overflow-hidden relative'>
                         {score &&
@@ -34,11 +31,11 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                         <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={image_url} alt={title} />
                     </div>
                     <div className='max-w-[225px] flex flex-col gap-2 py-2'>
-                        <Card>
+                        <SubtitleCard>
                             <span>
                                 {title}
                             </span>
-                        </Card>
+                        </SubtitleCard>
                         <div className='mt-4'>
                             <span className='bg-primary shadow-xl shadow-black/30 rounded bordeer-[1px] border-secondary px-2 py-1 my-4'>{type} {episodes || volumes}</span>
                         </div>
@@ -49,7 +46,7 @@ export const CardMedium = ({ mal_id, image_url, title, score, type, genres, epis
                         </div>
                     </div>
                 </div>
-            </Link>
+            </Card>
         </div>
   )
 }
