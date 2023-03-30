@@ -1,18 +1,12 @@
-import { useSession } from 'next-auth/react'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { URLs } from 'services/endpoints'
 import Link from 'next/link'
-import LayoutProfile from 'Layouts/LayoutProfile'
+import LayoutProfile, { useAuth } from 'Layouts/LayoutProfile'
 import { StatusMyList } from '@/components/AddToMyList'
-import { AnimeList, AnimeStatus } from 'pages/api/my_list/anime/[status]'
+import { AnimeStatus } from 'pages/api/my_list/anime/[status]'
 import { MangaList } from 'pages/api/my_list/manga/[status]'
 import { AnimeContext } from 'context/Anime.provider'
-
-interface IUseAuth {
-  redirect?: string
-  statusRedirect?: 'authenticated' | 'loading' | 'unauthenticated'
-}
 
 export type MainParamsType = 'anime' | 'manga'
 
@@ -32,19 +26,6 @@ const colorStatus = {
   on_hold: '#818cf8',
   dropped: '#f87171',
   completed: '#2563eb'
-}
-
-export const useAuth = ({ redirect = '/login', statusRedirect = 'unauthenticated' }: IUseAuth) => {
-  const { data, status } = useSession()
-  const router = useRouter()
-  useEffect(() => {
-    status === statusRedirect && router.push(redirect)
-  }, [data, redirect, router, status, statusRedirect])
-  return {
-    isLoading: status === 'loading',
-    data,
-    status
-  }
 }
 
 export const GET_ANIME_LIST = async ({ token, status }: { token?: string | null, status: string }) => {
@@ -87,7 +68,7 @@ const GET_MANGA_LIST = async ({ token, status }: { token: string, status: string
 
 function Profile() {
   const { query, push } = useRouter()
-  const { data } = useSession()
+  const { data } = useAuth({})
   const { animes } = useContext(AnimeContext)
   const [mangaList, setMangaList] = useState<MangaList[]>([])
 

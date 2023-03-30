@@ -45,7 +45,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
             {
               newData?.map((animeManga: IAnime | IManga) => (
                 <div key={animeManga.mal_id} className='flex items-start justify-center h-fit'>
-                  <Link className='mx-auto h-full' href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} key={animeManga.mal_id}>
+                  <Link variant='button' className='mx-auto h-full' href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} key={animeManga.mal_id}>
                     <div className='relative'>
                       <ValidateAndRender dataToValidate={[animeManga?.rank]}>
                         <div className='absolute top-0 w-full flex justify-end p-1'>
@@ -100,10 +100,10 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
               {
                 newData?.map((character: ICharacter) => (
                   // <div className='inline-block m-2' key={character.mal_id}>
-                  <Link href={`/character/${character?.mal_id}`} key={character.mal_id}>
+                  <Link variant='button' href={`/character/${character?.mal_id}`} key={character.mal_id}>
                     <div className='flex flex-col'>
                       <div className='rounded grid place-content-center overflow-hidden relative'>
-                        <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={character?.images?.webp?.image_url} alt={character?.name} />
+                        <img loading='lazy' className='hover:scale-105 duration-300 w-full' src={character?.images?.webp?.image_url} alt={character?.name} />
                       </div>
                       <div className='max-w-[225px] flex flex-col gap-2 py-2'>
                         <CardText>

@@ -9,16 +9,28 @@ import Link from 'next/link'
 import { parseUsername } from '@/utils/parseText'
 
 interface IUseAuth {
-    redirect?: string
+    redirectTo?: string | null
     statusRedirect?: 'authenticated' | 'loading' | 'unauthenticated'
 }
 
-export const useAuth = ({ redirect = '/login', statusRedirect = 'unauthenticated' }: IUseAuth) => {
+interface UserData {
+    user?: {
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    }
+    expires: string
+    accessToken?: string | null
+  }
+
+export interface Session { data: UserData, status?: 'authenticated' | 'loading' | 'unauthenticated' }
+
+export const useAuth = ({ redirectTo, statusRedirect }: IUseAuth) => {
   const router = useRouter()
-  const { data, status } = useSession()
+  const { data, status } = useSession() as Session
   useEffect(() => {
-    status === statusRedirect && router.push(redirect)
-  }, [data, redirect, router, status, statusRedirect])
+    status === statusRedirect && router.push(redirectTo ?? '/login')
+  }, [data, redirectTo, router, status, statusRedirect])
   return {
     isLoading: status === 'loading',
     data,
@@ -33,7 +45,7 @@ interface Props {
 function LayoutProfile ({ children }: Props) {
   const router = useRouter()
 
-  const { data, isLoading: isLoadingAuth } = useAuth({ redirect: '/login', statusRedirect: 'unauthenticated' })
+  const { data, isLoading: isLoadingAuth } = useAuth({ redirectTo: '/login', statusRedirect: 'unauthenticated' })
   const [staus, setStaus] = useState(router.query.status ?? 'all')
   useEffect(() => {
     setStaus('all')

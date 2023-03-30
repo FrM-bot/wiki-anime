@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+import { useAuth } from 'Layouts/LayoutProfile'
 import { MainParamsType } from 'pages/profile/[type]/[status]'
 import { FormEvent } from 'react'
 import { URLs } from 'services/endpoints'
@@ -114,7 +114,7 @@ const ADD_MANGA_TO_MY_LIST = async ({ imageUrl, score, status, title, token, mal
 }
 
 function AddToMyList ({ maxProgress, imageUrl, title, malId, type, maxVolumes, maxChapters }: { maxProgress: number, maxVolumes?: number, maxChapters?: number, type: MainParamsType } & Pick<MyAnimeList, 'imageUrl' | 'title'> & { malId: number }) {
-  const { status: statusSession, data } = useSession()
+  const { status: statusSession, data } = useAuth({})
   const { Modal, handlerShowModal } = useModal()
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

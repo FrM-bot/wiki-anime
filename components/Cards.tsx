@@ -30,7 +30,7 @@ export const CardMedium = ({ mainType, image_url, title, score, type, genres, ep
                         </div>
                     }
                     <NextLink href={`/${mainType}/${mal_id}`}>
-                        <img loading='lazy' className='hover:scale-110 duration-300 w-full' src={image_url} alt={title} />
+                        <img loading='lazy' className='hover:scale-105 duration-300 w-full' src={image_url} alt={title} />
                     </NextLink>
                 </div>
                 <div className='max-w-[225px] flex flex-col gap-2 py-2'>
