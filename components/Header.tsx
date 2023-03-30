@@ -1,6 +1,5 @@
 import InputSearch from './inputSearch'
 import Link from '@/components/Link'
-import NextLink from 'next/Link'
 import User from '@/icons/User'
 import { useAuth } from 'Layouts/LayoutProfile'
 
@@ -18,9 +17,9 @@ const Header = () => {
           </li>
           <li>
             {data?.user?.image
-              ? <NextLink href='/profile'>
+              ? <Link href='/profile'>
                 <picture><img className='w-10 h-10 rounded-full object-cover' src={data?.user?.image ?? ''} alt={data.user.name ?? ''} /></picture>
-              </NextLink>
+              </Link>
               : <Link className='block' href='/login'>
                 <User />
               </Link>
