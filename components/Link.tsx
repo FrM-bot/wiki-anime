@@ -6,27 +6,32 @@ interface PropsLink {
   children: ReactElement | string
   href: string
   className?: string
-  type?: 'External' | 'Card'
+  type?: 'external'
+  variant?: 'button' | 'buttonV2'
   props?: AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
-const Link = ({ children, href, props, className, type }: PropsLink) => {
-  if (type === 'External') {
+const Link = ({ children, href, props, className, type, variant }: PropsLink) => {
+  if (type === 'external') {
     return (
-      <a href={href} rel='noreferrer' className={classNamesJoin(className ?? '', 'py-[0.4em] px-[.8em] [line-break:anywhere] dark:bg-custom-dark-2 bg-secondary shadow-lg flex justify-center items-center rounded after:absolute after:bg-gradient-to-l after:from-tertiary after:to-cyan-500 after:w-full after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 relative w-fit hover:after:scale-x-100 hover:cursor-pointer')} target='_blank' {...props}>
-        {children}
+      <a href={href} rel='noreferrer' className={classNamesJoin(className ?? '', 'p-[1px] rounded-md [line-break:anywhere] dark:bg-custom-dark-2 bg-secondary shadow-lg flex justify-center items-center after:absolute after:bg-gradient-to-l after:from-tertiary after:to-cyan-500 after:w-full after:h-full after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 relative w-fit hover:after:scale-x-100 hover:cursor-pointer')} target='_blank' {...props}>
+        <span className='bg-secondary py-[0.2em] px-[.4em] z-[1] rounded'>
+          {children}
+        </span>
       </a>
     )
   }
-  if (type === 'Card') {
+  if (variant === 'button') {
     return (
-      <NextLink href={href} className={classNamesJoin(className ?? '', 'py-[0.3em] px-[0.3em] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-[5] grid place-content-center relative w-fit hover:after:scale-x-100 shadow-md border-[1px] border-tertiary rounded bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
-        {children}
+      <NextLink href={href} className={classNamesJoin(className ?? '', 'rounded-md p-[1px] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-full after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-0 grid place-content-center relative w-fit hover:after:scale-x-100 shadow-md border-[1px] border-tertiary bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
+        <span className='bg-primary py-[0.2em] px-[.4em] z-[1] rounded'>
+          {children}
+        </span>
       </NextLink>
     )
   }
   return (
-    <NextLink href={href} className={classNamesJoin(className ?? '', 'py-[0.4em] px-[0.8em] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-px after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-[5] grid place-content-center relative w-fit hover:after:scale-x-100 shadow-md border-[1px] border-tertiary rounded bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
+    <NextLink href={href} className={classNamesJoin(className ?? '', 'text-white/70 hover:text-white duration-300 flex items-center')} {...props}>
       {children}
     </NextLink>
   )

@@ -17,13 +17,6 @@ export const validateTypeAnimeManga = (str: string | string[] | undefined): 'ani
   return 'anime'
 }
 
-export const isStringParam = (str: string | string[] | undefined): string => {
-  if (typeof str !== 'string') {
-    return ''
-  }
-  return str
-}
-
 export const validateTypeSearch = (str: string | string[] | undefined | TypesSearch): TypesSearch => {
   if (typeof str === 'string') {
     for (const type of types) {

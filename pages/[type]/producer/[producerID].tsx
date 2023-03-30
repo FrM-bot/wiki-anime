@@ -13,7 +13,7 @@ interface IResponse {
 
 const ProducerPage = ({ producer }: IResponse) => {
   return (
-    <LayoutDetails>
+    <LayoutDetails h1={producer.titles.at(0)?.title ?? ''}>
         <>
           <div className='flex flex-col gap-4'>
             <ImageComponent src={producer?.images?.jpg?.image_url} alt={producer?.images?.jpg?.image_url} />
@@ -34,7 +34,7 @@ const ProducerPage = ({ producer }: IResponse) => {
               <>
                 {
                   producer?.external?.map(({ name, url }) => (
-                    <Link key={url} href={url}>{name}</Link>
+                    <Link type='external' key={url} href={url}>{name}</Link>
                   ))
                 }
               </>

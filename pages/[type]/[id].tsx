@@ -6,7 +6,7 @@ import { GET_DETAILS } from 'services/GET_DETAILS'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { CardLink } from 'components/Cards'
-import { SubtitleCard, TitleAndDescription } from 'components/Text'
+import { TitleAndDescription } from 'components/Text'
 import ImageComponent from 'components/Image'
 import ValidateAndRender from 'components/ValidateAndRender'
 import SectionInfo from 'components/SectionInfo'
@@ -18,6 +18,8 @@ import LoadingComponent from 'components/LoadingComponent'
 import { validateTypeAnimeManga } from 'utils/validators'
 import { EpisodesAnime } from '../../components/EpisodesAnime'
 import Grid from '@/components/Grid'
+import AddToMyList from '@/components/AddToMyList'
+import { MainParamsType } from 'pages/profile/[type]/[status]'
 
 interface ICharacter {
   character: {
@@ -73,6 +75,7 @@ const Details = ({ details, type }: IProps) => {
   const handlerShowEpisodes = () => {
     setShowEpisodes(true)
   }
+  console.log(details)
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
       <>
@@ -82,7 +85,7 @@ const Details = ({ details, type }: IProps) => {
           <SectionInfo title='Alternative Titles'>
             <>
               <ValidateAndRender title='Synonyms' dataToValidate={[details?.title_synonyms?.length]}>
-                <>{details?.title_synonyms?.map((synonym) => (<span className='bg-tertiary p-2 shadow-lg' key={synonym}>{synonym}</span>))}</>
+                <>{details?.title_synonyms?.map((synonym) => (<span className='bg-tertiary rounded-md p-2 shadow-lg' key={synonym}>{synonym}</span>))}</>
               </ValidateAndRender>
 
               <ValidateAndRender title='Japanese' data={details?.title_japanese} />
@@ -92,35 +95,35 @@ const Details = ({ details, type }: IProps) => {
           </SectionInfo>
           <SectionInfo title='Information'>
             <>
-              <TitleAndDescription title='Type'><Link href={`/${router.query.type}/top/${details?.type?.toLowerCase().replace(' ', '')}`}>{details?.type}</Link></TitleAndDescription>
+              <TitleAndDescription title='Type'><Link variant='button' href={`/${router.query.type}/top/${details?.type?.toLowerCase().replace(' ', '')}`}>{details?.type}</Link></TitleAndDescription>
               <ValidateAndRender title='Episodes' data={details?.episodes} />
               <ValidateAndRender title='Duration' data={details?.duration} />
               <ValidateAndRender title='Status' data={details?.status} />
               <ValidateAndRender title='Aired' data={details?.aired?.string} />
               <ValidateAndRender title='Published' data={details?.published?.string} />
               <ValidateAndRender title='Season' dataToValidate={[details?.season, details?.year]}>
-                <Link href={`/anime/season/${details?.season}/${details?.year}`}>{`${details?.season} ${details?.year}`}</Link>
+                <Link variant='button' href={`/anime/season/${details?.season}/${details?.year}`}>{`${details?.season} ${details?.year}`}</Link>
               </ValidateAndRender>
               <ValidateAndRender title='Genres' dataToValidate={[details?.genres?.length]}>
-                <>{details?.genres?.map((genre) => (<Link href={`/${genre?.type?.toLowerCase()}/genres/${genre?.mal_id}`} key={genre?.mal_id}>{genre?.name}</Link>))}</>
+                <>{details?.genres?.map((genre) => (<Link variant='button' href={`/${genre?.type?.toLowerCase()}/genres/${genre?.mal_id}`} key={genre?.mal_id}>{genre?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Source' data={details?.source} />
               <ValidateAndRender title='Broadcast' data={details?.broadcast?.string} />
               <ValidateAndRender title='Rating' data={details?.rating} />
               <ValidateAndRender title='Themes' dataToValidate={[details?.themes?.length]}>
-                <>{details?.themes?.map((theme) => (<Link href={`/${theme?.type?.toLowerCase()}/genres/${theme?.mal_id}`} key={theme?.mal_id}>{theme?.name}</Link>))}</>
+                <>{details?.themes?.map((theme) => (<Link variant='button' href={`/${theme?.type?.toLowerCase()}/genres/${theme?.mal_id}`} key={theme?.mal_id}>{theme?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Authors' dataToValidate={[details?.authors]}>
-                <>{details?.authors?.map((author) => (<Link href={`/${author?.type?.toLowerCase()}/${author?.mal_id}`} key={author?.mal_id}>{author?.name}</Link>))}</>
+                <>{details?.authors?.map((author) => (<Link variant='button' href={`/${author?.type?.toLowerCase()}/${author?.mal_id}`} key={author?.mal_id}>{author?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Studios' dataToValidate={[details?.studios?.length]}>
-                <>{details?.studios?.map((studio) => (<Link href={`/${studio?.type?.toLowerCase()}/producer/${studio?.mal_id}`} key={studio?.mal_id}>{studio?.name}</Link>))}</>
+                <>{details?.studios?.map((studio) => (<Link variant='button' href={`/${studio?.type?.toLowerCase()}/producer/${studio?.mal_id}`} key={studio?.mal_id}>{studio?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Demographics' dataToValidate={[details?.demographics?.length]}>
-                <>{details?.demographics?.map((demographic) => (<Link href={`/${demographic?.type.toLowerCase()}/genres/${demographic?.mal_id}`} key={demographic?.mal_id}>{demographic?.name}</Link>))}</>
+                <>{details?.demographics?.map((demographic) => (<Link variant='button' href={`/${demographic?.type.toLowerCase()}/genres/${demographic?.mal_id}`} key={demographic?.mal_id}>{demographic?.name}</Link>))}</>
               </ValidateAndRender>
               <ValidateAndRender title='Licensors' dataToValidate={[details?.licensors?.length]}>
-                <>{details?.licensors?.map((licensor) => (<Link href={`/${licensor?.type?.toLowerCase()}/producer/${licensor?.mal_id}`} key={licensor?.mal_id}>{licensor?.name}</Link>))}</>
+                <>{details?.licensors?.map((licensor) => (<Link variant='button' href={`/${licensor?.type?.toLowerCase()}/producer/${licensor?.mal_id}`} key={licensor?.mal_id}>{licensor?.name}</Link>))}</>
               </ValidateAndRender>
             </>
           </SectionInfo>
@@ -137,13 +140,13 @@ const Details = ({ details, type }: IProps) => {
           <SectionInfo title='External Links'>
             <>
               <ValidateAndRender dataToValidate={[details?.external]}>
-                <>{details?.external?.map((link) => (<Link props={{ target: '_blank' }} href={link?.url} key={link?.name}>{link?.name || link?.url}</Link>))}</>
+                <>{details?.external?.map((link) => (<Link type='external' props={{ target: '_blank' }} href={link?.url} key={link?.name}>{link?.name || link?.url}</Link>))}</>
               </ValidateAndRender>
 
               <TitleAndDescription title='TMO'>
-                <Link props={{ target: '_blank' }} href={`https://lectortmo.com/library?_pg=1&title=${details?.title}`}>{details?.title}</Link>
+                <Link type='external' props={{ target: '_blank' }} href={`https://lectortmo.com/library?_pg=1&title=${details?.title}`}>{details?.title}</Link>
               </TitleAndDescription>
-              <Link props={{ target: '_blank' }} href={details?.url}>MyAnimeList</Link>
+              <Link type='external' props={{ target: '_blank' }} href={details?.url}>MyAnimeList</Link>
             </>
           </SectionInfo>
         </div>
@@ -160,12 +163,10 @@ const Details = ({ details, type }: IProps) => {
             </SectionInfo>
           </ValidateAndRender>
           <div>
-            <SubtitleCard>
-              <div className='flex justify-between items-center'>
-                <h3>Characters</h3>
-                <Button props={{ onClick: () => handlerShowAllCharacters() }}><> {isShowAllCharacters ? 'Show less' : `All characters(${characters?.data?.length || '0'})`}</></Button>
-              </div>
-            </SubtitleCard>
+            <div className='flex justify-between items-center '>
+              <h3>Characters</h3>
+              <Button props={{ onClick: () => handlerShowAllCharacters() }}><> {isShowAllCharacters ? 'Show less' : `All characters(${characters?.data?.length || '0'})`}</></Button>
+            </div>
 
             <LoadingComponent isError={isError} isLoading={isLoading}>
               <Grid>
@@ -186,7 +187,7 @@ const Details = ({ details, type }: IProps) => {
                       <TitleAndDescription title={relation?.relation} key={relation?.relation}>
                         <>
                           {
-                            relation?.entry.map(({ mal_id, name, type }: any) => (<Link href={`/${type}/${mal_id}`} key={mal_id}>{name}</Link>))
+                            relation?.entry.map(({ mal_id, name, type }: any) => (<Link variant='button' href={`/${type}/${mal_id}`} key={mal_id}>{name}</Link>))
                           }
                         </>
                       </TitleAndDescription>
@@ -212,6 +213,7 @@ const Details = ({ details, type }: IProps) => {
             </SectionInfo>
           }
         </div>
+        <AddToMyList type={type as MainParamsType} malId={details.mal_id} imageUrl={details.images.webp.image_url} title={details.title} maxProgress={details?.episodes} maxVolumes={details?.volumes} maxChapters={details?.chapters} />
       </>
     </LayoutDetails >
   )

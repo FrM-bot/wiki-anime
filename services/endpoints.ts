@@ -4,7 +4,18 @@ import {
   ITopAnimeQuery,
   ITopMangaQuery
 } from 'interfaces/Global'
-
+export const URLs = {
+  anime: {
+    all: '/api/my_list/anime/all',
+    getByStatus: (status: string) => `/api/my_list/anime/${status}`,
+    post: '/api/my_list/anime/add'
+  },
+  manga: {
+    all: '/api/my_list/manga/all',
+    getByStatus: (status: string) => `/api/my_list/manga/${status}`,
+    post: '/api/my_list/manga/add'
+  }
+}
 export const URL_SEASON_NOW = (page?: number) =>
   `https://api.jikan.moe/v4/seasons/now?page=${page || 1}`
 

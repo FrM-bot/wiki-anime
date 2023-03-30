@@ -50,7 +50,7 @@ const News = ({ id }: { id: number }) => {
 
             {
                 animeNews?.map(anime => (
-                    <Link type='External' href={anime.url} key={anime.mal_id} className="flex items-start gap-4">
+                    <Link type='external' href={anime.url} key={anime.mal_id} className="flex items-start gap-4">
                         <>
                         <div>
                             <img className='min-w-[80px]' src={anime.images.jpg.image_url} alt="" />

@@ -65,16 +65,14 @@ const Pagination = ({ currentPage, lastPage }: IProps) => {
             <ArrowIcon props={{ style: { transform: 'rotate(180deg)' } }} />
           </Button>
 
-          <div className='flex gap-2'>
-            <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none w-16' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
-            <Button props={{ onClick: () => handlerGo() }}>Go</Button>
-          </div>
+          <input ref={refInput} onKeyDown={(e) => e.code === 'Enter' && handlerGo()} className='bg-primary [-webkit-appearance: none] h-full text-center p-2 focus:outline-none appearance-none w-16' placeholder='page' type="number" min='1' max={lastPage} defaultValue={currentPage} />
           <span>of</span>
           <span>{lastPage}</span>
 
           <Button props={{ disabled: currentPage === lastPage, onClick: () => handlerNextPage() }}>
             <ArrowIcon props={{ 'aria-label': 'arrow' }} />
           </Button>
+          <Button props={{ onClick: () => handlerGo() }}>Go</Button>
         </div>
       </Card>
     </div>

@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @map("user_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  expires_at Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String @unique @map("session_token")
+  userId       String @map("user_id") @db.ObjectId
+
+  expires DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String?
+  email String? @unique
+  image String?
+
+  emailVerified DateTime? @map("email_verified")
+
+  accounts Account[]
+
+  sessions Session[]
+
+  animeList AnimeList[]
+
+  mangaList MangaList[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String @unique
+
+  expires DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model Anime {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl String
+  title    String
+
+  score Int?
+  malId Int  @unique
+
+  episodes Int?
+
+  AnimeList AnimeList[]
+
+  @@map("animes")
+}
+
+model Manga {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl String
+  title    String
+
+  score Int?
+  malId Int  @unique
+
+  chapters Int?
+  volumes  Int?
+
+  MangaList MangaList[]
+
+  @@map("mangas")
+}
+
+model AnimeList {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  progress Int?
+
+  status  String @default("plan_to_read")
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId String @db.ObjectId
+
+  user   User   @relation(fields: [email], references: [email])
+  email String  
+  @@map("anime_list")
+}
+
+model MangaList {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  chapters Int?
+  volumes  Int?
+
+  status  String @default("plan_to_read")
+  manga   Manga  @relation(fields: [mangaId], references: [id])
+  mangaId String @db.ObjectId
+
+  user   User   @relation(fields: [email], references: [email])
+  email String
+
+  @@map("manga_list")
+}

@@ -1,6 +1,4 @@
-import { test, expect, Page, Browser, BrowserServer } from '@playwright/test'
-
-const URL_TEST = 'https://anime-app-eight.vercel.app'
+import { test, expect, Page } from '@playwright/test'
 
 // test.describe.configure({ mode: 'serial' })
 

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { lazy, Suspense } from 'react'
 import { URL_SEARCH_ANIME, URL_SEARCH_MANGA } from 'services/endpoints'
 import { useFetch } from 'utils/useFetch'
-import { isStringParam, validateTypeAnime, validateTypeAnimeManga, validateTypeManga } from 'utils/validators'
+import { validateTypeAnime, validateTypeAnimeManga, validateTypeManga } from 'utils/validators'
 
 const searchTypesURL = {
   anime: ({ querys }: { querys: IQuerySearchAnime }) => URL_SEARCH_ANIME({ querys: { ...querys } }),
@@ -44,15 +44,15 @@ const Filter = ({ mangaGenres, animeGenres }: IProps) => {
           <>
             <Suspense fallback={'loading'}>
               <NavFilters
-                defaultOrderBy={isStringParam(rest?.order_by)}
-                defaultLetter={isStringParam(rest?.letter)}
+                defaultOrderBy={String(rest?.order_by)}
+                defaultLetter={String(rest?.letter)}
                 animeGenres={animeGenres} mangaGenres={mangaGenres}
-                defaultGenre={isStringParam(rest?.genres)}
+                defaultGenre={String(rest?.genres)}
                 defaultType={validateTypeAnimeManga(type)}
                 defaultMinScore={Number(rest?.min_score)}
                 defaultMaxScore={Number(rest?.max_score)}
                 defaultSubType={type === 'anime' ? validateTypeAnime(subType) : validateTypeManga(subType)}
-                defaultSort={isStringParam(rest?.sort)} />
+                defaultSort={String(rest?.sort)} />
             </Suspense>
             <RenderCards sizeCard='small' data={data?.data} pagination={data?.pagination} />
           </>

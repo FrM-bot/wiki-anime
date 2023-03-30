@@ -31,7 +31,7 @@ interface IProps {
 
 const CardRamdomData: FC<IProps> = ({ type, mal_id, title, images, score, favorites, genres }) => {
   return (
-        <Link type='Card' href={`/${type}/${mal_id}`}>
+        <Link href={`/${type}/${mal_id}`}>
         <div className='flex flex-col gap-3'>
             <img className='rounded w-auto' src={images?.webp?.large_image_url || ''} alt={title || ''} />
             <CardText>

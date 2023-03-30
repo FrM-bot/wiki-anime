@@ -5,7 +5,7 @@ import { URL_SEARCH_ANIME, URL_SEARCH_MANGA, URL_SEARCH_CHARACTERS } from 'servi
 import { IQuerySearchAnime, IQuerySearchManga } from 'interfaces/Global'
 import Layout from 'Layouts/Layout'
 import InputSearch from './inputSearch'
-import { isStringParam, validateTypeSearch } from 'utils/validators'
+import { validateTypeSearch } from 'utils/validators'
 import Card from './Card'
 
 const searchTypesURL = {
@@ -17,7 +17,7 @@ const searchTypesURL = {
 const SearchPage = () => {
   const router = useRouter()
   const page = Number(new URLSearchParams(globalThis?.window?.location?.search).get('page'))
-  const q = isStringParam(router.query.name)
+  const q = router.query.name?.toString() ?? ''
   const type = validateTypeSearch(router.query.type)
   const { data, isLoading } = useFetch(searchTypesURL[type]({ querys: { q, page } }))
 
