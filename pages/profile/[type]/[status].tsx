@@ -1,12 +1,12 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, ReactElement, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { URLs } from 'services/endpoints'
 import Link from 'next/link'
 import LayoutProfile, { useAuth } from 'Layouts/LayoutProfile'
 import { StatusMyList } from '@/components/AddToMyList'
-import { AnimeStatus } from 'pages/api/my_list/anime/[status]'
-import { MangaList } from 'pages/api/my_list/manga/[status]'
-import { AnimeContext } from 'context/Anime.provider'
+import { AnimeStatus } from 'pages/api/my_list/anime/get/[status]'
+import { MangaList, MangaStatus } from 'pages/api/my_list/manga/get/[status]'
+import { MainDataContext } from 'context/MainData.provider'
 
 export type MainParamsType = 'anime' | 'manga'
 
@@ -47,7 +47,7 @@ export const GET_ANIME_LIST = async ({ token, status }: { token?: string | null,
   }
 }
 
-const GET_MANGA_LIST = async ({ token, status }: { token: string, status: string }) => {
+export const GET_MANGA_LIST = async ({ token, status }: { token?: string | null, status: string }) => {
   try {
     const response = await fetch(URLs.manga.getByStatus(status), {
       headers: {
@@ -66,26 +66,31 @@ const GET_MANGA_LIST = async ({ token, status }: { token: string, status: string
   }
 }
 
+// export const CardText = ({ children, maxLines }: { children: ReactElement | string, maxLines?: number }) => {
+//   return (
+//         <div className={`bg-secondary/50 rounded-md border-tertiary border-[2px] px-4 py-2 [display:-webkit-box] [overflow:hidden] [-webkit-box-orient:vertical] [-webkit-line-clamp:${maxLines || 1}]`}>
+//             {children}
+//         </div>
+//   )
+// }
+
+import { ClassAttributes, createElement, InputHTMLAttributes, type ReactNode, type ElementType } from 'react'
+
+function CardText ({ type, maxLines, children }: { type: ElementType, maxLines?: number, children: ReactNode[] | ReactNode }) {
+  return createElement(type, { className: `[display:-webkit-box] [overflow:hidden] [-webkit-box-orient:vertical] [-webkit-line-clamp:${maxLines || 1}]` }, children)
+}
+
+
 function Profile() {
   const { query, push } = useRouter()
-  const { data } = useAuth({})
-  const { animes } = useContext(AnimeContext)
-  const [mangaList, setMangaList] = useState<MangaList[]>([])
+  const { animes, mangas } = useContext(MainDataContext)
 
   const { type, status } = query as unknown as { type: MainParamsType, status: AnimeStatus }
 
-  useEffect(() => {
-    type === 'manga' && GET_MANGA_LIST({ token: data?.accessToken ?? '', status: status?.toString() ?? '' })
-      .then(response => {
-        setMangaList(response.data)
-      })
-      .catch(console.error)
-  }, [data?.accessToken, status, type])
   const handlerChangeSelectStatus = (e: ChangeEvent<HTMLSelectElement>) => {
     push(`/profile/${type}/${e.target.value}`)
   }
 
-  console.log({ animes }, animes[status as AnimeStatus], StatusMyList, type, status, StatusMyListAvilebles[status as AnimeStatus], 'least', Object.values(animes).forEach(console.log))
   return (
     <LayoutProfile>
       <section className='my-2 flex flex-col gap-4'>
@@ -101,12 +106,12 @@ function Profile() {
         {
           type === 'anime' && animes[status as AnimeStatus]?.map(({ status, progress, imageUrl, malId, title, score, listId }) => (
             <Link href={`/${type}/${malId}`} key={listId}>
-              <article style={{ borderColor: colorStatus[status] }} className={`flex gap-2 border-l-2 pl-1 hover:bg-secondary duration-300 rounded`}>
+              <article style={{ borderColor: colorStatus[status] }} className={`grid grid-cols-[80px_1fr] gap-2 border-l-2 pl-1 hover:bg-secondary duration-300 rounded`}>
                 <picture>
-                  <img width={100} src={imageUrl} alt={title} />
+                  <img className='h-full object-cover min-h-[70px]' width={100} src={imageUrl} alt={title} />
                 </picture>
-                <div>
-                  <h2>{title}</h2>
+                <div className='text-xl'>
+                  <CardText maxLines={2} type='h2'>{title}</CardText>
                   <span>{status}</span>
                   <div className='flex flex-col'>
                     <span>{progress}</span>
@@ -118,14 +123,14 @@ function Profile() {
           ))
         }
         {
-          type === 'manga' && mangaList?.map(({ title, status, volumes, chapters, imageUrl, listId, malId, score }) => (
+          type === 'manga' && mangas[status as MangaStatus]?.map(({ title, status, volumes, chapters, imageUrl, listId, malId, score }) => (
             <Link href={`/${type}/${malId}`} key={listId}>
-              <article  style={{ borderColor: colorStatus[status] }} className='flex gap-2 border-l-2 pl-1 hover:bg-secondary duration-300 rounded'>
+              <article  style={{ borderColor: colorStatus[status] }} className='grid grid-cols-[80px_1fr] gap-2 border-l-2 pl-1 hover:bg-secondary duration-300 rounded'>
                 <picture>
-                  <img width={100} src={imageUrl} alt={title} />
+                  <img className='h-full object-cover min-h-[70px]' width={100} src={imageUrl} alt={title} />
                 </picture>
-                <div>
-                  <h2>{title}</h2>
+                <div className='text-lg'>
+                  <CardText maxLines={2} type='h2'>{title}</CardText>
                   <span>{status}</span>
                   <div className='flex flex-col'>
                     <span>{chapters}</span>

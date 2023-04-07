@@ -3,7 +3,7 @@ import { SessionProvider, useSession } from 'next-auth/react'
 import type { AppProps, AppType } from 'next/app'
 import { Session } from 'next-auth'
 import React from 'react'
-import AnimeProvider from 'context/Anime.provider'
+import AnimeProvider from 'context/MainData.provider'
 
 export default function App ({
   Component,

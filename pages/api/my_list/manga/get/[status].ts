@@ -1,7 +1,7 @@
 import { db } from 'lib/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { authMiddleware, User } from 'pages/api/middleware'
-import { CommonStatus } from '../anime/[status]'
+import { CommonStatus } from '../../anime/get/[status]'
 
 export type MangaStatus = CommonStatus | 'plan_to_read' | 'reading'
 

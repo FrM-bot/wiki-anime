@@ -4,7 +4,7 @@ import Link from 'components/Link'
 import { IAnimeManga } from 'interfaces/Global'
 import { GET_DETAILS } from 'services/GET_DETAILS'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CardLink } from 'components/Cards'
 import { TitleAndDescription } from 'components/Text'
 import ImageComponent from 'components/Image'
@@ -20,6 +20,11 @@ import { EpisodesAnime } from '../../components/EpisodesAnime'
 import Grid from '@/components/Grid'
 import AddToMyList from '@/components/AddToMyList'
 import { MainParamsType } from 'pages/profile/[type]/[status]'
+import { MainDataContext } from 'context/MainData.provider'
+import { MangaState } from 'reducers/Manga.reducer'
+import { AnimeState } from 'reducers/Anime.reducer'
+import { AnimeList } from 'pages/api/my_list/anime/get/[status]'
+import { MangaList } from 'pages/api/my_list/manga/get/[status]'
 
 interface ICharacter {
   character: {
@@ -63,11 +68,34 @@ export interface IEpisode {
   }
 }
 
+const useFindDataList = ({ mangas, animes }: { mangas: MangaState, animes: AnimeState }) => {
+  const { query } = useRouter()
+  const [dataList, setDataList] = useState<(AnimeList & MangaList)>()
+
+  useEffect(() => {
+    let data
+    if (query.type === 'anime' && animes.all) {
+      data = animes.all.find(anime => anime.malId === Number(query.id))
+    }
+
+    if (query.type === 'manga') {
+      data = mangas.all.find(manga => manga.malId === Number(query.id))
+    }
+    console.log({ data })
+    setDataList(data as AnimeList & MangaList)
+  }, [animes.all, mangas.all, query.id, query.type])
+
+  return {
+    dataList
+  }
+}
+
 const Details = ({ details, type }: IProps) => {
   const router = useRouter()
   const [showEpisodes, setShowEpisodes] = useState(false)
   const { data: characters, isError, isLoading }: IResponseCharacters = useFetch(URL_CHARACTERS(type, details?.mal_id))
-
+  const { animes, mangas } = useContext(MainDataContext)
+  const { dataList } = useFindDataList({ animes, mangas })
   const [isShowAllCharacters, setIsShowAllCharacters] = useState(false)
   const handlerShowAllCharacters = () => {
     setIsShowAllCharacters(prevValue => !prevValue)
@@ -75,7 +103,7 @@ const Details = ({ details, type }: IProps) => {
   const handlerShowEpisodes = () => {
     setShowEpisodes(true)
   }
-  console.log(details)
+  console.log(dataList)
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
       <>
@@ -213,7 +241,16 @@ const Details = ({ details, type }: IProps) => {
             </SectionInfo>
           }
         </div>
-        <AddToMyList type={type as MainParamsType} malId={details.mal_id} imageUrl={details.images.webp.image_url} title={details.title} maxProgress={details?.episodes} maxVolumes={details?.volumes} maxChapters={details?.chapters} />
+        <AddToMyList
+        dataList={dataList}
+        type={type as MainParamsType}
+        malId={details.mal_id}
+        imageUrl={details.images.webp.image_url}
+        title={details.title}
+        maxProgress={details?.episodes}
+        maxVolumes={details?.volumes}
+        maxChapters={details?.chapters}
+        />
       </>
     </LayoutDetails >
   )

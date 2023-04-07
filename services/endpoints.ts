@@ -6,14 +6,16 @@ import {
 } from 'interfaces/Global'
 export const URLs = {
   anime: {
-    all: '/api/my_list/anime/all',
-    getByStatus: (status: string) => `/api/my_list/anime/${status}`,
-    post: '/api/my_list/anime/add'
+    all: '/api/my_list/anime/get/all',
+    getByStatus: (status: string) => `/api/my_list/anime/get/${status}`,
+    post: '/api/my_list/anime/add',
+    remove: (id: string) => `/api/my_list/anime/${id}/remove`
   },
   manga: {
-    all: '/api/my_list/manga/all',
-    getByStatus: (status: string) => `/api/my_list/manga/${status}`,
-    post: '/api/my_list/manga/add'
+    all: '/api/my_list/manga/get/all',
+    getByStatus: (status: string) => `/api/my_list/manga/get/${status}`,
+    post: '/api/my_list/manga/add',
+    remove: (id: string) => `/api/my_list/manga/${id}/remove`
   }
 }
 export const URL_SEASON_NOW = (page?: number) =>

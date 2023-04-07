@@ -53,7 +53,7 @@ function LayoutProfile ({ children }: Props) {
 
   return (
         <Layout title={parseUsername(data?.user?.email ?? '')}>
-            <div className='grid gap-4 grid-cols-[200px_1fr]'>
+            <div className='grid gap-4 grid-cols-[200px_1fr] md:grid-cols-[1fr] sm:grid-cols-[1fr] xs:grid-cols-[1fr]'>
                 {
                     !isLoadingAuth &&
                     <>

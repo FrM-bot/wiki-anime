@@ -14,7 +14,7 @@ interface PropsLink {
 const Link = ({ children, href, props, className, type, variant }: PropsLink) => {
   if (type === 'external') {
     return (
-      <a href={href} rel='noreferrer' className={classNamesJoin(className ?? '', 'p-[1px] rounded-md [line-break:anywhere] dark:bg-custom-dark-2 bg-secondary shadow-lg flex justify-center items-center after:absolute after:bg-gradient-to-l after:from-tertiary after:to-cyan-500 after:w-full after:h-full after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 relative w-fit hover:after:scale-x-100 hover:cursor-pointer')} target='_blank' {...props}>
+      <a href={href} rel='noreferrer' className={classNamesJoin(className ?? '', 'p-[1px] rounded-md [line-break:anywhere] dark:bg-custom-dark-2 bg-secondary shadow-lg flex justify-center items-center after:rounded after:absolute after:bg-gradient-to-l after:from-tertiary after:to-cyan-500 after:w-full after:h-full after:bottom-0 after:left-0 after:opacity-0 hover:after:opacity-100 after:duration-300 relative w-fit hover:cursor-pointer')} target='_blank' {...props}>
         <span className='bg-secondary py-[0.2em] px-[.4em] z-[1] rounded'>
           {children}
         </span>
@@ -23,7 +23,7 @@ const Link = ({ children, href, props, className, type, variant }: PropsLink) =>
   }
   if (variant === 'button') {
     return (
-      <NextLink href={href} className={classNamesJoin(className ?? '', 'rounded-md p-[1px] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-full after:bottom-0 after:left-0 after:scale-x-0 after:duration-300 after:z-0 grid place-content-center relative w-fit hover:after:scale-x-100 shadow-md border-[1px] border-tertiary bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
+      <NextLink href={href} className={classNamesJoin(className ?? '', 'rounded-md p-[1px] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-full after:bottom-0 after:left-0 after:opacity-0 after:duration-300 after:z-0 grid place-content-center relative w-fit hover:after:opacity-100 shadow-md border-[1px] border-tertiary bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
         <span className='bg-primary py-[0.2em] px-[.4em] z-[1] rounded'>
           {children}
         </span>

@@ -1,4 +1,4 @@
-import { AnimeList } from 'pages/api/my_list/anime/[status]'
+import { AnimeList } from 'pages/api/my_list/anime/get/[status]'
 
 export const TYPE_DISPATCH_ANIMES = {
   ADD_ANIME_TO_MY_LIST: 'ADD_ANIME_TO_MY_LIST',
@@ -12,7 +12,7 @@ export interface AnimeState {
   plan_to_watch: AnimeList[],
   on_hold: AnimeList[],
   watching: AnimeList[],
-  completed: [],
+  completed: AnimeList[],
   dropped: AnimeList[]
   all: AnimeList[]
 }
@@ -25,7 +25,7 @@ export function animeReducer (
   }
 ) {
   if (action.type === TYPE_DISPATCH_ANIMES.ADD_ANIME_TO_MY_LIST) {
-    console.log(action.type === 'ADD_ANIME_TO_MY_LIST')
+    // console.log(action.type === 'ADD_ANIME_TO_MY_LIST')
     return {
       ...action.animes
     }
