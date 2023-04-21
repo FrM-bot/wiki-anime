@@ -1,11 +1,12 @@
 import Link from 'components/Link'
 import ImageComponent from 'components/Image'
 import SectionInfo from 'components/SectionInfo'
-import { SubtitleCard } from 'components/Text'
+// import { SubtitleCard } from 'components/Cards'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { IProducer } from 'interfaces/Producers'
 import LayoutDetails from 'Layouts/LayoutDetails'
 import { setDateFormat } from 'utils/useDateFormat'
+import CardDynamic from '@/components/CardDynamic'
 
 interface IResponse {
   producer: IProducer
@@ -13,7 +14,7 @@ interface IResponse {
 
 const ProducerPage = ({ producer }: IResponse) => {
   return (
-    <LayoutDetails>
+    <LayoutDetails h1={producer.titles.at(0)?.title ?? ''}>
         <>
           <div className='flex flex-col gap-4'>
             <ImageComponent src={producer?.images?.jpg?.image_url} alt={producer?.images?.jpg?.image_url} />
@@ -34,16 +35,14 @@ const ProducerPage = ({ producer }: IResponse) => {
               <>
                 {
                   producer?.external?.map(({ name, url }) => (
-                    <Link key={url} href={url}>{name}</Link>
+                    <Link type='external' key={url} href={url}>{name}</Link>
                   ))
                 }
               </>
             </SectionInfo>
           </div>
           <div className='flex flex-col gap-4'>
-            <SubtitleCard>
-              <h3>About</h3>
-            </SubtitleCard>
+              <CardDynamic variant='v1' type='h3'>About</CardDynamic>
             <p>
               {producer?.about || 'N/A'}
             </p>

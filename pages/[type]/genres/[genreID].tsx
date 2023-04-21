@@ -12,7 +12,7 @@ interface IProps {
 const Genere = ({ data, pagination, type }: IProps) => {
   return (
     <Layout title={`Genre ${type}`}>
-      <RenderCards data={data || []} pagination={pagination} />
+      <RenderCards type={type} data={data || []} pagination={pagination} />
     </Layout>
   )
 }

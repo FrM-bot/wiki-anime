@@ -13,7 +13,6 @@ module.exports = {
         'text-color': 'rgba(var(--text-color), <alpha-value>)',
         secondary: 'rgba(var(--secondary), <alpha-value>)',
         tertiary: 'rgba(var(--tertiary), <alpha-value>)'
-
       },
       maxWidth: {
         'screen-80': '80vw'

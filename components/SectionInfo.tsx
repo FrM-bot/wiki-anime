@@ -1,10 +1,11 @@
 import { ReactElement } from 'react'
-import { SubtitleCard } from './Text'
+import CardDynamic from './CardDynamic'
+// import { SubtitleCard } from './Cards'
 
 const SectionInfo = ({ title, children }: { title: string, children: ReactElement }) => {
   return (
     <section className='flex flex-col gap-2'>
-      <SubtitleCard><h3>{title}</h3></SubtitleCard>
+      <CardDynamic type='h3' variant='v1'>{title}</CardDynamic>
       {children}
     </section>
   )

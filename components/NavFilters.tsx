@@ -81,7 +81,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
     <form ref={refForm} onSubmit={handlerApplyFilters} className='flex items-center flex-wrap gap-4 my-4'>
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Type</span>
+          <span className='px-2 grid place-content-center'>Type</span>
         </CardText>
         <select name='type' id='type' defaultValue={defaultType} className='bg-secondary outline-none p-2 text-center rounded' onChange={handlerTypeSearch}>
           <option value="anime">anime</option>
@@ -90,7 +90,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
       </label>
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Genres</span>
+          <span className='px-2 grid place-content-center'>Genres</span>
         </CardText>
         <select name="genres" id="genres" defaultValue={defaultGenre} className='bg-secondary outline-none p-2 text-center rounded'>
           <option value="">All</option>
@@ -101,7 +101,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
       </label>
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Sub type</span>
+          <span className='px-2 grid place-content-center'>Sub type</span>
         </CardText>
         <select onChange={handlerSubTypeChange} name="subType" id="subType" value={defaultSubTypeState} className='bg-secondary outline-none p-2 text-center rounded'>
         <option value="">All</option>
@@ -113,7 +113,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
 
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Order by</span>
+          <span className='px-2 grid place-content-center'>Order by</span>
         </CardText>
         <select name="order_by" id="order_by" defaultValue={defaultOrderBy} className='bg-secondary outline-none p-2 text-center rounded'>
           {
@@ -124,7 +124,7 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
 
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Sort</span>
+          <span className='px-2 grid place-content-center'>Sort</span>
         </CardText>
         <select name="sort" id="sort" defaultValue={defaultSort} className='bg-secondary outline-none p-2 text-center rounded'>
           <option value='asc'>Ascendant</option>
@@ -134,19 +134,19 @@ const NavFilters = ({ animeGenres, mangaGenres, defaultType, defaultGenre, defau
 
       <label className='flex flex-col gap-2' htmlFor='max_score'>
         <CardText>
-          <span>Max score</span>
+          <span className='px-2 grid place-content-center'>Max score</span>
         </CardText>
         <input name='max_score' placeholder='10' type="number" defaultValue={defaultMaxScore || undefined} step='0.1' min={0} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
-          <span>Min score</span>
+          <span className='px-2 grid place-content-center'>Min score</span>
         </CardText>
         <input name='min_score' placeholder='7.5' defaultValue={defaultMinScore || undefined} type="number" step='0.1' max={10} className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80 max-w-[6rem]' />
       </label>
       <label className='flex flex-col gap-2' htmlFor='min_score'>
         <CardText>
-          <span className='w-fit'>Letter</span>
+          <span className='px-2 grid place-content-center'>Letter</span>
         </CardText>
         <input defaultValue={defaultLetter || ''} name='letter' placeholder='Berserk, Shingeki...' type="text" className='bg-secondary px-2 py-1 outline-none rounded-md shadow-lg shadow-secondary/80' />
       </label>
