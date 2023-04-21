@@ -50,7 +50,7 @@ const Carrousel = ({ data, type }: Props) => {
               }
               <div className='absolute bottom-2 mx-auto w-full'>
                 <div className='mx-2 bg-tertiary/70 rounded-lg'>
-                  <h2 className='text-sm p-2 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal duration-300 transition-all text-[1.4rem]'>{anime.title}</h2>
+                  <h2 className='p-2 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal duration-300 transition-all text-[1.2rem]'>{anime.title}</h2>
                 </div>
               </div>
             </div>
