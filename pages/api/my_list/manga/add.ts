@@ -1,7 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../lib/prisma'
 import { authMiddleware, User } from '../../middleware'
-// import { authMiddleware } from '../middleware'
+const StatusManga = [
+  'plan_to_read',
+  'reading',
+  'on_hold',
+  'dropped',
+  'completed'
+]
 
 async function Handler (req: NextApiRequest, res: NextApiResponse) {
   const { user } = req as unknown as User
@@ -14,6 +20,12 @@ async function Handler (req: NextApiRequest, res: NextApiResponse) {
       }
 
       const { imageUrl, chapters, volumes, score, title, status, malId } = req.body
+
+      if (!StatusManga.includes(status)) {
+        return res.send({
+          error: 'Error'
+        })
+      }
 
       let mangaToAdd = await db.manga.findUnique({
         where: {

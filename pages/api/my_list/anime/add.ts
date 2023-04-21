@@ -3,6 +3,14 @@ import { db } from '../../../../lib/prisma'
 import { authMiddleware, User } from '../../middleware'
 // import { authMiddleware } from '../middleware'
 
+const StatusAnime = [
+  'plan_to_watch',
+  'watching',
+  'on_hold',
+  'dropped',
+  'completed'
+]
+
 async function Handler (req: NextApiRequest, res: NextApiResponse) {
   const { user } = req as unknown as User
   if (req.method === 'POST') {
@@ -14,6 +22,12 @@ async function Handler (req: NextApiRequest, res: NextApiResponse) {
       }
 
       const { imageUrl, progress, score, title, status, malId } = req.body
+
+      if (!StatusAnime.includes(status)) {
+        return res.send({
+          error: 'Error'
+        })
+      }
 
       let animeToAdd = await db.anime.findUnique({
         where: {

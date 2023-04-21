@@ -1,4 +1,4 @@
-import { CardLink } from 'components/Cards'
+import { CardCharacter } from 'components/Cards'
 import Loader from 'components/Loader'
 import { useModal } from 'components/Modal'
 import { ICharacter } from 'interfaces/Character'
@@ -56,7 +56,7 @@ const Character = ({ data }: IProps) => {
               <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
                 {
                   data?.manga?.map(({ manga, role }) => (
-                    <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
+                    <CardCharacter key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga?.images?.webp?.image_url} title={manga?.title} subtitle={role} />
                   ))
                 }
               </div>
@@ -68,7 +68,7 @@ const Character = ({ data }: IProps) => {
 
                 {
                   data?.anime?.map(({ anime, role }) => (
-                    <CardLink key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={role} />
+                    <CardCharacter key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={role} />
                   ))
                 }
               </div>
@@ -101,7 +101,7 @@ const Character = ({ data }: IProps) => {
                 <>
                   {
                     data?.voices?.map(({ person, language }) =>
-                      (<CardLink key={person.mal_id} href={`/people/${person.mal_id}`} imageSrc={person.images.jpg.image_url} title={person.name} subtitle={language} />))
+                      (<CardCharacter key={person.mal_id} href={`/people/${person.mal_id}`} imageSrc={person.images.jpg.image_url} title={person.name} subtitle={language} />))
                   }
                 </>
               </Grid>

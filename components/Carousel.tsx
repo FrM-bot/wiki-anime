@@ -44,13 +44,13 @@ const Carrousel = ({ data, type }: Props) => {
                 <img className='hover:scale-110 duration-300 h-full' src={anime.images.webp.image_url} alt={anime.title} />
               </Link>
               {anime?.topRightgDataCard &&
-                <div className='absolute top-2 right-2 bg-tertiary/70 rounded-lg p-1'>
-                  <span className='text-[.7rem]'>{anime?.topRightgDataCard}</span>
+                <div className='absolute top-2 right-2 bg-tertiary/70 rounded-lg p-1 grid place-content-center'>
+                  <span className='text-[1rem]'>{anime?.topRightgDataCard}</span>
                 </div>
               }
               <div className='absolute bottom-2 mx-auto w-full'>
                 <div className='mx-2 bg-tertiary/70 rounded-lg'>
-                  <h2 className='text-sm p-2 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal duration-300 transition-all'>{anime.title}</h2>
+                  <h2 className='text-sm p-2 overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal duration-300 transition-all text-[1.3rem]'>{anime.title}</h2>
                 </div>
               </div>
             </div>

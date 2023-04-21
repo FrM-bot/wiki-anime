@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CardMedium, CardText } from './Cards'
+import { CardLink, CardMedium, CardText } from './Cards'
 import { IPagination } from 'interfaces/Global'
 import Pagination from './Pagination'
 import Link from './Link'
@@ -37,6 +37,10 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
     return <div className='min-h-[60vh] w-full grid place-content-center'><Loader /></div>
   }
 
+  if (!newData || newData.length === 0) {
+    return <div className='text-2xl grid place-content-center h-full min-h-[]'>No data</div>
+  }
+
   if (sizeCard === 'small') {
     return (
       <>
@@ -48,11 +52,13 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                   <Link variant='button' className='mx-auto h-full' href={`/${type ?? router?.query?.type}/${animeManga?.mal_id}`} key={animeManga.mal_id}>
                     <div className='relative'>
                       <ValidateAndRender dataToValidate={[animeManga?.rank]}>
-                        <div className='absolute top-0 w-full flex justify-end p-1'>
-                          <span className='bg-tertiary/60 p-1 h-fit rounded'>{animeManga?.rank}</span>
+                        <div className='absolute top-0 h-fit w-full flex justify-end p-1'>
+                          <span className='bg-tertiary/60 px-1 h-fit rounded text-xl'>{animeManga?.rank}</span>
                         </div>
                       </ValidateAndRender>
-                      <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='h-full' />
+                      <picture>
+                        <img loading='lazy' src={animeManga?.images.webp.image_url} alt={animeManga?.title} className='object-cover h-[260px]' height={260} />
+                      </picture>
                       <div className='absolute left-0 bottom-0 w-full bg-tertiary/80 p-[0.15rem]'>
                         <h2 className='whitespace-nowrap overflow-hidden text-ellipsis text-lg font-semibold'>{animeManga.title}</h2>
                         <div className='text-[0.68rem] text-lg font-light flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis'>
@@ -72,8 +78,6 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
       </>
     )
   }
-
-  console.log(type)
 
   return (
     <>
@@ -100,7 +104,7 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
               {
                 newData?.map((character: ICharacter) => (
                   // <div className='inline-block m-2' key={character.mal_id}>
-                  <Link variant='button' href={`/character/${character?.mal_id}`} key={character.mal_id}>
+                  <CardLink href={`/character/${character?.mal_id}`} key={character.mal_id}>
                     <div className='flex flex-col'>
                       <div className='rounded grid place-content-center overflow-hidden relative'>
                         <img loading='lazy' className='hover:scale-105 duration-300 w-full' src={character?.images?.webp?.image_url} alt={character?.name} />
@@ -109,10 +113,10 @@ const RenderCards = ({ data, sizeCard, pagination, isLoading, type }: IProps) =>
                         <CardText>
                           {character?.name}
                         </CardText>
-                        <ValidateAndRender title='favorites' data={character?.favorites} />
+                        <ValidateAndRender title='favorites' data={setNumberFormat({ value: character?.favorites ?? 0, option: { notation: 'standard' } })} />
                       </div>
                     </div>
-                  </Link>
+                  </CardLink>
                   // </div>
                 ))
               }

@@ -7,7 +7,7 @@ interface PropsLink {
   href: string
   className?: string
   type?: 'external'
-  variant?: 'button' | 'buttonV2'
+  variant?: 'button'
   props?: AnchorHTMLAttributes<HTMLAnchorElement>
 }
 
@@ -30,6 +30,7 @@ const Link = ({ children, href, props, className, type, variant }: PropsLink) =>
       </NextLink>
     )
   }
+
   return (
     <NextLink href={href} className={classNamesJoin(className ?? '', 'text-white/70 hover:text-white duration-300 flex items-center')} {...props}>
       {children}

@@ -19,7 +19,7 @@ const Layout = ({ children, title }: IProps) => {
           <meta name="keywords" content="anime, anime-app, anime, manga" />
         </Head>
         <Header />
-        <main className='min-h-[100vh] py-8 lg:max-w-[90vw] max-w-[75vw] md:max-w-[95vw] sm:max-w-[95vw] xs:max-w-[95vw] m-auto'>
+        <main className='min-h-[90vh] py-8 lg:max-w-[90vw] max-w-[75vw] md:max-w-[95vw] sm:max-w-[95vw] xs:max-w-[95vw] m-auto'>
           { children }
         </main>
         <Footer />

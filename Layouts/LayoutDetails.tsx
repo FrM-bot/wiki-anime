@@ -1,4 +1,4 @@
-import CustomCard from '@/components/CustomCard'
+import CustomCard from '@/components/CardDynamic'
 // import Card from 'components/Card'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { ReactElement } from 'react'

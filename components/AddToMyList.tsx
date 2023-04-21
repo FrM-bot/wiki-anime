@@ -7,55 +7,63 @@ import Card from './Card'
 import { useModal } from './Modal'
 import { AnimeList } from 'pages/api/my_list/anime/get/[status]'
 import { MangaList } from 'pages/api/my_list/manga/get/[status]'
-export const StatusMyList = {
-  anime: [{
+
+export interface FormListData { status?: string, score?: string | number, progress?: string | number, chapters?: string, volumes?: string }
+
+const StatusMyList = {
+  anime: [
+    {
+      name: 'Plan to Watch',
+      value: 'plan_to_watch'
+    },
+    {
+      name: 'Watching',
+      value: 'watching'
+    },
+    {
+      name: 'On Hold',
+      value: 'on_hold'
+    },
+    {
+      name: 'Dropped',
+      value: 'dropped'
+    },
+    {
+      name: 'Completed',
+      value: 'completed'
+    }],
+  manga: [
+    {
+      name: 'Plan to Read',
+      value: 'plan_to_read'
+    },
+    {
+      name: 'Reading',
+      value: 'reading'
+    },
+    {
+      name: 'On Hold',
+      value: 'on_hold'
+    },
+    {
+      name: 'Dropped',
+      value: 'dropped'
+    },
+    {
+      name: 'Completed',
+      value: 'completed'
+    }]
+}
+
+export const AllStatusMyList = {
+  anime: StatusMyList.anime.concat({
     name: 'All',
     value: 'all'
-  },
-  {
-    name: 'Plan to Watch',
-    value: 'plan_to_watch'
-  },
-  {
-    name: 'Watching',
-    value: 'watching'
-  },
-  {
-    name: 'On Hold',
-    value: 'on_hold'
-  },
-  {
-    name: 'Dropped',
-    value: 'dropped'
-  },
-  {
-    name: 'Completed',
-    value: 'completed'
-  }],
-  manga: [{
+  }),
+  manga: StatusMyList.manga.concat({
     name: 'All',
     value: 'all'
-  },
-  {
-    name: 'Plan to Read',
-    value: 'plan_to_read'
-  },
-  {
-    name: 'Reading',
-    value: 'reading'
-  },
-  {
-    name: 'On Hold',
-    value: 'on_hold'
-  },
-  {
-    name: 'Dropped',
-    value: 'dropped'
-  },
-  {
-    name: 'Completed',
-    value: 'completed'
-  }]
+  })
 }
 
 interface MyAnimeList {
@@ -67,53 +75,53 @@ interface MyAnimeList {
   progress: number
 }
 
-interface MyMangaList {
-  id: string
-  imageUrl: string
-  title: string
-  score : number
-  status: string
-  volumes: number
-  chapters: number
-}
+// interface MyMangaList {
+//   id: string
+//   imageUrl: string
+//   title: string
+//   score : number
+//   status: string
+//   volumes: number
+//   chapters: number
+// }
 
-const ADD_ANIME_TO_MY_LIST = async ({ imageUrl, score, status, title, token, malId, progress }: Omit<MyAnimeList, 'id'> & { token: string, malId: number }) => {
-  try {
-    const response = await fetch(URLs.anime.post, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({ imageUrl, score, status, title, malId, progress })
-    })
-    const data = await response.json()
-    return data
-  } catch (error: any) {
-    return {
-      error: error.message
-    }
-  }
-}
+// const ADD_ANIME_TO_MY_LIST = async ({ imageUrl, score, status, title, token, malId, progress }: Omit<MyAnimeList, 'id'> & { token: string, malId: number }) => {
+//   try {
+//     const response = await fetch(URLs.anime.post, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         'Content-Type': 'application/json'
+//       },
+//       method: 'POST',
+//       body: JSON.stringify({ imageUrl, score, status, title, malId, progress })
+//     })
+//     const data = await response.json()
+//     return data
+//   } catch (error: any) {
+//     return {
+//       error: error.message
+//     }
+//   }
+// }
 
-const ADD_MANGA_TO_MY_LIST = async ({ imageUrl, score, status, title, token, malId, chapters, volumes }: Omit<MyMangaList, 'id'> & { token: string, malId: number }) => {
-  try {
-    const response = await fetch(URLs.manga.post, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({ imageUrl, score, status, title, malId, chapters, volumes })
-    })
-    const data = await response.json()
-    return data
-  } catch (error: any) {
-    return {
-      error: error.message
-    }
-  }
-}
+// const ADD_MANGA_FROM_MY_LIST = async ({ imageUrl, score, status, title, token, malId, chapters, volumes }: Omit<MyMangaList, 'id'> & { token: string, malId: number }) => {
+//   try {
+//     const response = await fetch(URLs.manga.post, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         'Content-Type': 'application/json'
+//       },
+//       method: 'POST',
+//       body: JSON.stringify({ imageUrl, score, status, title, malId, chapters, volumes })
+//     })
+//     const data = await response.json()
+//     return data
+//   } catch (error: any) {
+//     return {
+//       error: error.message
+//     }
+//   }
+// }
 
 const REMOVE_DATA_FROM_MY_LIST = async ({ listId, type, token }: { listId: string, type: MainParamsType, token: string }) => {
   try {
@@ -132,37 +140,60 @@ const REMOVE_DATA_FROM_MY_LIST = async ({ listId, type, token }: { listId: strin
   }
 }
 
+// const PUT_MANGA_FROM_MY_LIST = async ({ token, listId, ...rest }: any) => {
+//   try {
+//     const response = await fetch(URLs.anime.put(listId), {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         'Content-Type': 'application/json'
+//       },
+//       method: 'PUT',
+//       body: JSON.stringify({ ...rest })
+//     })
+//     const data = await response.json()
+//     return data
+//   } catch (error: any) {
+//     return {
+//       error: error.message
+//     }
+//   }
+// }
+
 function AddToMyList ({ maxProgress, imageUrl, title, malId, type, maxVolumes, maxChapters, dataList }: { maxProgress: number, maxVolumes?: number, maxChapters?: number, type: MainParamsType, dataList?: AnimeList & MangaList } & Pick<MyAnimeList, 'imageUrl' | 'title'> & { malId: number }) {
   const { status: statusSession, data } = useAuth({})
   const { Modal, handlerShowModal } = useModal()
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const { status, score, progress, chapters, volumes } = Object.fromEntries(new FormData(event.currentTarget))
-    // console.log({ ...data })
-    if (type === 'anime') {
-      ADD_ANIME_TO_MY_LIST({
-        malId,
-        imageUrl,
-        score: Number(score),
-        title,
-        progress: status === 'completed' ? maxProgress : Number(progress) ?? 0,
-        status: String(status),
-        token: data?.accessToken ?? ''
-      }).then(console.log).catch(console.error)
-    }
+    // const formData = Object.fromEntries(new FormData(event.currentTarget)) as FormListData
+    // formData.score = Number(formData.score || 0)
+    // formData.progress = Number(formData.progress || 0)
+    // if (dataList?.listId) {
+    //   const dataChanged = {}
+    //   for (const key in formData) {
+    //     formData[key] !== dataList[key] && (dataChanged[key] = formData[key])
+    //   }
+    //   return PUT_MANGA_FROM_MY_LIST({ token: data?.accessToken ?? '', listId: dataList.listId, ...dataChanged }).then(console.log).catch(console.error)
+    // }
+    // if (type === 'anime') {
+    //   ADD_ANIME_TO_MY_LIST({
+    //     ...formData,
+    //     progress: formData?.status === 'completed' ? maxProgress : formData.progress,
+    //     token: data?.accessToken ?? ''
+    //   }).then(console.log).catch(console.error)
+    // }
 
-    if (type === 'manga') {
-      ADD_MANGA_TO_MY_LIST({
-        malId,
-        imageUrl,
-        score: Number(score),
-        title,
-        chapters: status === 'completed' ? maxChapters ?? 0 : Number(chapters),
-        volumes: status === 'completed' ? maxVolumes ?? 0 : Number(volumes),
-        status: String(status),
-        token: data?.accessToken ?? ''
-      }).then(console.log).catch(console.error)
-    }
+    // if (type === 'manga') {
+    //   ADD_MANGA_FROM_MY_LIST({
+    //     malId,
+    //     imageUrl,
+    //     score: formData.score,
+    //     title,
+    //     chapters: status === 'completed' ? maxChapters ?? 0 : Number(chapters),
+    //     volumes: status === 'completed' ? maxVolumes ?? 0 : Number(volumes),
+    //     status: String(status),
+    //     token: data?.accessToken ?? ''
+    //   }).then(console.log).catch(console.error)
+    // }
   }
 
   const handlerDeleteFromList = ({ listId }: { listId: string }) => {

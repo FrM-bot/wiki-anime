@@ -78,7 +78,7 @@ model Anime {
   imageUrl String
   title    String
 
-  score Int?
+  score Float?
   malId Int  @unique
 
   episodes Int?
@@ -93,7 +93,7 @@ model Manga {
   imageUrl String
   title    String
 
-  score Int?
+  score Float?
   malId Int  @unique
 
   chapters Int?
@@ -111,6 +111,7 @@ model AnimeList {
   status  String @default("plan_to_read")
   anime   Anime  @relation(fields: [animeId], references: [id])
   animeId String @db.ObjectId
+  score Int?
 
   user   User   @relation(fields: [email], references: [email])
   email String  

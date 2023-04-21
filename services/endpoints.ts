@@ -9,12 +9,14 @@ export const URLs = {
     all: '/api/my_list/anime/get/all',
     getByStatus: (status: string) => `/api/my_list/anime/get/${status}`,
     post: '/api/my_list/anime/add',
+    put: (id: string) => `/api/my_list/anime/${id}/edit`,
     remove: (id: string) => `/api/my_list/anime/${id}/remove`
   },
   manga: {
     all: '/api/my_list/manga/get/all',
     getByStatus: (status: string) => `/api/my_list/manga/get/${status}`,
     post: '/api/my_list/manga/add',
+    put: (id: string) => `/api/my_list/manga/${id}/edit`,
     remove: (id: string) => `/api/my_list/manga/${id}/remove`
   }
 }

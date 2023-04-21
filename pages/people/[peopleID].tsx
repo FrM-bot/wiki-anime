@@ -1,8 +1,9 @@
+import CardDynamic from '@/components/CardDynamic'
 import Button from 'components/Button'
-import { CardLink, CardText } from 'components/Cards'
+import { CardCharacter, CardText } from 'components/Cards'
 import ImageComponent from 'components/Image'
 import SectionInfo from 'components/SectionInfo'
-import { SubtitleCard } from 'components/Text'
+// import { SubtitleCard } from 'components/CardDynamic'
 import ValidateAndRender from 'components/ValidateAndRender'
 import { IPeople } from 'interfaces/People'
 import LayoutDetails from 'Layouts/LayoutDetails'
@@ -39,7 +40,7 @@ const People = ({ people }: IProps) => {
 
               {
                 people?.anime?.map(({ anime, position }) => (
-                  <CardLink key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={position} />
+                  <CardCharacter key={anime.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime.title} subtitle={position} />
                 ))
               }
             </div>
@@ -49,7 +50,7 @@ const People = ({ people }: IProps) => {
 
               {
                 people?.manga?.map(({ manga, position }) => (
-                  <CardLink key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga.images.webp.image_url} title={manga.title} subtitle={position} />
+                  <CardCharacter key={manga.mal_id} href={`/manga/${manga?.mal_id}`} imageSrc={manga.images.webp.image_url} title={manga.title} subtitle={position} />
                 ))
               }
             </div>
@@ -63,17 +64,15 @@ const People = ({ people }: IProps) => {
           <ValidateAndRender dataToValidate={[people?.voices?.length]}>
             <>
 
-              <SubtitleCard>
-                <div className='flex justify-between items-center'>
+              <CardDynamic type='div' variant='v1' className='flex justify-between items-center'>
                   <h3>Voice Acting Roles</h3>
                   <Button props={{ onClick: () => handlerShowAllCharacters() }}><> {isShowAllCharacters ? 'Show less' : `All animes(${people?.voices?.length})`}</></Button>
-                </div>
-              </SubtitleCard>
+              </CardDynamic>
 
               <div className='grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-2'>
                 {
                   people?.voices?.slice(0, isShowAllCharacters ? people?.voices?.length : 10)?.map(({ anime, role }) => (
-                    <CardLink key={anime?.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime?.title} subtitle={role} />
+                    <CardCharacter key={anime?.mal_id} href={`/anime/${anime?.mal_id}`} imageSrc={anime.images.webp.image_url} title={anime?.title} subtitle={role} />
                   ))
                 }
               </div>

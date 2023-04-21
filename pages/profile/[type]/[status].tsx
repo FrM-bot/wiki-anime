@@ -1,9 +1,9 @@
-import { ChangeEvent, ReactElement, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { URLs } from 'services/endpoints'
 import Link from 'next/link'
 import LayoutProfile, { useAuth } from 'Layouts/LayoutProfile'
-import { StatusMyList } from '@/components/AddToMyList'
+import { AllStatusMyList } from '@/components/AddToMyList'
 import { AnimeStatus } from 'pages/api/my_list/anime/get/[status]'
 import { MangaList, MangaStatus } from 'pages/api/my_list/manga/get/[status]'
 import { MainDataContext } from 'context/MainData.provider'
@@ -97,7 +97,7 @@ function Profile() {
         <div className='bg-secondary w-fit rounded-full w-70 p-2 flex mx-auto gap-4 shadow-lg'>
           <select className='bg-primary appearance-none px-6 py-1 rounded-full outline-none text-center' onChange={handlerChangeSelectStatus}>
             {
-              StatusMyList[type as MainParamsType]?.map(({ name, value }) => (
+              AllStatusMyList[type as MainParamsType]?.map(({ name, value }) => (
                 <option key={value} value={value} selected={status === value}>{name}</option>
               ))
             }

@@ -9,6 +9,7 @@ import { IManga } from 'interfaces/Manga'
 import Carousel from '@/components/Carousel'
 import Link from 'components/Link'
 import { useRouter } from 'next/router'
+import CardDynamic from '@/components/CardDynamic'
 
 interface IGenre {
   mal_id: number,
@@ -54,15 +55,15 @@ const Index = ({ mangaGenres, animeGenres, topAnime, topManga, error }: IProps) 
             </Link>
           </div>
         </div>
-        <div className='flex items-center justify-between border-b border-white/70 rounded p-2 bg-secondary'>
+        <CardDynamic variant='v1' type='div' className='flex justify-between items-center'>
           <h2>Top anime</h2>
           <Link href='/anime/top'>See top anime</Link>
-        </div>
+        </CardDynamic>
         <Carousel type='anime' data={topAnime?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
-        <div className='flex items-center justify-between border-b border-white/70 rounded p-2 bg-secondary'>
+        <CardDynamic variant='v1' type='div' className='flex justify-between items-center'>
           <h2>Top manga</h2>
           <Link href='/manga/top'>See top manga</Link>
-        </div>
+        </CardDynamic>
         <Carousel type='manga' data={topManga?.map(({ images, title, mal_id, score }) => ({ images, title, mal_id, topRightgDataCard: score }))} />
 
         <div className='w-full flex justify-center'>

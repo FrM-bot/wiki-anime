@@ -8,15 +8,15 @@ export default function LoginButton () {
   }
   if (session) {
     return (
-            <>
-                <button onClick={() => signOut()}>Sign out</button>
-            </>
+      <>
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
     )
   }
   return (
-        <>
-            Not signed in <br />
-            <button onClick={() => signIn()}>Sign in</button>
-        </>
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
   )
 }

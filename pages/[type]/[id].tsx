@@ -4,8 +4,8 @@ import Link from 'components/Link'
 import { IAnimeManga } from 'interfaces/Global'
 import { GET_DETAILS } from 'services/GET_DETAILS'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
-import { CardLink } from 'components/Cards'
+import { useState } from 'react'
+import { CardCharacter } from 'components/Cards'
 import { TitleAndDescription } from 'components/Text'
 import ImageComponent from 'components/Image'
 import ValidateAndRender from 'components/ValidateAndRender'
@@ -18,13 +18,15 @@ import LoadingComponent from 'components/LoadingComponent'
 import { validateTypeAnimeManga } from 'utils/validators'
 import { EpisodesAnime } from '../../components/EpisodesAnime'
 import Grid from '@/components/Grid'
-import AddToMyList from '@/components/AddToMyList'
-import { MainParamsType } from 'pages/profile/[type]/[status]'
-import { MainDataContext } from 'context/MainData.provider'
-import { MangaState } from 'reducers/Manga.reducer'
-import { AnimeState } from 'reducers/Anime.reducer'
-import { AnimeList } from 'pages/api/my_list/anime/get/[status]'
-import { MangaList } from 'pages/api/my_list/manga/get/[status]'
+// import AddToMyList from '@/components/AddToMyList'
+// import { MainParamsType } from 'pages/profile/[type]/[status]'
+// import { MainDataContext } from 'context/MainData.provider'
+// import { MangaState } from 'reducers/Manga.reducer'
+// import { AnimeState } from 'reducers/Anime.reducer'
+// import { AnimeList } from 'pages/api/my_list/anime/get/[status]'
+// import { MangaList } from 'pages/api/my_list/manga/get/[status]'
+import CardDynamic from '@/components/CardDynamic'
+// import CardDynamic from '@/components/CardDynamic'
 
 interface ICharacter {
   character: {
@@ -68,34 +70,34 @@ export interface IEpisode {
   }
 }
 
-const useFindDataList = ({ mangas, animes }: { mangas: MangaState, animes: AnimeState }) => {
-  const { query } = useRouter()
-  const [dataList, setDataList] = useState<(AnimeList & MangaList)>()
+// const useFindDataList = ({ mangas, animes }: { mangas: MangaState, animes: AnimeState }) => {
+//   const { query } = useRouter()
+//   const [dataList, setDataList] = useState<(AnimeList & MangaList)>()
 
-  useEffect(() => {
-    let data
-    if (query.type === 'anime' && animes.all) {
-      data = animes.all.find(anime => anime.malId === Number(query.id))
-    }
+//   useEffect(() => {
+//     let data
+//     if (query.type === 'anime' && animes.all) {
+//       data = animes.all.find(anime => anime.malId === Number(query.id))
+//     }
 
-    if (query.type === 'manga') {
-      data = mangas.all.find(manga => manga.malId === Number(query.id))
-    }
-    console.log({ data })
-    setDataList(data as AnimeList & MangaList)
-  }, [animes.all, mangas.all, query.id, query.type])
+//     if (query.type === 'manga') {
+//       data = mangas.all.find(manga => manga.malId === Number(query.id))
+//     }
+//     console.log({ data })
+//     setDataList(data as AnimeList & MangaList)
+//   }, [animes.all, mangas.all, query.id, query.type])
 
-  return {
-    dataList
-  }
-}
+//   return {
+//     dataList
+//   }
+// }
 
 const Details = ({ details, type }: IProps) => {
   const router = useRouter()
   const [showEpisodes, setShowEpisodes] = useState(false)
   const { data: characters, isError, isLoading }: IResponseCharacters = useFetch(URL_CHARACTERS(type, details?.mal_id))
-  const { animes, mangas } = useContext(MainDataContext)
-  const { dataList } = useFindDataList({ animes, mangas })
+  // const { animes, mangas } = useContext(MainDataContext)
+  // const { dataList } = useFindDataList({ animes, mangas })
   const [isShowAllCharacters, setIsShowAllCharacters] = useState(false)
   const handlerShowAllCharacters = () => {
     setIsShowAllCharacters(prevValue => !prevValue)
@@ -103,7 +105,6 @@ const Details = ({ details, type }: IProps) => {
   const handlerShowEpisodes = () => {
     setShowEpisodes(true)
   }
-  console.log(dataList)
   return (
     <LayoutDetails h1={details?.title} h2={details?.title_english}>
       <>
@@ -168,7 +169,7 @@ const Details = ({ details, type }: IProps) => {
           <SectionInfo title='External Links'>
             <>
               <ValidateAndRender dataToValidate={[details?.external]}>
-                <>{details?.external?.map((link) => (<Link type='external' props={{ target: '_blank' }} href={link?.url} key={link?.name}>{link?.name || link?.url}</Link>))}</>
+                <>{details?.external?.map((link) => (<Link type='external' props={{ target: '_blank' }} href={link?.url} key={link?.url}>{link?.name || link?.url}</Link>))}</>
               </ValidateAndRender>
 
               <TitleAndDescription title='TMO'>
@@ -190,18 +191,19 @@ const Details = ({ details, type }: IProps) => {
               <p>{details?.background}</p>
             </SectionInfo>
           </ValidateAndRender>
+           {/* className='flex justify-between items-center' */}
           <div>
-            <div className='flex justify-between items-center '>
+            <CardDynamic type='div' variant='v1' className='flex justify-between items-center'>
               <h3>Characters</h3>
-              <Button props={{ onClick: () => handlerShowAllCharacters() }}><> {isShowAllCharacters ? 'Show less' : `All characters(${characters?.data?.length || '0'})`}</></Button>
-            </div>
+              <Button variant='text' props={{ onClick: () => handlerShowAllCharacters() }}><> {isShowAllCharacters ? 'Show less' : `All characters(${characters?.data?.length || '0'})`}</></Button>
+            </CardDynamic>
 
             <LoadingComponent isError={isError} isLoading={isLoading}>
               <Grid>
                 <>
                   {
                     characters?.data?.slice(0, isShowAllCharacters ? characters?.data?.length : 10)?.map(({ character, role }: ICharacter) => (
-                      <CardLink key={character.mal_id} href={`/character/${character?.mal_id}`} imageSrc={character.images.webp.image_url} title={character.name} subtitle={role} />
+                      <CardCharacter key={character.mal_id} href={`/character/${character?.mal_id}`} imageSrc={character.images.webp.image_url} title={character.name} subtitle={role} />
                     ))
                   }
                 </>
@@ -241,7 +243,7 @@ const Details = ({ details, type }: IProps) => {
             </SectionInfo>
           }
         </div>
-        <AddToMyList
+        {/* <AddToMyList
         dataList={dataList}
         type={type as MainParamsType}
         malId={details.mal_id}
@@ -250,7 +252,7 @@ const Details = ({ details, type }: IProps) => {
         maxProgress={details?.episodes}
         maxVolumes={details?.volumes}
         maxChapters={details?.chapters}
-        />
+        /> */}
       </>
     </LayoutDetails >
   )
