@@ -23,7 +23,7 @@ const Link = ({ children, href, props, className, type, variant }: PropsLink) =>
   }
   if (variant === 'button') {
     return (
-      <NextLink href={href} className={classNamesJoin(className ?? '', 'rounded-md p-[1px] after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-full after:bottom-0 after:left-0 after:opacity-0 after:duration-300 after:z-0 grid place-content-center relative w-fit hover:after:opacity-100 shadow-md border-[1px] border-tertiary bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
+      <NextLink href={href} className={classNamesJoin(className ?? '', 'rounded-md p-[1px] flex justify-center items-center after:absolute after:bg-gradient-to-l after:from-[#da62c4] after:to-cyan-400 after:w-full after:rounded after:h-full after:bottom-0 after:left-0 after:opacity-0 after:duration-300 after:z-0 relative w-fit hover:after:opacity-100 shadow-md border-[1px] border-tertiary bg-primary hover:shadow-cyan-400/5 duration-300')} {...props}>
         <span className='bg-primary py-[0.2em] px-[.4em] z-[1] rounded'>
           {children}
         </span>
@@ -32,7 +32,7 @@ const Link = ({ children, href, props, className, type, variant }: PropsLink) =>
   }
 
   return (
-    <NextLink href={href} className={classNamesJoin(className ?? '', 'text-white/70 hover:text-white duration-300 flex items-center')} {...props}>
+    <NextLink href={href} className={classNamesJoin(className ?? '', 'text-white/70 hover:text-white duration-300 flex items-center justify-center')} {...props}>
       {children}
     </NextLink>
   )
